@@ -1,0 +1,35 @@
+<div class="dropdown people-dropdown" id="dd_{{ field_name }}">
+    <button class="btn btn-outline-secondary btn-sm w-100 text-start d-flex justify-content-between align-items-center" 
+            type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+        <span class="text-truncate btn-label">
+            {% if selected|length == 0 %}All{% else %}{{ selected|length }} Selected{% endif %}
+        </span>
+        <i class="fas fa-chevron-down small"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-form">
+        <div class="dropdown-search-box">
+            <input type="text" class="form-control form-control-sm search-input" 
+                   placeholder="Search..." onkeyup="filterDropdown('{{ field_name }}')">
+        </div>
+        <div class="dropdown-header-sticky">
+            <div class="form-check mb-0">
+                <input class="form-check-input select-all" type="checkbox" 
+                       id="all_{{ field_name }}" onchange="toggleAll('{{ field_name }}')">
+                <label class="form-check-label fw-bold small" for="all_{{ field_name }}">Select All</label>
+            </div>
+        </div>
+        <div class="dropdown-scroll-area list-container" id="list_{{ field_name }}">
+            {% for p in options %}
+            <div class="dropdown-item-text" onclick="document.getElementById('{{ field_name }}_{{ forloop.counter }}').click()">
+                <input class="form-check-input item-checkbox" type="checkbox" 
+                       name="{{ field_name }}" value="{{ p }}" 
+                       id="{{ field_name }}_{{ forloop.counter }}" 
+                       {% if p in selected %}checked{% endif %} 
+                       onchange="updateBtn('{{ field_name }}')" 
+                       onclick="event.stopPropagation()">
+                <label class="form-check-label" for="{{ field_name }}_{{ forloop.counter }}">{{ p }}</label>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

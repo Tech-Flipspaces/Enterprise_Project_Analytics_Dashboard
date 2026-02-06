@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FlipSpaces Live Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 40px; background-color: #f8f9fa; font-family: sans-serif; }
+        .report-container { 
+            max-width: 1000px; 
+            margin: auto; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+        }
+        h2 { border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; color: #333; }
+        .meta-info { margin-bottom: 30px; color: #666; font-size: 0.95em; }
+        .section-title { 
+            margin-top: 40px; 
+            margin-bottom: 15px; 
+            font-size: 1.2em; 
+            font-weight: bold; 
+            color: #444; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .btn-copy { font-size: 0.85em; text-decoration: none; cursor: pointer; }
+        table { font-size: 0.95em; }
+        thead { background-color: #f1f3f5; }
+        
+        @media print {
+            body { background: white; padding: 0; }
+            .report-container { box-shadow: none; padding: 0; margin: 0; width: 100%; max-width: none; }
+            .btn-copy, .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="report-container">
+    <div class="d-flex justify-content-between align-items-center no-print">
+        <h2>📊 {{ view_mode }} Summary</h2>
+        <div>
+            <button onclick="window.print()" class="btn btn-outline-dark btn-sm me-2">🖨️ Print / PDF</button>
+            <button onclick="window.close()" class="btn btn-secondary btn-sm">Close Tab</button>
+        </div>
+    </div>
+    
+    <div class="d-none d-print-block">
+        <h2>{{ view_mode }} Summary Report</h2>
+    </div>
+
+    <div class="meta-info">
+        <p class="mb-1"><strong>Date Range:</strong> {{ start }} to {{ end }}</p>
+        <p class="mb-0"><strong>Regions (SBU):</strong> {{ sbus }}</p>
+    </div>
+
+    {% if pre_html %}
+    <div class="section-title">
+        <span>
+            Pre-{{ view_mode }} Metrics 
+            <span class="badge bg-primary ms-2" style="font-size: 0.8em; vertical-align: middle;">
+                Total Projects: {{ pre_total }}
+            </span>
+        </span>
+        <button class="btn btn-sm btn-link btn-copy no-print" onclick="copyTable('pre_table_wrapper')">📋 Copy for Excel</button>
+    </div>
+    <div id="pre_table_wrapper">
+        {{ pre_html|safe }}
+    </div>
+    {% endif %}
+
+    {% if post_html %}
+    <div class="section-title">
+        <span>
+            Post-{{ view_mode }} Metrics
+            <span class="badge bg-success ms-2" style="font-size: 0.8em; vertical-align: middle;">
+                Total Projects: {{ post_total }}
+            </span>
+        </span>
+        <button class="btn btn-sm btn-link btn-copy no-print" onclick="copyTable('post_table_wrapper')">📋 Copy for Excel</button>
+    </div>
+    <div id="post_table_wrapper">
+        {{ post_html|safe }}
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+    function copyTable(elementId) {
+        const node = document.getElementById(elementId);
+        const range = document.createRange();
+        range.selectNode(node);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        
+        try {
+            document.execCommand('copy');
+            alert('Table copied! Open Excel or Google Sheets and press Ctrl+V to paste.');
+        } catch (err) {
+            alert('Oops, unable to copy. Please select the table manually.');
+        }
+        
+        window.getSelection().removeAllRanges();
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Analytics - {{ view_mode }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body { background-color: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* --- 1. SBU DROPDOWN FIXES (CRITICAL) --- */
+        .dropdown-menu-form {
+            min-width: 300px;
+            padding: 0;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: 0.375rem;
+            overflow: hidden; /* Contains the scrollable area */
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Sticky Header for 'Select All' */
+        .dropdown-header-sticky {
+            padding: 12px 16px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Scrollable List Container */
+        .dropdown-scroll-area {
+            max-height: 300px; /* Forces scrollbar after ~8 items */
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+
+        /* Individual Items */
+        .dropdown-item-text {
+            padding: 6px 16px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .dropdown-item-text:hover { background-color: #e9ecef; }
+        .dropdown-item-text .form-check-input { margin-top: 0; margin-right: 12px; transform: scale(1.1); cursor: pointer;}
+        .dropdown-item-text .form-check-label { width: 100%; cursor: pointer; font-size: 0.95rem; }
+
+        /* --- 2. KPI CARDS --- */
+        .metric-card {
+            background: white; border-radius: 12px; padding: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            border-left: 5px solid #0d6efd; /* Default Blue */
+            height: 100%;
+            transition: transform 0.2s;
+        }
+        .metric-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .metric-value { font-size: 2.2rem; font-weight: 700; color: #212529; }
+        .metric-label { font-size: 0.9rem; color: #6c757d; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+        .metric-sub { font-size: 0.8rem; color: #adb5bd; margin-top: 5px; }
+
+        /* Card Colors by Context */
+        .card-pre { border-left-color: #fd7e14; } /* Orange for Pre-Sales */
+        .card-post { border-left-color: #198754; } /* Green for Execution */
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fas fa-chart-pie me-2"></i>FlipSpaces Analytics</a>
+            <div class="d-flex">
+                <a href="{% url 'upload' %}" class="btn btn-outline-light btn-sm me-2">
+                    <i class="fas fa-cloud-upload-alt me-2"></i>Upload New Data
+                </a>
+                <a href="{% url 'export' %}?{{ request.GET.urlencode }}" class="btn btn-success btn-sm">
+                    <i class="fas fa-file-excel me-2"></i>Export Report
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-4">
+        
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link {% if view_mode == 'Sales' %}active{% endif %}" 
+                    href="?view=Sales&start={{ start_date }}&end={{ end_date }}{% for s in selected_sbus %}&sbu={{ s|urlencode }}{% endfor %}">
+                    Sales
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if view_mode == 'Design' %}active{% endif %}" 
+                    href="?view=Design&start={{ start_date }}&end={{ end_date }}{% for s in selected_sbus %}&sbu={{ s|urlencode }}{% endfor %}">
+                    Design
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if view_mode == 'Operations' %}active{% endif %}" 
+                    href="?view=Operations&start={{ start_date }}&end={{ end_date }}{% for s in selected_sbus %}&sbu={{ s|urlencode }}{% endfor %}">
+                    Operations
+                    </a>
+                </li>
+            </ul>
+            <span class="badge bg-secondary">Data range: {{ start_date }} to {{ end_date }}</span>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body bg-white rounded">
+                <form method="get" class="row g-3" id="filterForm">
+                    <input type="hidden" name="view" value="{{ view_mode }}">
+
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold text-muted">Start Date</label>
+                        <input type="date" name="start" class="form-control form-control-sm" value="{{ start_date }}">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold text-muted">End Date</label>
+                        <input type="date" name="end" class="form-control form-control-sm" value="{{ end_date }}">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Strategic Business Unit (SBU)</label>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary btn-sm w-100 text-start d-flex justify-content-between align-items-center" 
+                                    type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                                <span class="text-truncate">
+                                    {% if selected_sbus|length == 0 or selected_sbus|length == sbus|length %}
+                                        All SBUs Selected
+                                    {% else %}
+                                        {{ selected_sbus|length }} SBUs Selected
+                                    {% endif %}
+                                </span>
+                                <i class="fas fa-chevron-down small"></i>
+                            </button>
+                            
+                            <div class="dropdown-menu dropdown-menu-form">
+                                <div class="dropdown-header-sticky">
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input" type="checkbox" id="selectAllSbu" onchange="toggleAllSBUs(this)">
+                                        <label class="form-check-label fw-bold" for="selectAllSbu">Select All</label>
+                                    </div>
+                                </div>
+                                <div class="dropdown-scroll-area">
+                                    {% for sbu in sbus %}
+                                    <div class="dropdown-item-text" onclick="toggleCheckbox('sbu_{{ forloop.counter }}')">
+                                        <input class="form-check-input sbu-checkbox" type="checkbox" name="sbu" 
+                                               value="{{ sbu }}" id="sbu_{{ forloop.counter }}"
+                                               {% if sbu in selected_sbus %}checked{% endif %}
+                                               onclick="event.stopPropagation()">
+                                        <label class="form-check-label" for="sbu_{{ forloop.counter }}">
+                                            {{ sbu }}
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if view_mode == 'Sales' %}
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold text-muted">Sales Head</label>
+                        <select name="f_s_head" class="form-select form-select-sm" multiple size="1">
+                            {% for p in people_opts.s_head %}
+                                <option value="{{ p }}" {% if p in selected_filters.s_head %}selected{% endif %}>{{ p }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% elif view_mode == 'Design' %}
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold text-muted">Design Head</label>
+                        <select name="f_d_dh" class="form-select form-select-sm" multiple size="1">
+                            {% for p in people_opts.d_dh %}
+                                <option value="{{ p }}" {% if p in selected_filters.d_dh %}selected{% endif %}>{{ p }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% elif view_mode == 'Operations' %}
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold text-muted">Ops Head</label>
+                        <select name="f_o_head" class="form-select form-select-sm" multiple size="1">
+                            {% for p in people_opts.o_head %}
+                                <option value="{{ p }}" {% if p in selected_filters.o_head %}selected{% endif %}>{{ p }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary btn-sm w-100"><i class="fas fa-filter"></i> Apply</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if pre_prim or pre_sec %}
+        <div class="mb-5">
+            <h5 class="border-bottom pb-2 mb-3 text-secondary">
+                <i class="fas fa-hourglass-start me-2"></i>Pre-Stage Analysis
+                <span class="badge bg-light text-dark border ms-2">{{ pre_count }} Projects</span>
+            </h5>
+            
+            <div class="row g-4 mb-4">
+                {% for m in pre_prim %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="metric-card card-pre">
+                        <div class="metric-label">{{ m.label }}</div>
+                        <div class="metric-value">{{ m.count }}</div>
+                        <div class="metric-sub">Threshold: > {{ m.threshold }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if pre_sec %}
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white fw-bold text-secondary">Secondary Metrics</div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0 text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-start ps-4">Metric Name</th>
+                                <th>Threshold Applied</th>
+                                <th>Project Count</th>
+                                <th>Update</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for m in pre_sec %}
+                            <tr>
+                                <td class="text-start ps-4">{{ m.label }}</td>
+                                <td>{{ m.threshold }}</td>
+                                <td class="fw-bold text-primary">{{ m.count }}</td>
+                                <td>
+                                    <form method="get" class="d-inline-flex align-items-center justify-content-center">
+                                        <input type="hidden" name="view" value="{{ view_mode }}">
+                                        <input type="hidden" name="start" value="{{ start_date }}">
+                                        <input type="hidden" name="end" value="{{ end_date }}">
+                                        {% for s in selected_sbus %}<input type="hidden" name="sbu" value="{{ s }}">{% endfor %}
+                                        
+                                        <input type="number" step="0.1" name="{{ m.param }}" 
+                                               value="{{ m.threshold }}" class="form-control form-control-sm" 
+                                               style="width: 70px; display: inline-block;">
+                                        <button class="btn btn-link btn-sm text-decoration-none p-0 ms-1">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if post_prim or post_sec %}
+        <div class="mb-5">
+            <h5 class="border-bottom pb-2 mb-3 text-secondary">
+                <i class="fas fa-cogs me-2"></i>Execution & Performance
+                <span class="badge bg-light text-dark border ms-2">{{ post_count }} Projects</span>
+            </h5>
+            
+            <div class="row g-4 mb-4">
+                {% for m in post_prim %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="metric-card card-post">
+                        <div class="metric-label">{{ m.label }}</div>
+                        <div class="metric-value">{{ m.count }}</div>
+                        <div class="metric-sub">Threshold: > {{ m.threshold }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if post_sec %}
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white fw-bold text-secondary">Detailed Metrics</div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0 text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-start ps-4">Metric Name</th>
+                                <th>Threshold Applied</th>
+                                <th>Project Count</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for m in post_sec %}
+                            <tr>
+                                <td class="text-start ps-4">{{ m.label }}</td>
+                                <td>{{ m.threshold }}</td>
+                                <td class="fw-bold text-success">{{ m.count }}</td>
+                                <td>
+                                    <form method="get" class="d-inline-flex align-items-center justify-content-center">
+                                        <input type="hidden" name="view" value="{{ view_mode }}">
+                                        <input type="hidden" name="start" value="{{ start_date }}">
+                                        <input type="hidden" name="end" value="{{ end_date }}">
+                                        {% for s in selected_sbus %}<input type="hidden" name="sbu" value="{{ s }}">{% endfor %}
+                                        
+                                        <input type="number" step="0.1" name="{{ m.param }}" 
+                                               value="{{ m.threshold }}" class="form-control form-control-sm" 
+                                               style="width: 70px;">
+                                        <button class="btn btn-link btn-sm text-decoration-none p-0 ms-1">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        {% if not pre_prim and not post_prim %}
+        <div class="alert alert-warning text-center mt-5">
+            <h4><i class="fas fa-exclamation-triangle me-2"></i>No Data Found</h4>
+            <p>Try adjusting your date range or filters.</p>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // 1. SBU Select All Logic
+        function toggleAllSBUs(source) {
+            const checkboxes = document.querySelectorAll('.sbu-checkbox');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+        }
+
+        // 2. Click Text to Check Box Logic
+        function toggleCheckbox(id) {
+            const cb = document.getElementById(id);
+            cb.checked = !cb.checked;
+        }
+
+        // 3. Prevent Dropdown Close on Click
+        document.querySelectorAll('.dropdown-menu-form').forEach(menu => {
+            menu.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        });
+
+        // 4. Initialize Tooltips (Optional)
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+</body>
+</html>

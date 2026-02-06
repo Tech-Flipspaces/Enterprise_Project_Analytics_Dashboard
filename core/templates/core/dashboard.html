@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Analytics - {{ view_mode }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body { background-color: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* --- DROPDOWN & FILTER CSS --- */
+        .dropdown-menu-form { min-width: 280px; padding: 0; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15); }
+        .dropdown-search-box, .dropdown-header-sticky { padding: 8px 12px; border-bottom: 1px solid #e9ecef; background: #fff; }
+        .dropdown-search-box { background: #f8f9fa; }
+        .dropdown-scroll-area { max-height: 250px; overflow-y: auto; padding: 5px 0; }
+        .dropdown-item-text { padding: 6px 16px; display: flex; align-items: center; cursor: pointer; font-size: 0.9rem; }
+        .dropdown-item-text:hover { background-color: #f1f3f5; }
+        .dropdown-item-text .form-check-input { margin-top: 0; margin-right: 10px; cursor: pointer; }
+        .dropdown-item-text .form-check-label { width: 100%; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* --- CARDS --- */
+        .metric-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border-left: 5px solid #0d6efd; height: 100%; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; outline: none; }
+        .metric-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        .metric-card:focus { transform: translateY(-2px); box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15); }
+        .metric-value { font-size: 2.2rem; font-weight: 700; color: #212529; }
+        .metric-label { font-size: 0.9rem; color: #6c757d; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .metric-sub { font-size: 0.8rem; color: #adb5bd; margin-top: 5px; }
+        .card-pre { border-left-color: #fd7e14; }
+        .card-post { border-left-color: #198754; }
+        
+        /* --- UTILS --- */
+        .project-count-badge { background: #eef2f7; color: #1e3c72; font-weight: 800; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; box-shadow: inset 0 0 0 1px rgba(30,60,114,0.1); }
+        .nav-pill-link { min-width: 140px; height: 45px; display: inline-flex !important; align-items: center; justify-content: center; line-height: 1; transition: all 0.3s; }
+        .nav-pill-active { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important; color: white !important; transform: scale(1.05); border: none !important; box-shadow: 0 4px 12px rgba(30,60,114,0.3); }
+        .nav-pill-inactive { background: transparent !important; color: #6c757d !important; border: 1px solid transparent !important; }
+        .nav-pill-inactive:hover { background: #f1f3f5 !important; color: #1e3c72 !important; }
+
+        /* --- POPOVER & ANIMATION --- */
+        .popover { border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15); border-radius: 12px; max-width: 320px; }
+        .popover-header { background: #f8f9fa; border-bottom: 1px solid #eee; font-weight: 700; color: #1e3c72; }
+        .popover-body { padding: 12px 16px; font-size: 0.85rem; max-height: 300px; overflow-y: auto; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-card { animation: fadeInUp 0.5s ease-out forwards; opacity: 0; }
+        .animate-card:nth-child(1) { animation-delay: 0.1s; } .animate-card:nth-child(2) { animation-delay: 0.2s; } .animate-card:nth-child(3) { animation-delay: 0.3s; } .animate-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+
+<body>
+    <div class="bg-white border-bottom mb-4 sticky-top shadow-sm" style="z-index: 1000;">
+        <div class="container-fluid px-4 py-3">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div class="d-flex align-items-center">
+                    <div class="bg-light rounded-circle p-3 me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                        <i class="fas fa-chart-bar text-primary fs-4"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-0 text-dark" style="letter-spacing: -0.5px;">Analytics Dashboard</h4>
+                        <p class="mb-0 text-muted small text-uppercase" style="font-size: 0.75rem;">
+                            View: <span class="text-primary fw-bold">{{ view_mode }}</span> <span class="mx-2">•</span> {{ start_date }} — {{ end_date }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3 align-items-center">
+                    <a href="{% url 'upload' %}" class="btn btn-outline-primary btn-sm px-3 py-2 fw-bold shadow-sm d-flex align-items-center" style="border-radius: 8px;">
+                        <i class="fas fa-cloud-upload-alt me-2"></i>Import
+                    </a>
+                    <div style="border-left: 1px solid #dee2e6; height: 35px;"></div>
+                    
+                    <div class="d-flex align-items-center bg-light border rounded-pill p-1 pe-2 shadow-sm">
+                        <span class="badge rounded-pill bg-white text-secondary border me-2 py-2 px-3 fw-bold">LEADERSHIP</span>
+                        <div class="btn-group" role="group">
+                            <form action="{% url 'export_data' %}" method="get" target="_blank" class="d-inline">
+                                <input type="hidden" name="view" value="{{ view_mode }}"><input type="hidden" name="start" value="{{ start_date }}"><input type="hidden" name="end" value="{{ end_date }}">
+                                {% for sbu in selected_sbus %}<input type="hidden" name="sbu" value="{{ sbu }}">{% endfor %}
+                                {% for k, v in selected_filters.items %}{% for val in v %}<input type="hidden" name="f_{{ k }}" value="{{ val }}">{% endfor %}{% endfor %}
+                                <button type="submit" class="btn btn-sm btn-link text-secondary"><i class="fas fa-download"></i></button>
+                            </form>
+                            <a href="{% url 'report' %}?view={{ view_mode }}&start={{ start_date }}&end={{ end_date }}{% for s in selected_sbus %}&sbu={{ s }}{% endfor %}{% for k, v in selected_filters.items %}{% for val in v %}&f_{{ k }}={{ val }}{% endfor %}{% endfor %}" target="_blank" class="btn btn-sm btn-link text-primary"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center bg-light border rounded-pill p-1 pe-2 shadow-sm">
+                        <span class="badge rounded-pill bg-white text-secondary border me-2 py-2 px-3 fw-bold">USER / DETAILED</span>
+                        <div class="btn-group" role="group">
+                            <form action="{% url 'export_detailed' %}" method="get" target="_blank" class="d-inline">
+                                <input type="hidden" name="view" value="{{ view_mode }}"><input type="hidden" name="start" value="{{ start_date }}"><input type="hidden" name="end" value="{{ end_date }}"><input type="hidden" name="metric_role" value="{{ current_role }}">
+                                {% for sbu in selected_sbus %}<input type="hidden" name="sbu" value="{{ sbu }}">{% endfor %}
+                                {% for k, v in selected_filters.items %}{% for val in v %}<input type="hidden" name="f_{{ k }}" value="{{ val }}">{% endfor %}{% endfor %}
+                                <button type="submit" class="btn btn-sm btn-link text-secondary"><i class="fas fa-download"></i></button>
+                            </form>
+                            <a href="{% url 'report_detailed' %}?view={{ view_mode }}&start={{ start_date }}&end={{ end_date }}&metric_role={{ current_role }}{% for s in selected_sbus %}&sbu={{ s }}{% endfor %}{% for k, v in selected_filters.items %}{% for val in v %}&f_{{ k }}={{ val }}{% endfor %}{% endfor %}" target="_blank" class="btn btn-sm btn-link text-success"><i class="fas fa-table"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid px-4">
+        
+        <div class="d-flex justify-content-center mb-4 position-relative" style="z-index: 900;">
+            <div class="bg-white p-1 rounded-pill shadow-sm border d-inline-flex align-items-center">
+                <a href="?view=Sales&start={{ start_date }}&end={{ end_date }}{% for s in selected_sbus %}&sbu={{ s }}{% endfor %}{% for k, v in selected_filters.items %}{% for val in v %}&f_{{ k }}={{ val }}{% endfor %}{% endfor %}" class="btn rounded-pill px-4 py-2 fw-bold d-flex align-items-center nav-pill-link {% if view_mode == 'Sales' %}nav-pill-active{% else %}nav-pill-inactive{% endif %}"><i class="fas fa-funnel-dollar me-2"></i>SALES</a>
+                <a href="?view=Design&start={{ start_date }}&end={{ end_date }}{% for s in selected_sbus %}&sbu={{ s }}{% endfor %}{% for k, v in selected_filters.items %}{% for val in v %}&f_{{ k }}={{ val }}{% endfor %}{% endfor %}" class="btn rounded-pill px-4 py-2 fw-bold d-flex align-items-center nav-pill-link mx-1 {% if view_mode == 'Design' %}nav-pill-active{% else %}nav-pill-inactive{% endif %}"><i class="fas fa-drafting-compass me-2"></i>DESIGN</a>
+                <a href="?view=Operations&start={{ start_date }}&end={{ end_date }}{% for s in selected_sbus %}&sbu={{ s }}{% endfor %}{% for k, v in selected_filters.items %}{% for val in v %}&f_{{ k }}={{ val }}{% endfor %}{% endfor %}" class="btn rounded-pill px-4 py-2 fw-bold d-flex align-items-center nav-pill-link {% if view_mode == 'Operations' %}nav-pill-active{% else %}nav-pill-inactive{% endif %}"><i class="fas fa-hard-hat me-2"></i>OPERATIONS</a>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body bg-white rounded">
+                <form method="get" class="row g-3" id="filterForm">
+                    <input type="hidden" name="view" value="{{ view_mode }}">
+
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold text-muted">Role / Perspective</label>
+                        <select name="metric_role" class="form-select form-select-sm fw-bold text-dark bg-light border-0 shadow-sm">
+                            <option value="All Roles" {% if current_role == 'All Roles' %}selected{% endif %}>All Roles</option>
+                            {% if view_mode == 'Sales' %}<option value="Sales Head" {% if current_role == 'Sales Head' %}selected{% endif %}>Sales Head</option><option value="Sales Lead" {% if current_role == 'Sales Lead' %}selected{% endif %}>Sales Lead</option>{% endif %}
+                            {% if view_mode == 'Design' %}<option value="ID" {% if current_role == 'ID' %}selected{% endif %}>ID</option><option value="3D" {% if current_role == '3D' %}selected{% endif %}>3D</option><option value="DM" {% if current_role == 'DM' %}selected{% endif %}>DM</option><option value="DH" {% if current_role == 'DH' %}selected{% endif %}>DH</option>{% endif %}
+                            {% if view_mode == 'Operations' %}<option value="BU Head" {% if current_role == 'BU Head' %}selected{% endif %}>BU Head</option><option value="MEP" {% if current_role == 'MEP' %}selected{% endif %}>MEP</option><option value="CSC" {% if current_role == 'CSC' %}selected{% endif %}>CSC</option><option value="SPM" {% if current_role == 'SPM' %}selected{% endif %}>SPM</option><option value="PM" {% if current_role == 'PM' %}selected{% endif %}>PM</option><option value="SOM" {% if current_role == 'SOM' %}selected{% endif %}>SOM/OM</option><option value="SS" {% if current_role == 'SS' %}selected{% endif %}>SS</option>{% endif %}
+                        </select>
+                    </div>
+                    <div class="col-md-2"><label class="form-label small fw-bold text-muted">Start</label><input type="date" name="start" class="form-control form-control-sm" value="{{ start_date }}"></div>
+                    <div class="col-md-2"><label class="form-label small fw-bold text-muted">End</label><input type="date" name="end" class="form-control form-control-sm" value="{{ end_date }}"></div>
+                    
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">SBU</label>
+                        {% with field_name="sbu" options=sbus selected=selected_sbus %}
+                            {% include "core/components/filter_dropdown.html" %}
+                        {% endwith %}
+                    </div>
+
+                    <div class="col-md-12"><hr class="my-2 opacity-25"></div>
+
+                    {% if view_mode == 'Sales' %}
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">Sales Head</label>{% with field_name="f_s_head" options=people_opts.s_head selected=selected_filters.s_head %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">Sales Lead</label>{% with field_name="f_s_lead" options=people_opts.s_lead selected=selected_filters.s_lead %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                    {% elif view_mode == 'Design' %}
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">DH</label>{% with field_name="f_d_dh" options=people_opts.d_dh selected=selected_filters.d_dh %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">DM</label>{% with field_name="f_d_dm" options=people_opts.d_dm selected=selected_filters.d_dm %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">ID</label>{% with field_name="f_d_id" options=people_opts.d_id selected=selected_filters.d_id %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">3D</label>{% with field_name="f_d_3d" options=people_opts.d_3d selected=selected_filters.d_3d %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                    {% elif view_mode == 'Operations' %}
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">Head</label>{% with field_name="f_o_head" options=people_opts.o_head selected=selected_filters.o_head %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">PM</label>{% with field_name="f_o_pm" options=people_opts.o_pm selected=selected_filters.o_pm %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">OM</label>{% with field_name="f_o_om" options=people_opts.o_om selected=selected_filters.o_om %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">SS</label>{% with field_name="f_o_ss" options=people_opts.o_ss selected=selected_filters.o_ss %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">MEP</label>{% with field_name="f_o_mep" options=people_opts.o_mep selected=selected_filters.o_mep %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                        <div class="col-md-2"><label class="form-label small fw-bold text-muted">CSC</label>{% with field_name="f_o_csc" options=people_opts.o_csc selected=selected_filters.o_csc %}{% include "core/components/filter_dropdown.html" %}{% endwith %}</div>
+                    {% endif %}
+
+                    <div class="col-md-2 d-flex align-items-end ms-auto"><button type="submit" class="btn btn-primary btn-sm w-100"><i class="fas fa-filter"></i> Apply</button></div>
+                </form>
+            </div>
+        </div>
+
+        <form method="GET" action="{% url 'dashboard' %}" id="dashboard-form">
+            <input type="hidden" name="view" value="{{ view_mode }}"><input type="hidden" name="start" value="{{ start_date }}"><input type="hidden" name="end" value="{{ end_date }}"><input type="hidden" name="metric_role" value="{{ current_role }}">
+            {% for s in selected_sbus %}<input type="hidden" name="sbu" value="{{ s }}">{% endfor %}
+            {% for k, v in selected_filters.items %}{% for val in v %}<input type="hidden" name="f_{{ k }}" value="{{ val }}">{% endfor %}{% endfor %}
+
+            {% if pre_prim or pre_sec %}
+                {% include "core/components/metric_section.html" with title="Pre-Stage Analysis" icon_class="fas fa-hourglass-start" count=pre_count prim_list=pre_prim sec_list=pre_sec section_id="PreSec" is_post=False %}
+            {% endif %}
+
+            {% if post_prim or post_sec %}
+                {% include "core/components/metric_section.html" with title="Execution & Performance" icon_class="fas fa-cogs" count=post_count prim_list=post_prim sec_list=post_sec section_id="PostSec" is_post=True %}
+            {% endif %}
+        </form>
+
+        {% if not pre_prim and not post_prim %}
+        <div class="alert alert-warning text-center mt-5"><h4><i class="fas fa-exclamation-triangle me-2"></i>No Data Found</h4><p>Try adjusting your date range or filters.</p></div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 1. Generic Filter JS (Works for SBU and People)
+        function filterDropdown(id) {
+            const input = document.querySelector(`#dd_${id} .search-input`);
+            const filter = input.value.toLowerCase();
+            document.querySelectorAll(`#dd_${id} .dropdown-item-text`).forEach(item => {
+                item.style.display = item.innerText.toLowerCase().includes(filter) ? "" : "none";
+            });
+        }
+        function toggleAll(id) {
+            const container = document.getElementById(`dd_${id}`);
+            const isChecked = document.getElementById(`all_${id}`).checked;
+            Array.from(container.querySelectorAll('.dropdown-item-text')).filter(i => i.style.display !== 'none').forEach(i => i.querySelector('.item-checkbox').checked = isChecked);
+            updateBtn(id);
+        }
+        function updateBtn(id) {
+            const count = document.querySelectorAll(`#dd_${id} .item-checkbox:checked`).length;
+            document.querySelector(`#dd_${id} .btn-label`).innerText = count > 0 ? `${count} Selected` : 'All';
+        }
+
+        // 2. Init
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.dropdown-menu-form').forEach(m => m.addEventListener('click', e => e.stopPropagation()));
+            [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]')).map(el => new bootstrap.Popover(el));
+            document.querySelectorAll('.count-up').forEach(c => {
+                const target = +c.getAttribute('data-target');
+                let cur = 0, inc = target / 60;
+                const upd = () => { cur += inc; if(cur < target) { c.innerText = Math.ceil(cur); requestAnimationFrame(upd); } else c.innerText = target; };
+                upd();
+            });
+        });
+    </script>
+</body>
+</html>

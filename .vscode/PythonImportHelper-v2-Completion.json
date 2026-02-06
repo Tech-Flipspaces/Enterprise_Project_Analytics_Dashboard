@@ -1,0 +1,1776 @@
+[
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "template",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "template",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "template",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "template",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "include",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "include",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "HttpResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "HttpResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "HttpResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "HttpResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Q",
+        "importPath": "django.db.models",
+        "description": "django.db.models",
+        "isExtraImport": true,
+        "detail": "django.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "BytesIO",
+        "importPath": "io",
+        "description": "io",
+        "isExtraImport": true,
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "get_asgi_application",
+        "importPath": "django.core.asgi",
+        "description": "django.core.asgi",
+        "isExtraImport": true,
+        "detail": "django.core.asgi",
+        "documentation": {}
+    },
+    {
+        "label": "get_asgi_application",
+        "importPath": "django.core.asgi",
+        "description": "django.core.asgi",
+        "isExtraImport": true,
+        "detail": "django.core.asgi",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "get_wsgi_application",
+        "importPath": "django.core.wsgi",
+        "description": "django.core.wsgi",
+        "isExtraImport": true,
+        "detail": "django.core.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "get_wsgi_application",
+        "importPath": "django.core.wsgi",
+        "description": "django.core.wsgi",
+        "isExtraImport": true,
+        "detail": "django.core.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "core.backup_v1.migrations.0001_initial",
+        "description": "core.backup_v1.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Project',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('project_code', models.CharField(db_index=True, max_length=100, unique=True)),",
+        "detail": "core.backup_v1.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "core.backup_v1.migrations.0002_project_no_plans_for_key_spaces",
+        "description": "core.backup_v1.migrations.0002_project_no_plans_for_key_spaces",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0001_initial'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='project',\n            name='no_plans_for_key_spaces',\n            field=models.FloatField(default=0),\n        ),",
+        "detail": "core.backup_v1.migrations.0002_project_no_plans_for_key_spaces",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "core.backup_v1.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "description": "core.backup_v1.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0002_project_no_plans_for_key_spaces'),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name='project',\n            name='status',\n        ),\n        migrations.AddField(",
+        "detail": "core.backup_v1.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "update_params",
+        "kind": 2,
+        "importPath": "core.backup_v1.templatetags.dashboard_extras",
+        "description": "core.backup_v1.templatetags.dashboard_extras",
+        "peekOfCode": "def update_params(context, **kwargs):\n    \"\"\"\n    Returns the current URL query string with updated parameters.\n    Usage: {% update_params group='operations' %}\n    Result: ?start_date=2025-01-01&region=North&group=operations\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():\n        query[key] = value\n    return query.urlencode()",
+        "detail": "core.backup_v1.templatetags.dashboard_extras",
+        "documentation": {}
+    },
+    {
+        "label": "register",
+        "kind": 5,
+        "importPath": "core.backup_v1.templatetags.dashboard_extras",
+        "description": "core.backup_v1.templatetags.dashboard_extras",
+        "peekOfCode": "register = template.Library()\n@register.simple_tag(takes_context=True)\ndef update_params(context, **kwargs):\n    \"\"\"\n    Returns the current URL query string with updated parameters.\n    Usage: {% update_params group='operations' %}\n    Result: ?start_date=2025-01-01&region=North&group=operations\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():",
+        "detail": "core.backup_v1.templatetags.dashboard_extras",
+        "documentation": {}
+    },
+    {
+        "label": "CoreConfig",
+        "kind": 6,
+        "importPath": "core.backup_v1.apps",
+        "description": "core.backup_v1.apps",
+        "peekOfCode": "class CoreConfig(AppConfig):\n    name = 'core'",
+        "detail": "core.backup_v1.apps",
+        "documentation": {}
+    },
+    {
+        "label": "METRICS_CONFIG",
+        "kind": 5,
+        "importPath": "core.backup_v1.constants",
+        "description": "core.backup_v1.constants",
+        "peekOfCode": "METRICS_CONFIG = {\n    \"Sales\": {\n        \"Pre\": [\n            {\"label\": \"Requirements Uploaded\", \"field\": \"req_uploaded\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Site Visit Reports\", \"field\": \"site_visit_report\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Client Visits\", \"field\": \"client_access\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n        ],\n        \"Post\": [\n            {\"label\": \"Requirements Uploaded\", \"field\": \"req_uploaded\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Site Visit Reports\", \"field\": \"site_visit_report\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},",
+        "detail": "core.backup_v1.constants",
+        "documentation": {}
+    },
+    {
+        "label": "EXCEL_COL_MAP",
+        "kind": 5,
+        "importPath": "core.backup_v1.constants",
+        "description": "core.backup_v1.constants",
+        "peekOfCode": "EXCEL_COL_MAP = {\n    # Sales\n    \"Requirements\": \"req_uploaded\",\n    \"Site Visit Report\": \"site_visit_report\",\n    \"Client Access\": \"client_access\",\n    \"BOQ\": \"boq_uploaded\",\n    \"Contract\": \"contract_uploaded\",\n    # Design\n    \"Furniture Layouts\": \"furniture_layouts\",\n    \"Approved Furniture Layouts\": \"approved_layouts\",",
+        "detail": "core.backup_v1.constants",
+        "documentation": {}
+    },
+    {
+        "label": "UploadFileForm",
+        "kind": 6,
+        "importPath": "core.backup_v1.forms",
+        "description": "core.backup_v1.forms",
+        "peekOfCode": "class UploadFileForm(forms.Form):\n    # The name 'file' here must match the name=\"file\" in your HTML input\n    file = forms.FileField()",
+        "detail": "core.backup_v1.forms",
+        "documentation": {}
+    },
+    {
+        "label": "Project",
+        "kind": 6,
+        "importPath": "core.backup_v1.models",
+        "description": "core.backup_v1.models",
+        "peekOfCode": "class Project(models.Model):\n    # --- ID & Metadata ---\n    project_code = models.CharField(max_length=50, unique=True)\n    project_name = models.CharField(max_length=255, null=True, blank=True)\n    sbu = models.CharField(max_length=50, null=True, blank=True)\n    stage = models.CharField(max_length=50, null=True, blank=True)\n    # --- Dates ---\n    login_date = models.DateField(null=True, blank=True)\n    start_date = models.DateField(null=True, blank=True)\n    end_date = models.DateField(null=True, blank=True)",
+        "detail": "core.backup_v1.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "core.backup_v1.urls",
+        "description": "core.backup_v1.urls",
+        "peekOfCode": "urlpatterns = [\n    # 1. Dashboard (The Homepage)\n    path('', views.dashboard_view, name='dashboard'),\n    # 2. Upload Page (To process new Excel files)\n    path('upload/', views.upload_view, name='upload'),\n    # 3. Live Report (The HTML table in a new tab)\n    path('report/', views.report_view, name='report'),\n    # 4. Summary Export (The Excel download logic)\n    path('export/', views.export_view, name='export'),\n]",
+        "detail": "core.backup_v1.urls",
+        "documentation": {}
+    },
+    {
+        "label": "upload_view",
+        "kind": 2,
+        "importPath": "core.backup_v1.views",
+        "description": "core.backup_v1.views",
+        "peekOfCode": "def upload_view(request):\n    if request.method == 'POST':\n        form = UploadFileForm(request.POST, request.FILES)\n        if form.is_valid():\n            file = request.FILES['file']\n            try:\n                xls = pd.ExcelFile(file)\n                # 1. DEFINE SHEET MAP\n                sheet_map: dict = {'sales': None, 'design': None, 'operation': None}\n                for name in xls.sheet_names:",
+        "detail": "core.backup_v1.views",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard_view",
+        "kind": 2,
+        "importPath": "core.backup_v1.views",
+        "description": "core.backup_v1.views",
+        "peekOfCode": "def dashboard_view(request):\n    # --- 1. SET UP DATES ---\n    default_start = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')\n    default_end = datetime.now().strftime('%Y-%m-%d')\n    view_mode = request.GET.get('view', 'Sales')\n    start_date_str = request.GET.get('start', default_start)\n    end_date_str = request.GET.get('end', default_end)\n    # --- 2. DYNAMIC SBU LIST ---\n    raw_sbus = Project.objects.values_list('sbu', flat=True).distinct()\n    available_sbus = sorted([s for s in raw_sbus if s and str(s).strip() != ''])",
+        "detail": "core.backup_v1.views",
+        "documentation": {}
+    },
+    {
+        "label": "report_view",
+        "kind": 2,
+        "importPath": "core.backup_v1.views",
+        "description": "core.backup_v1.views",
+        "peekOfCode": "def report_view(request):\n    default_start = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')\n    default_end = datetime.now().strftime('%Y-%m-%d')\n    view_mode = request.GET.get('view', 'Sales')\n    start_date_str = request.GET.get('start', default_start)\n    end_date_str = request.GET.get('end', default_end)\n    sbu_filter = request.GET.getlist('sbu') or ['North', 'South', 'West', 'Central']\n    metric_role_filter = request.GET.get('metric_role', 'All Roles')\n    projects = Project.objects.all()\n    if sbu_filter: projects = projects.filter(sbu__in=sbu_filter)",
+        "detail": "core.backup_v1.views",
+        "documentation": {}
+    },
+    {
+        "label": "export_view",
+        "kind": 2,
+        "importPath": "core.backup_v1.views",
+        "description": "core.backup_v1.views",
+        "peekOfCode": "def export_view(request):\n    default_start = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')\n    default_end = datetime.now().strftime('%Y-%m-%d')\n    view_mode = request.GET.get('view', 'Sales')\n    start_date_str = request.GET.get('start', default_start)\n    end_date_str = request.GET.get('end', default_end)\n    sbu_filter = request.GET.getlist('sbu') or ['North', 'South', 'West', 'Central']\n    metric_role_filter = request.GET.get('metric_role', 'All Roles')\n    projects = Project.objects.all()\n    if sbu_filter: projects = projects.filter(sbu__in=sbu_filter)",
+        "detail": "core.backup_v1.views",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "core.migrations.0001_initial",
+        "description": "core.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Project',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('project_code', models.CharField(db_index=True, max_length=100, unique=True)),",
+        "detail": "core.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "core.migrations.0002_project_no_plans_for_key_spaces",
+        "description": "core.migrations.0002_project_no_plans_for_key_spaces",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0001_initial'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='project',\n            name='no_plans_for_key_spaces',\n            field=models.FloatField(default=0),\n        ),",
+        "detail": "core.migrations.0002_project_no_plans_for_key_spaces",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "core.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "description": "core.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0002_project_no_plans_for_key_spaces'),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name='project',\n            name='status',\n        ),\n        migrations.AddField(",
+        "detail": "core.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "core.migrations.0004_project_ops_csc_project_ops_mep",
+        "description": "core.migrations.0004_project_ops_csc_project_ops_mep",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0003_remove_project_status_project_boq_project_contract_and_more'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='project',\n            name='ops_csc',\n            field=models.CharField(blank=True, max_length=100, null=True),\n        ),",
+        "detail": "core.migrations.0004_project_ops_csc_project_ops_mep",
+        "documentation": {}
+    },
+    {
+        "label": "update_params",
+        "kind": 2,
+        "importPath": "core.templatetags.dashboard_extras",
+        "description": "core.templatetags.dashboard_extras",
+        "peekOfCode": "def update_params(context, **kwargs):\n    \"\"\"\n        Returns the current URL query string with updated parameters.\n        Usage: {% update_params group='operations' %}\n        Result: ?start_date=2025-01-01&region=North&group=operations\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():\n        query[key] = value\n    return query.urlencode()",
+        "detail": "core.templatetags.dashboard_extras",
+        "documentation": {}
+    },
+    {
+        "label": "register",
+        "kind": 5,
+        "importPath": "core.templatetags.dashboard_extras",
+        "description": "core.templatetags.dashboard_extras",
+        "peekOfCode": "register = template.Library()\n@register.simple_tag(takes_context=True)\ndef update_params(context, **kwargs):\n    \"\"\"\n        Returns the current URL query string with updated parameters.\n        Usage: {% update_params group='operations' %}\n        Result: ?start_date=2025-01-01&region=North&group=operations\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():",
+        "detail": "core.templatetags.dashboard_extras",
+        "documentation": {}
+    },
+    {
+        "label": "CoreConfig",
+        "kind": 6,
+        "importPath": "core.apps",
+        "description": "core.apps",
+        "peekOfCode": "class CoreConfig(AppConfig):\n    name = 'core'",
+        "detail": "core.apps",
+        "documentation": {}
+    },
+    {
+        "label": "METRICS_CONFIG",
+        "kind": 5,
+        "importPath": "core.constants",
+        "description": "core.constants",
+        "peekOfCode": "METRICS_CONFIG = {\n    \"Sales\": {\n        \"Pre\": [\n            {\"label\": \"Requirements Uploaded\", \"field\": \"req_uploaded\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Site Visit Reports\", \"field\": \"site_visit_report\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Client Visits\", \"field\": \"client_access\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n        ],\n        \"Post\": [\n            {\"label\": \"Requirements Uploaded\", \"field\": \"req_uploaded\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Site Visit Reports\", \"field\": \"site_visit_report\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},",
+        "detail": "core.constants",
+        "documentation": {}
+    },
+    {
+        "label": "EXCEL_COL_MAP",
+        "kind": 5,
+        "importPath": "core.constants",
+        "description": "core.constants",
+        "peekOfCode": "EXCEL_COL_MAP = {\n    # Sales\n    \"Requirements\": \"req_uploaded\",\n    \"Site Visit Report\": \"site_visit_report\",\n    \"Client Access\": \"client_access\",\n    \"BOQ\": \"boq_uploaded\",\n    \"Contract\": \"contract_uploaded\",\n    # Design\n    \"Furniture Layouts\": \"furniture_layouts\",\n    \"Approved Furniture Layouts\": \"approved_layouts\",",
+        "detail": "core.constants",
+        "documentation": {}
+    },
+    {
+        "label": "UploadFileForm",
+        "kind": 6,
+        "importPath": "core.forms",
+        "description": "core.forms",
+        "peekOfCode": "class UploadFileForm(forms.Form):\n    # The name 'file' here must match the name=\"file\" in your HTML input\n    file = forms.FileField()",
+        "detail": "core.forms",
+        "documentation": {}
+    },
+    {
+        "label": "Project",
+        "kind": 6,
+        "importPath": "core.models",
+        "description": "core.models",
+        "peekOfCode": "class Project(models.Model):\n    # --- ID & Metadata ---\n    project_code = models.CharField(max_length=50, unique=True)\n    project_name = models.CharField(max_length=255, null=True, blank=True)\n    sbu = models.CharField(max_length=50, null=True, blank=True)\n    stage = models.CharField(max_length=50, null=True, blank=True)\n    # --- Dates ---\n    login_date = models.DateField(null=True, blank=True)\n    start_date = models.DateField(null=True, blank=True)\n    end_date = models.DateField(null=True, blank=True)",
+        "detail": "core.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "core.urls",
+        "description": "core.urls",
+        "peekOfCode": "urlpatterns = [\n    # 1. Dashboard (The Homepage)\n    path('', views.dashboard_view, name='dashboard'),\n    # 2. Upload Page (To process new Excel files)\n    path('upload/', views.upload_view, name='upload'),\n    # 3. Live Report (The HTML table in a new tab)\n    path('report/', views.report_view, name='report'),\n    # 4. Summary Export (The Excel download logic)\n    path('export/', views.export_view, name='export_data'),\n    # 5. Detailed Export (The Detailed Excel download logic)",
+        "detail": "core.urls",
+        "documentation": {}
+    },
+    {
+        "label": "upload_view",
+        "kind": 2,
+        "importPath": "core.views",
+        "description": "core.views",
+        "peekOfCode": "def upload_view(request):\n    if request.method == 'POST':\n        form = UploadFileForm(request.POST, request.FILES)\n        if form.is_valid():\n            try:\n                # --- Excel Parsing Logic (Kept intact) ---\n                file = request.FILES['file']\n                xls = pd.ExcelFile(file)\n                sheet_map = {'sales': '', 'design': '', 'operation': ''}\n                for name in xls.sheet_names:",
+        "detail": "core.views",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard_view",
+        "kind": 2,
+        "importPath": "core.views",
+        "description": "core.views",
+        "peekOfCode": "def dashboard_view(request):\n    # 1. Fetch Request Params & Context\n    view_mode, start_str, end_str, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    people_opts, selected_filters = _get_dropdown_context(request)\n    # 2. Filter Projects\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    # 3. Split into Stages\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    pre_count = qs_pre.count()",
+        "detail": "core.views",
+        "documentation": {}
+    },
+    {
+        "label": "export_view",
+        "kind": 2,
+        "importPath": "core.views",
+        "description": "core.views",
+        "peekOfCode": "def export_view(request):\n    # 1. Reuse Common Logic\n    view_mode, _, _, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    # 2. DataFrame Generator\n    def generate_summary_df(queryset, metrics, prefix):\n        total = queryset.count()\n        data = [{\"Metric Name\": \"TOTAL PROJECTS\", \"Threshold\": \"-\", \"Value\": total, \"%\": \"-\"}]",
+        "detail": "core.views",
+        "documentation": {}
+    },
+    {
+        "label": "export_detailed_view",
+        "kind": 2,
+        "importPath": "core.views",
+        "description": "core.views",
+        "peekOfCode": "def export_detailed_view(request):\n    # 1. Reuse Common Logic\n    view_mode, _, _, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    # 2. Detailed Data Generator\n    def generate_detailed_df(queryset, metrics):\n        active_metrics = [m for m in metrics if role_filter == \"All Roles\" or role_filter in m.get('roles', [])]\n        if not active_metrics: return pd.DataFrame()",
+        "detail": "core.views",
+        "documentation": {}
+    },
+    {
+        "label": "report_detailed_view",
+        "kind": 2,
+        "importPath": "core.views",
+        "description": "core.views",
+        "peekOfCode": "def report_detailed_view(request):\n    # 1. Reuse Common Logic\n    view_mode, start_str, end_str, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    # 2. Logic duplicated from export_detailed_view (required for context rendering)\n    def generate_detailed_df(queryset, metrics):\n        active_metrics = [m for m in metrics if role_filter == \"All Roles\" or role_filter in m.get('roles', [])]\n        if not active_metrics: return pd.DataFrame()",
+        "detail": "core.views",
+        "documentation": {}
+    },
+    {
+        "label": "report_view",
+        "kind": 2,
+        "importPath": "core.views",
+        "description": "core.views",
+        "peekOfCode": "def report_view(request):\n    return redirect('dashboard')",
+        "detail": "core.views",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.asgi",
+        "description": "flipspaces_analytics.asgi",
+        "peekOfCode": "application = get_asgi_application()",
+        "detail": "flipspaces_analytics.asgi",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_DIR",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = 'django-insecure-mcynl_zzdo$51vm6@!x^%(l0chdcskxm^9$vp^k!r9dl#=-4%f'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "SECRET_KEY = 'django-insecure-mcynl_zzdo$51vm6@!x^%(l0chdcskxm^9$vp^k!r9dl#=-4%f'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "ALLOWED_HOSTS",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'core', ",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "INSTALLED_APPS",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'core', \n]\nMIDDLEWARE = [",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MIDDLEWARE",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "MIDDLEWARE = [\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]\nROOT_URLCONF = 'flipspaces_analytics.urls'",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "ROOT_URLCONF",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "ROOT_URLCONF = 'flipspaces_analytics.urls'\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "TEMPLATES",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "TEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',\n                'django.contrib.messages.context_processors.messages',",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "WSGI_APPLICATION",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "WSGI_APPLICATION = 'flipspaces_analytics.wsgi.application'\n# Database\n# https://docs.djangoproject.com/en/6.0/ref/settings/#databases\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.sqlite3',\n        'NAME': BASE_DIR / 'db.sqlite3',\n    }\n}\n# Password validation",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASES",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.sqlite3',\n        'NAME': BASE_DIR / 'db.sqlite3',\n    }\n}\n# Password validation\n# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators\nAUTH_PASSWORD_VALIDATORS = [\n    {",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH_PASSWORD_VALIDATORS",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "AUTH_PASSWORD_VALIDATORS = [\n    {\n        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',\n    },\n    {\n        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',\n    },\n    {\n        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',\n    },",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "LANGUAGE_CODE",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "TIME_ZONE",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "USE_I18N",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "USE_TZ",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATIC_URL",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.settings",
+        "description": "flipspaces_analytics.settings",
+        "peekOfCode": "STATIC_URL = 'static/'",
+        "detail": "flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.urls",
+        "description": "flipspaces_analytics.urls",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('', include('core.urls')),\n]",
+        "detail": "flipspaces_analytics.urls",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "flipspaces_analytics.wsgi",
+        "description": "flipspaces_analytics.wsgi",
+        "peekOfCode": "application = get_wsgi_application()",
+        "detail": "flipspaces_analytics.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.migrations.0001_initial",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Project',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('project_code', models.CharField(db_index=True, max_length=100, unique=True)),",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.migrations.0002_project_no_plans_for_key_spaces",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.migrations.0002_project_no_plans_for_key_spaces",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0001_initial'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='project',\n            name='no_plans_for_key_spaces',\n            field=models.FloatField(default=0),\n        ),",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.migrations.0002_project_no_plans_for_key_spaces",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0002_project_no_plans_for_key_spaces'),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name='project',\n            name='status',\n        ),\n        migrations.AddField(",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "update_params",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.templatetags.dashboard_extras",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.templatetags.dashboard_extras",
+        "peekOfCode": "def update_params(context, **kwargs):\n    \"\"\"\n    Returns the current URL query string with updated parameters.\n    Usage: {% update_params group='operations' %}\n    Result: ?start_date=2025-01-01&region=North&group=operations\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():\n        query[key] = value\n    return query.urlencode()",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.templatetags.dashboard_extras",
+        "documentation": {}
+    },
+    {
+        "label": "register",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.templatetags.dashboard_extras",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.templatetags.dashboard_extras",
+        "peekOfCode": "register = template.Library()\n@register.simple_tag(takes_context=True)\ndef update_params(context, **kwargs):\n    \"\"\"\n    Returns the current URL query string with updated parameters.\n    Usage: {% update_params group='operations' %}\n    Result: ?start_date=2025-01-01&region=North&group=operations\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.templatetags.dashboard_extras",
+        "documentation": {}
+    },
+    {
+        "label": "CoreConfig",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.apps",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.apps",
+        "peekOfCode": "class CoreConfig(AppConfig):\n    name = 'core'",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.apps",
+        "documentation": {}
+    },
+    {
+        "label": "METRICS_CONFIG",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.constants",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.constants",
+        "peekOfCode": "METRICS_CONFIG = {\n    \"Sales\": {\n        \"Pre\": [\n            {\"label\": \"Requirements Uploaded\", \"field\": \"req_uploaded\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Site Visit Reports\", \"field\": \"site_visit_report\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Client Visits\", \"field\": \"client_access\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n        ],\n        \"Post\": [\n            {\"label\": \"Requirements Uploaded\", \"field\": \"req_uploaded\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Site Visit Reports\", \"field\": \"site_visit_report\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.constants",
+        "documentation": {}
+    },
+    {
+        "label": "EXCEL_COL_MAP",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.constants",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.constants",
+        "peekOfCode": "EXCEL_COL_MAP = {\n    # Sales\n    \"Requirements\": \"req_uploaded\",\n    \"Site Visit Report\": \"site_visit_report\",\n    \"Client Access\": \"client_access\",\n    \"BOQ\": \"boq_uploaded\",\n    \"Contract\": \"contract_uploaded\",\n    # Design\n    \"Furniture Layouts\": \"furniture_layouts\",\n    \"Approved Furniture Layouts\": \"approved_layouts\",",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.constants",
+        "documentation": {}
+    },
+    {
+        "label": "UploadFileForm",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.forms",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.forms",
+        "peekOfCode": "class UploadFileForm(forms.Form):\n    # The name 'file' here must match the name=\"file\" in your HTML input\n    file = forms.FileField()",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.forms",
+        "documentation": {}
+    },
+    {
+        "label": "Project",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.models",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.models",
+        "peekOfCode": "class Project(models.Model):\n    # --- ID & Metadata ---\n    project_code = models.CharField(max_length=50, unique=True)\n    project_name = models.CharField(max_length=255, null=True, blank=True)\n    sbu = models.CharField(max_length=50, null=True, blank=True)\n    stage = models.CharField(max_length=50, null=True, blank=True)\n    # --- Dates ---\n    login_date = models.DateField(null=True, blank=True)\n    start_date = models.DateField(null=True, blank=True)\n    end_date = models.DateField(null=True, blank=True)",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.urls",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.urls",
+        "peekOfCode": "urlpatterns = [\n    # 1. Dashboard (The Homepage)\n    path('', views.dashboard_view, name='dashboard'),\n    # 2. Upload Page (To process new Excel files)\n    path('upload/', views.upload_view, name='upload'),\n    # 3. Live Report (The HTML table in a new tab)\n    path('report/', views.report_view, name='report'),\n    # 4. Summary Export (The Excel download logic)\n    path('export/', views.export_view, name='export'),\n]",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.urls",
+        "documentation": {}
+    },
+    {
+        "label": "upload_view",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "peekOfCode": "def upload_view(request):\n    if request.method == 'POST':\n        form = UploadFileForm(request.POST, request.FILES)\n        if form.is_valid():\n            file = request.FILES['file']\n            try:\n                xls = pd.ExcelFile(file)\n                # 1. DEFINE SHEET MAP\n                sheet_map: dict = {'sales': None, 'design': None, 'operation': None}\n                for name in xls.sheet_names:",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard_view",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "peekOfCode": "def dashboard_view(request):\n    # --- 1. SET UP DATES ---\n    default_start = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')\n    default_end = datetime.now().strftime('%Y-%m-%d')\n    view_mode = request.GET.get('view', 'Sales')\n    start_date_str = request.GET.get('start', default_start)\n    end_date_str = request.GET.get('end', default_end)\n    # --- 2. DYNAMIC SBU LIST ---\n    raw_sbus = Project.objects.values_list('sbu', flat=True).distinct()\n    available_sbus = sorted([s for s in raw_sbus if s and str(s).strip() != ''])",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "documentation": {}
+    },
+    {
+        "label": "report_view",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "peekOfCode": "def report_view(request):\n    default_start = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')\n    default_end = datetime.now().strftime('%Y-%m-%d')\n    view_mode = request.GET.get('view', 'Sales')\n    start_date_str = request.GET.get('start', default_start)\n    end_date_str = request.GET.get('end', default_end)\n    sbu_filter = request.GET.getlist('sbu') or ['North', 'South', 'West', 'Central']\n    metric_role_filter = request.GET.get('metric_role', 'All Roles')\n    projects = Project.objects.all()\n    if sbu_filter: projects = projects.filter(sbu__in=sbu_filter)",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "documentation": {}
+    },
+    {
+        "label": "export_view",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "peekOfCode": "def export_view(request):\n    default_start = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')\n    default_end = datetime.now().strftime('%Y-%m-%d')\n    view_mode = request.GET.get('view', 'Sales')\n    start_date_str = request.GET.get('start', default_start)\n    end_date_str = request.GET.get('end', default_end)\n    sbu_filter = request.GET.getlist('sbu') or ['North', 'South', 'West', 'Central']\n    metric_role_filter = request.GET.get('metric_role', 'All Roles')\n    projects = Project.objects.all()\n    if sbu_filter: projects = projects.filter(sbu__in=sbu_filter)",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.backup_v1.views",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0001_initial",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Project',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('project_code', models.CharField(db_index=True, max_length=100, unique=True)),",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0002_project_no_plans_for_key_spaces",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0002_project_no_plans_for_key_spaces",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0001_initial'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='project',\n            name='no_plans_for_key_spaces',\n            field=models.FloatField(default=0),\n        ),",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0002_project_no_plans_for_key_spaces",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0002_project_no_plans_for_key_spaces'),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name='project',\n            name='status',\n        ),\n        migrations.AddField(",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0003_remove_project_status_project_boq_project_contract_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0004_project_ops_csc_project_ops_mep",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0004_project_ops_csc_project_ops_mep",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0003_remove_project_status_project_boq_project_contract_and_more'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='project',\n            name='ops_csc',\n            field=models.CharField(blank=True, max_length=100, null=True),\n        ),",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.migrations.0004_project_ops_csc_project_ops_mep",
+        "documentation": {}
+    },
+    {
+        "label": "update_params",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.templatetags.dashboard_extras",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.templatetags.dashboard_extras",
+        "peekOfCode": "def update_params(context, **kwargs):\n    \"\"\"\n        Returns the current URL query string with updated parameters.\n        Usage: {% update_params group='operations' %}\n        Result: ?start_date=2025-01-01&region=North&group=operations\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():\n        query[key] = value\n    return query.urlencode()",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.templatetags.dashboard_extras",
+        "documentation": {}
+    },
+    {
+        "label": "register",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.templatetags.dashboard_extras",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.templatetags.dashboard_extras",
+        "peekOfCode": "register = template.Library()\n@register.simple_tag(takes_context=True)\ndef update_params(context, **kwargs):\n    \"\"\"\n        Returns the current URL query string with updated parameters.\n        Usage: {% update_params group='operations' %}\n        Result: ?start_date=2025-01-01&region=North&group=operations\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.templatetags.dashboard_extras",
+        "documentation": {}
+    },
+    {
+        "label": "CoreConfig",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.apps",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.apps",
+        "peekOfCode": "class CoreConfig(AppConfig):\n    name = 'core'",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.apps",
+        "documentation": {}
+    },
+    {
+        "label": "METRICS_CONFIG",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.constants",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.constants",
+        "peekOfCode": "METRICS_CONFIG = {\n    \"Sales\": {\n        \"Pre\": [\n            {\"label\": \"Requirements Uploaded\", \"field\": \"req_uploaded\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Site Visit Reports\", \"field\": \"site_visit_report\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Client Visits\", \"field\": \"client_access\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n        ],\n        \"Post\": [\n            {\"label\": \"Requirements Uploaded\", \"field\": \"req_uploaded\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Site Visit Reports\", \"field\": \"site_visit_report\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.constants",
+        "documentation": {}
+    },
+    {
+        "label": "EXCEL_COL_MAP",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.constants",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.constants",
+        "peekOfCode": "EXCEL_COL_MAP = {\n    # Sales\n    \"Requirements\": \"req_uploaded\",\n    \"Site Visit Report\": \"site_visit_report\",\n    \"Client Access\": \"client_access\",\n    \"BOQ\": \"boq_uploaded\",\n    \"Contract\": \"contract_uploaded\",\n    # Design\n    \"Furniture Layouts\": \"furniture_layouts\",\n    \"Approved Furniture Layouts\": \"approved_layouts\",",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.constants",
+        "documentation": {}
+    },
+    {
+        "label": "UploadFileForm",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.forms",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.forms",
+        "peekOfCode": "class UploadFileForm(forms.Form):\n    # The name 'file' here must match the name=\"file\" in your HTML input\n    file = forms.FileField()",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.forms",
+        "documentation": {}
+    },
+    {
+        "label": "Project",
+        "kind": 6,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.models",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.models",
+        "peekOfCode": "class Project(models.Model):\n    # --- ID & Metadata ---\n    project_code = models.CharField(max_length=50, unique=True)\n    project_name = models.CharField(max_length=255, null=True, blank=True)\n    sbu = models.CharField(max_length=50, null=True, blank=True)\n    stage = models.CharField(max_length=50, null=True, blank=True)\n    # --- Dates ---\n    login_date = models.DateField(null=True, blank=True)\n    start_date = models.DateField(null=True, blank=True)\n    end_date = models.DateField(null=True, blank=True)",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.urls",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.urls",
+        "peekOfCode": "urlpatterns = [\n    # 1. Dashboard (The Homepage)\n    path('', views.dashboard_view, name='dashboard'),\n    # 2. Upload Page (To process new Excel files)\n    path('upload/', views.upload_view, name='upload'),\n    # 3. Live Report (The HTML table in a new tab)\n    path('report/', views.report_view, name='report'),\n    # 4. Summary Export (The Excel download logic)\n    path('export/', views.export_view, name='export_data'),\n    # 5. Detailed Export (The Detailed Excel download logic)",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.urls",
+        "documentation": {}
+    },
+    {
+        "label": "upload_view",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "peekOfCode": "def upload_view(request):\n    if request.method == 'POST':\n        form = UploadFileForm(request.POST, request.FILES)\n        if form.is_valid():\n            try:\n                # --- Excel Parsing Logic (Kept intact) ---\n                file = request.FILES['file']\n                xls = pd.ExcelFile(file)\n                sheet_map = {'sales': '', 'design': '', 'operation': ''}\n                for name in xls.sheet_names:",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard_view",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "peekOfCode": "def dashboard_view(request):\n    # 1. Fetch Request Params & Context\n    view_mode, start_str, end_str, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    people_opts, selected_filters = _get_dropdown_context(request)\n    # 2. Filter Projects\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    # 3. Split into Stages\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    pre_count = qs_pre.count()",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "documentation": {}
+    },
+    {
+        "label": "export_view",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "peekOfCode": "def export_view(request):\n    # 1. Reuse Common Logic\n    view_mode, _, _, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    # 2. DataFrame Generator\n    def generate_summary_df(queryset, metrics, prefix):\n        total = queryset.count()\n        data = [{\"Metric Name\": \"TOTAL PROJECTS\", \"Threshold\": \"-\", \"Value\": total, \"%\": \"-\"}]",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "documentation": {}
+    },
+    {
+        "label": "export_detailed_view",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "peekOfCode": "def export_detailed_view(request):\n    # 1. Reuse Common Logic\n    view_mode, _, _, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    # 2. Detailed Data Generator\n    def generate_detailed_df(queryset, metrics):\n        active_metrics = [m for m in metrics if role_filter == \"All Roles\" or role_filter in m.get('roles', [])]\n        if not active_metrics: return pd.DataFrame()",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "documentation": {}
+    },
+    {
+        "label": "report_detailed_view",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "peekOfCode": "def report_detailed_view(request):\n    # 1. Reuse Common Logic\n    view_mode, start_str, end_str, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    # 2. Logic duplicated from export_detailed_view (required for context rendering)\n    def generate_detailed_df(queryset, metrics):\n        active_metrics = [m for m in metrics if role_filter == \"All Roles\" or role_filter in m.get('roles', [])]\n        if not active_metrics: return pd.DataFrame()",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "documentation": {}
+    },
+    {
+        "label": "report_view",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "peekOfCode": "def report_view(request):\n    return redirect('dashboard')",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.core.views",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.asgi",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.asgi",
+        "peekOfCode": "application = get_asgi_application()",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.asgi",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_DIR",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = 'django-insecure-mcynl_zzdo$51vm6@!x^%(l0chdcskxm^9$vp^k!r9dl#=-4%f'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "SECRET_KEY = 'django-insecure-mcynl_zzdo$51vm6@!x^%(l0chdcskxm^9$vp^k!r9dl#=-4%f'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "ALLOWED_HOSTS",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'core', ",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "INSTALLED_APPS",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'core', \n]\nMIDDLEWARE = [",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MIDDLEWARE",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "MIDDLEWARE = [\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]\nROOT_URLCONF = 'flipspaces_analytics.urls'",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "ROOT_URLCONF",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "ROOT_URLCONF = 'flipspaces_analytics.urls'\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "TEMPLATES",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "TEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',\n                'django.contrib.messages.context_processors.messages',",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "WSGI_APPLICATION",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "WSGI_APPLICATION = 'flipspaces_analytics.wsgi.application'\n# Database\n# https://docs.djangoproject.com/en/6.0/ref/settings/#databases\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.sqlite3',\n        'NAME': BASE_DIR / 'db.sqlite3',\n    }\n}\n# Password validation",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASES",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.sqlite3',\n        'NAME': BASE_DIR / 'db.sqlite3',\n    }\n}\n# Password validation\n# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators\nAUTH_PASSWORD_VALIDATORS = [\n    {",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH_PASSWORD_VALIDATORS",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "AUTH_PASSWORD_VALIDATORS = [\n    {\n        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',\n    },\n    {\n        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',\n    },\n    {\n        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',\n    },",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "LANGUAGE_CODE",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "TIME_ZONE",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "USE_I18N",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "USE_TZ",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/6.0/howto/static-files/\nSTATIC_URL = 'static/'",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATIC_URL",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "peekOfCode": "STATIC_URL = 'static/'",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.settings",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.urls",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.urls",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('', include('core.urls')),\n]",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.urls",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.wsgi",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.wsgi",
+        "peekOfCode": "application = get_wsgi_application()",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.flipspaces_analytics.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "FlipSpaces_User-Project_Dashboard_Django.manage",
+        "description": "FlipSpaces_User-Project_Dashboard_Django.manage",
+        "peekOfCode": "def main():\n    \"\"\"Run administrative tasks.\"\"\"\n    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'flipspaces_analytics.settings')\n    try:\n        from django.core.management import execute_from_command_line\n    except ImportError as exc:\n        raise ImportError(\n            \"Couldn't import Django. Are you sure it's installed and \"\n            \"available on your PYTHONPATH environment variable? Did you \"\n            \"forget to activate a virtual environment?\"",
+        "detail": "FlipSpaces_User-Project_Dashboard_Django.manage",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "manage",
+        "description": "manage",
+        "peekOfCode": "def main():\n    \"\"\"Run administrative tasks.\"\"\"\n    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'flipspaces_analytics.settings')\n    try:\n        from django.core.management import execute_from_command_line\n    except ImportError as exc:\n        raise ImportError(\n            \"Couldn't import Django. Are you sure it's installed and \"\n            \"available on your PYTHONPATH environment variable? Did you \"\n            \"forget to activate a virtual environment?\"",
+        "detail": "manage",
+        "documentation": {}
+    }
+]

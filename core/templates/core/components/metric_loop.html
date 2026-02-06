@@ -1,0 +1,25 @@
+{% for m in metrics_list %}
+<div class="col-md-3 col-sm-6 animate-card">
+    <div class="metric-card {% if is_post %}card-post{% else %}card-pre{% endif %} h-100 position-relative overflow-hidden" 
+         tabindex="0" role="button" 
+         data-bs-toggle="popover" 
+         data-bs-trigger="focus" 
+         data-bs-placement="bottom" 
+         data-bs-html="true" 
+         title="Projects List" 
+         data-bs-content="<div class='text-start small'>{% if m.count > 0 %}{% for p in m.project_list %}{{ p }}<br>{% endfor %}{% else %}No Projects Found{% endif %}</div>">
+        
+        <div class="metric-label text-truncate" title="{{ m.label }}">{{ m.label }}</div>
+        <div class="metric-value count-up" data-target="{{ m.count }}">0</div>
+        
+        <div class="metric-sub d-flex align-items-center justify-content-center mt-2">
+            <span class="me-1 text-muted small">Threshold ></span>
+            <input type="number" step="0.1" name="{{ m.param }}" value="{{ m.threshold }}" 
+                   class="form-control form-control-sm p-1 text-center border-0 bg-light fw-bold text-secondary" 
+                   style="width: 60px; height: 24px;"
+                   onclick="event.stopPropagation()"
+                   onchange="document.getElementById('dashboard-form').submit()">
+        </div>
+    </div>
+</div>
+{% endfor %}
