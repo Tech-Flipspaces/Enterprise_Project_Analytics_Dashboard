@@ -34,6 +34,37 @@ Managing project lifecycles often involves decentralized spreadsheets and manual
 * **Frontend:** HTML5, Bootstrap 5, Vanilla JavaScript
 * **Deployment:** Compatible with PythonAnywhere, Render, and Vercel.
 
+## 📋 Expected Data Structure
+
+The application expects an Excel file (`.xlsx`) containing three specific sheets. The ingestion engine automatically maps the following column headers to the database.
+
+> **Note:** The column names must match exactly (case-insensitive) for the metrics to calculate correctly.
+
+### 1. Sheet: "Sales"
+Required columns for Pre-Sales analysis:
+* `Project Code` (Unique ID)
+* `Project Name`
+* `SBU` (Region/Unit)
+* `Project Login Date` (Used for "Pre-Stage" filtering)
+* `Stage` (Must contain 'Pre Sales' or 'Post Sales')
+* `Sales Head` / `Sales Lead`
+
+### 2. Sheet: "Design"
+Required columns for Design KPIs:
+* `Project Code`
+* `Design Head` (DH) / `Design Lead` (DM)
+* `Design ID` / `3D Visualizer`
+* `No Key Plans Spaces` (Numerator for KPI)
+* `Mapped Spaces` (Denominator for KPI)
+
+### 3. Sheet: "Operation"
+Required columns for Execution tracking:
+* `Project Code`
+* `Ops Head` / `Project Manager` (PM)
+* `Project Start Date`
+* `Project End Date`
+* `Actual Manpower` / `Planned Manpower` (For Efficiency Ratio)
+
 ## ⚙️ Local Installation
 
 Follow these steps to run the project locally on your machine.
