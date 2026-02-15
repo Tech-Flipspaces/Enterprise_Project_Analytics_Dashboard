@@ -1,33 +1,313 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analytics Dashboard</title>
+    <title>{% block title %}Performance Analytics{% endblock %}</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        /* Shared Global Styles */
+        /* --- 1. THEME VARIABLES (Refined Soft Palette) --- */
+        :root {
+            /* Light Mode */
+            --primary-color: #4f46e5;
+            --bg-body: #f3f4f6;
+            --card-bg: #ffffff;
+            --card-text: #1f2937;
+            --metric-text: #111827;       
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --sidebar-bg: #1e293b; 
+            --sidebar-active: #334155;
+            --nav-segment-bg: #e2e8f0; 
+            --nav-active-bg: #ffffff;
+            --nav-active-text: #4f46e5;
+            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Soft Dark Mode (Blue-Grey) */
+        [data-theme="dark"] {
+            --primary-color: #818cf8;
+            --bg-body: #0f172a;       
+            --card-bg: #1e293b;       
+            --card-text: #94a3b8;    
+            --metric-count: #ffffff;     
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;    
+            --border-color: #334155;
+            --sidebar-bg: #020617;    
+            --sidebar-active: #1e293b;
+            --nav-segment-bg: #1e293b;
+            --nav-active-bg: #334155;
+            --nav-active-text: #ffffff;
+            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
         body { 
-            background-color: #f4f6f9; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: var(--bg-body); 
+            font-family: 'Inter', sans-serif; 
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- 2. DARK MODE OVERRIDES --- */
+        [data-theme="dark"] .bg-white { background-color: var(--card-bg) !important; color: var(--text-main) !important; }
+        [data-theme="dark"] .bg-light { background-color: #334155 !important; color: var(--text-main) !important; }
+        [data-theme="dark"] .text-dark { color: #e2e8f0 !important; }
+        [data-theme="dark"] .text-secondary { color: #94a3b8 !important; }
+        [data-theme="dark"] .text-muted { color: #94a3b8 !important; }
+        
+        [data-theme="dark"] .border, 
+        [data-theme="dark"] .border-bottom, 
+        [data-theme="dark"] .border-end, 
+        [data-theme="dark"] .border-start,
+        [data-theme="dark"] .border-top { 
+            border-color: var(--border-color) !important; 
+        }
+
+        /* Inputs */
+        [data-theme="dark"] .form-control, [data-theme="dark"] .form-select {
+            background-color: #0f172a; border-color: var(--border-color); color: var(--text-main);
+        }
+        [data-theme="dark"] .input-group-text {
+            background-color: #1e293b; border-color: var(--border-color); color: var(--text-muted);
+        }
+        
+        /* Dropdowns */
+        [data-theme="dark"] .dropdown-menu { background-color: var(--card-bg); border-color: var(--border-color); }
+        [data-theme="dark"] .dropdown-item { color: var(--text-main); }
+        [data-theme="dark"] .dropdown-item:hover { background-color: rgba(255,255,255,0.1); }
+
+        /* ADD THIS FOR DARK MODE POPOVERS */
+        [data-theme="dark"] .popover {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+        }
+        [data-theme="dark"] .popover-header {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            border-bottom-color: var(--border-color);
+        }
+        [data-theme="dark"] .popover-body {
+            color: var(--text-main);
+        }
+        [data-theme="dark"] .popover-body a {
+            color: #e2e8f0 !important; 
+        }
+
+        /* --- 3. LAYOUT --- */
+        body.preload * { transition: none !important; }
+
+        #wrapper { display: flex; width: 100%; min-height: 100vh; }
+        
+        #sidebar {
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            color: white;
+            flex-shrink: 0;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            overflow-x: hidden;
+            white-space: nowrap;
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        #wrapper.toggled #sidebar { width: 0; }
+
+        #content-wrapper {
+            flex-grow: 1;
+            margin-left: var(--sidebar-width);
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - var(--sidebar-width));
+            transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #wrapper.toggled #content-wrapper { margin-left: 0; width: 100%; }
+
+        /* --- SIDEBAR STYLING --- */
+        :root { --sidebar-width: 260px; }
+        .sidebar-brand {
+            padding: 1.5rem; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.5px;
+            color: white; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .nav-link {
+            color: #94a3b8; padding: 0.85rem 1.5rem; font-weight: 500;
+            display: flex; align-items: center; gap: 12px; transition: all 0.2s; border-left: 4px solid transparent;
+        }
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.05); }
+        .nav-link.active { color: white; background: rgba(255,255,255,0.1); border-left-color: var(--primary-color); }
+        .nav-section {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
+            color: #64748b; padding: 1.5rem 1.5rem 0.5rem; font-weight: 700;
+        }
+
+        /* --- TOP BAR --- */
+        #sidebarToggle {
+            cursor: pointer; border: none; background: transparent;
+            padding: 0.5rem; color: var(--text-muted); font-size: 1.2rem; transition: color 0.2s;
+        }
+        #sidebarToggle:hover { color: var(--primary-color); }
+
+        /* --- UTILS --- */
+        .animate-enter { animation: fadeUp 0.5s ease-out forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .hover-lift { transition: transform 0.2s, box-shadow 0.2s; }
+        .hover-lift:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+
+        .card { border: 1px solid var(--border-color); border-radius: 12px; box-shadow: var(--shadow-soft); background: var(--card-bg); }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            cursor: pointer; padding: 8px; border-radius: 20%; 
+            color: var(--text-muted); transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .theme-toggle:hover { background-color: rgba(0,0,0,0.05); color: var(--primary-color); }
+        [data-theme="dark"] .theme-toggle:hover { background-color: rgba(255,255,255,0.1); }
+
+        @media print {
+            #sidebar, #sidebarToggle, .theme-toggle { display: none !important; }
+            #content-wrapper { margin-left: 0 !important; width: 100% !important; }
+        }
+
+        .metric-card h2, .metric-card .display-6 {
+            color: var(--metric-count) !important;
         }
     </style>
-
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body class="preload"> 
 
-    <div id="main-wrapper">
-        {% block content %}
-        {% endblock %}
+    <div id="wrapper">
+        
+        <nav id="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-layer-group text-primary"></i> 
+                <span>VIEWS</span>
+            </div>
+
+            <div class="nav-section">Main</div>
+            <a href="{% url 'dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                <i class="fas fa-chart-pie" style="width: 20px;"></i> Dashboard
+            </a>
+            <a href="{% url 'leaderboard' %}" class="nav-link {% if 'leaderboard' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="fas fa-trophy" style="width: 20px;"></i> Leaderboard
+            </a>
+
+            <div class="nav-section">Reports</div>
+            <a href="{% url 'report' %}" class="nav-link {% if request.resolver_match.url_name == 'report' %}active{% endif %}">
+                <i class="fas fa-file-alt" style="width: 20px;"></i> Leadership Summary
+            </a>
+            <a href="{% url 'report_detailed' %}" class="nav-link {% if request.resolver_match.url_name == 'report_detailed' %}active{% endif %}">
+                <i class="fas fa-table" style="width: 20px;"></i> Detailed Report
+            </a>
+
+            <div class="nav-section">System</div>
+            <a href="{% url 'upload' %}" class="nav-link {% if request.resolver_match.url_name == 'upload' %}active{% endif %}">
+                <i class="fas fa-cloud-upload-alt" style="width: 20px;"></i> Upload Data
+            </a>
+        </nav>
+
+        <div id="content-wrapper">
+            
+            <div class="bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center shadow-sm sticky-top">
+                <div class="d-flex align-items-center gap-3">
+                    <button id="sidebarToggle" title="Toggle Sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <div class="animate-enter">
+                        <h4 class="mb-0 fw-bold text-dark">
+                            {% block page_title %}Overview{% endblock %}
+                        </h4>
+                        <p class="text-muted small mb-0">
+                            {% block page_subtitle %}Performance Management System{% endblock %}
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <button class="theme-toggle" id="themeSwitch" title="Switch Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+
+                    <span class="badge bg-light text-dark border px-3 py-2 d-none d-md-inline-block">
+                        <i class="far fa-clock me-2"></i>{% now "l, d M Y" %}
+                    </span>
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" 
+                         style="width: 38px; height: 38px;">A</div>
+                </div>
+            </div>
+
+            <div class="container-fluid p-4">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm animate-enter" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="animate-enter delay-1">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    {% block extra_js %}{% endblock %}
+    <script>
+        // 1. Sidebar Logic (No Glitch)
+        const wrapper = document.getElementById('wrapper');
+        const savedState = localStorage.getItem('sidebarState');
+        if (savedState === 'closed') { wrapper.classList.add('toggled'); }
 
+        document.addEventListener("DOMContentLoaded", function(event) {
+            setTimeout(() => { document.body.classList.remove('preload'); }, 100);
+            
+            document.getElementById('sidebarToggle').addEventListener('click', function() {
+                wrapper.classList.toggle('toggled');
+                localStorage.setItem('sidebarState', wrapper.classList.contains('toggled') ? 'closed' : 'open');
+            });
+
+            // 2. Theme Logic
+            const themeSwitch = document.getElementById('themeSwitch');
+            const icon = themeSwitch.querySelector('i');
+            const html = document.documentElement;
+
+            // Load Saved Theme
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            html.setAttribute('data-theme', currentTheme);
+            if(currentTheme === 'dark') icon.classList.replace('fa-moon', 'fa-sun');
+
+            // Toggle Theme
+            themeSwitch.addEventListener('click', () => {
+                const newTheme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                if(newTheme === 'dark') {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                }
+            });
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

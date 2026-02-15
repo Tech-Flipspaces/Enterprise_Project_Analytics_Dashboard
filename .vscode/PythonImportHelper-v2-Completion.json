@@ -473,6 +473,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -731,14 +747,6 @@
         "documentation": {}
     },
     {
-        "label": "Sum",
-        "importPath": "django.db.models",
-        "description": "django.db.models",
-        "isExtraImport": true,
-        "detail": "django.db.models",
-        "documentation": {}
-    },
-    {
         "label": "Q",
         "importPath": "django.db.models",
         "description": "django.db.models",
@@ -747,27 +755,11 @@
         "documentation": {}
     },
     {
-        "label": "Sum",
-        "importPath": "django.db.models",
-        "description": "django.db.models",
+        "label": "defaultdict",
+        "importPath": "collections",
+        "description": "collections",
         "isExtraImport": true,
-        "detail": "django.db.models",
-        "documentation": {}
-    },
-    {
-        "label": "Count",
-        "importPath": "django.db.models",
-        "description": "django.db.models",
-        "isExtraImport": true,
-        "detail": "django.db.models",
-        "documentation": {}
-    },
-    {
-        "label": "F",
-        "importPath": "django.db.models",
-        "description": "django.db.models",
-        "isExtraImport": true,
-        "detail": "django.db.models",
+        "detail": "collections",
         "documentation": {}
     },
     {
@@ -1356,11 +1348,20 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "core.migrations.0015_project_f_head_project_m_head_project_m_lead_and_more",
+        "description": "core.migrations.0015_project_f_head_project_m_head_project_m_lead_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0014_alter_metricweight_factor_alter_metricweight_metric'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='project',\n            name='f_head',\n            field=models.CharField(blank=True, max_length=100, null=True, verbose_name='Finance Head'),\n        ),",
+        "detail": "core.migrations.0015_project_f_head_project_m_head_project_m_lead_and_more",
+        "documentation": {}
+    },
+    {
         "label": "update_params",
         "kind": 2,
         "importPath": "core.templatetags.dashboard_extras",
         "description": "core.templatetags.dashboard_extras",
-        "peekOfCode": "def update_params(context, **kwargs):\n    \"\"\"\n        Returns the current URL query string with updated parameters.\n        Usage: {% update_params group='operations' %}\n        Result: ?start_date=2025-01-01&region=North&group=operations\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():\n        query[key] = value\n    return query.urlencode()",
+        "peekOfCode": "def update_params(context, **kwargs):\n    \"\"\"\n        Returns the current URL query string with updated parameters.\n        Usage: <a href=\"?{% update_params page=2 %}\">Next</a>\n        Keeps existing filters (like start_date, sbu) while changing one specific param.\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():\n        query[key] = value\n    return query.urlencode()",
         "detail": "core.templatetags.dashboard_extras",
         "documentation": {}
     },
@@ -1369,7 +1370,7 @@
         "kind": 5,
         "importPath": "core.templatetags.dashboard_extras",
         "description": "core.templatetags.dashboard_extras",
-        "peekOfCode": "register = template.Library()\n@register.simple_tag(takes_context=True)\ndef update_params(context, **kwargs):\n    \"\"\"\n        Returns the current URL query string with updated parameters.\n        Usage: {% update_params group='operations' %}\n        Result: ?start_date=2025-01-01&region=North&group=operations\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():",
+        "peekOfCode": "register = template.Library()\n@register.simple_tag(takes_context=True)\ndef update_params(context, **kwargs):\n    \"\"\"\n        Returns the current URL query string with updated parameters.\n        Usage: <a href=\"?{% update_params page=2 %}\">Next</a>\n        Keeps existing filters (like start_date, sbu) while changing one specific param.\n    \"\"\"\n    query = context['request'].GET.copy()\n    for key, value in kwargs.items():",
         "detail": "core.templatetags.dashboard_extras",
         "documentation": {}
     },
@@ -1378,7 +1379,7 @@
         "kind": 6,
         "importPath": "core.admin",
         "description": "core.admin",
-        "peekOfCode": "class SuccessMetricAdmin(admin.ModelAdmin):\n    list_display = ('name', 'color')\n    list_editable = ('color',)\n# --- 2. User Groups & Departments ---\n@admin.register(Department)\nclass DepartmentAdmin(admin.ModelAdmin):\n    list_display = ('name',)\n@admin.register(UserGroup)\nclass UserGroupAdmin(admin.ModelAdmin):\n    list_display = ('name', 'department')",
+        "peekOfCode": "class SuccessMetricAdmin(admin.ModelAdmin):\n    list_display = ('name', 'color')\n    list_editable = ('color',)\n# --- 2. Organization Structure ---\n@admin.register(Department)\nclass DepartmentAdmin(admin.ModelAdmin):\n    list_display = ('name',)\n@admin.register(UserGroup)\nclass UserGroupAdmin(admin.ModelAdmin):\n    list_display = ('name', 'department')",
         "detail": "core.admin",
         "documentation": {}
     },
@@ -1387,7 +1388,7 @@
         "kind": 6,
         "importPath": "core.admin",
         "description": "core.admin",
-        "peekOfCode": "class DepartmentAdmin(admin.ModelAdmin):\n    list_display = ('name',)\n@admin.register(UserGroup)\nclass UserGroupAdmin(admin.ModelAdmin):\n    list_display = ('name', 'department')\n    list_filter = ('department',)\n    search_fields = ('name',)\n# --- 3. Inline for Metric Weights ---\nclass MetricWeightInline(admin.TabularInline):\n    model = MetricWeight",
+        "peekOfCode": "class DepartmentAdmin(admin.ModelAdmin):\n    list_display = ('name',)\n@admin.register(UserGroup)\nclass UserGroupAdmin(admin.ModelAdmin):\n    list_display = ('name', 'department')\n    list_filter = ('department',)\n    search_fields = ('name',)\n# --- 3. Weight Configuration Inline ---\nclass MetricWeightInline(admin.TabularInline):\n    model = MetricWeight",
         "detail": "core.admin",
         "documentation": {}
     },
@@ -1396,7 +1397,7 @@
         "kind": 6,
         "importPath": "core.admin",
         "description": "core.admin",
-        "peekOfCode": "class UserGroupAdmin(admin.ModelAdmin):\n    list_display = ('name', 'department')\n    list_filter = ('department',)\n    search_fields = ('name',)\n# --- 3. Inline for Metric Weights ---\nclass MetricWeightInline(admin.TabularInline):\n    model = MetricWeight\n    extra = 0 # Clean UI: Start with no empty rows\n    min_num = 0\n    can_delete = True",
+        "peekOfCode": "class UserGroupAdmin(admin.ModelAdmin):\n    list_display = ('name', 'department')\n    list_filter = ('department',)\n    search_fields = ('name',)\n# --- 3. Weight Configuration Inline ---\nclass MetricWeightInline(admin.TabularInline):\n    model = MetricWeight\n    extra = 0\n    min_num = 0\n    can_delete = True",
         "detail": "core.admin",
         "documentation": {}
     },
@@ -1405,7 +1406,7 @@
         "kind": 6,
         "importPath": "core.admin",
         "description": "core.admin",
-        "peekOfCode": "class MetricWeightInline(admin.TabularInline):\n    model = MetricWeight\n    extra = 0 # Clean UI: Start with no empty rows\n    min_num = 0\n    can_delete = True\n    verbose_name = \"Weight per Group\"\n    verbose_name_plural = \"Weight Configuration (Auto-Balances 100%)\"\n    # This creates a searchable dropdown for Groups (Best for long lists)\n    autocomplete_fields = ['user_group']\n# --- 4. Projects (Standard) ---",
+        "peekOfCode": "class MetricWeightInline(admin.TabularInline):\n    model = MetricWeight\n    extra = 0\n    min_num = 0\n    can_delete = True\n    verbose_name = \"Weight per Group\"\n    verbose_name_plural = \"Scoring Weights (Higher = More Points)\"\n    autocomplete_fields = ['user_group']\n# --- 4. Project Data ---\n@admin.register(Project)",
         "detail": "core.admin",
         "documentation": {}
     },
@@ -1414,7 +1415,7 @@
         "kind": 6,
         "importPath": "core.admin",
         "description": "core.admin",
-        "peekOfCode": "class ProjectAdmin(admin.ModelAdmin):\n    list_display = ('project_name', 'project_code', 'stage', 'sbu', 'login_date')\n    search_fields = ('project_name', 'project_code')\n    # REMOVED 'department' from here to fix the error\n    list_filter = ('sbu', 'stage')\n# --- 5. The Smart Metric Admin (Auto-Balancing) ---\n@admin.register(Metric)\nclass MetricAdmin(admin.ModelAdmin):\n    list_display = ('label', 'department', 'stage', 'get_assigned_weights', 'success_metric')\n    list_filter = ('department', 'stage')",
+        "peekOfCode": "class ProjectAdmin(admin.ModelAdmin):\n    list_display = ('project_code', 'project_name', 'sbu', 'stage', 'login_date')\n    list_filter = ('sbu', 'stage', 'login_date')\n    search_fields = ('project_code', 'project_name', 'sales_lead', 'ops_pm')\n    date_hierarchy = 'login_date'\n# --- 5. Metrics Configuration ---\n@admin.register(Metric)\nclass MetricAdmin(admin.ModelAdmin):\n    list_display = ('label', 'department', 'stage', 'default_threshold', 'get_assigned_weights')\n    list_filter = ('department', 'stage', 'success_metric')",
         "detail": "core.admin",
         "documentation": {}
     },
@@ -1423,7 +1424,7 @@
         "kind": 6,
         "importPath": "core.admin",
         "description": "core.admin",
-        "peekOfCode": "class MetricAdmin(admin.ModelAdmin):\n    list_display = ('label', 'department', 'stage', 'get_assigned_weights', 'success_metric')\n    list_filter = ('department', 'stage')\n    search_fields = ('label', 'field_name')\n    # THIS puts the Weight Table inside the Metric Page\n    inlines = [MetricWeightInline]\n    fieldsets = (\n        ('Basic Info', {\n            'fields': ('label', 'field_name', 'department', 'stage', 'success_metric')\n        }),",
+        "peekOfCode": "class MetricAdmin(admin.ModelAdmin):\n    list_display = ('label', 'department', 'stage', 'default_threshold', 'get_assigned_weights')\n    list_filter = ('department', 'stage', 'success_metric')\n    search_fields = ('label', 'field_name')\n    # This places the Weight Table directly inside the Metric page\n    inlines = [MetricWeightInline]\n    fieldsets = (\n        ('Display Info', {\n            'fields': ('label', 'department', 'success_metric')\n        }),",
         "detail": "core.admin",
         "documentation": {}
     },
@@ -1441,7 +1442,7 @@
         "kind": 5,
         "importPath": "core.constants",
         "description": "core.constants",
-        "peekOfCode": "DEPT_CHOICES = (\n    ('Marketing', 'Marketing'),\n    ('Sales', 'Sales'),\n    ('Design', 'Design'),\n    ('Operations', 'Operations'),\n    ('Purchase', 'Purchase'),\n    ('Finance', 'Finance'),\n)\nDEPT_PEOPLE_MAP = {\n    'Marketing': [",
+        "peekOfCode": "DEPT_CHOICES = (\n    ('Marketing', 'Marketing'),\n    ('Sales', 'Sales'),\n    ('Design', 'Design'),\n    ('Operations', 'Operations'),\n    ('Purchase', 'Purchase'),\n    ('Finance', 'Finance'),\n)\n# Maps Department View Mode to specific Database Fields for filtering.\n# CRITICAL FIX: The first item in the tuple MUST be the exact field name in models.py",
         "detail": "core.constants",
         "documentation": {}
     },
@@ -1450,16 +1451,16 @@
         "kind": 5,
         "importPath": "core.constants",
         "description": "core.constants",
-        "peekOfCode": "DEPT_PEOPLE_MAP = {\n    'Marketing': [\n        ('m_head', 'Marketing Head'),\n        ('m_lead', 'Marketing Lead'),\n    ],\n    'Sales': [\n        ('s_head', 'Sales Head'),\n        ('s_lead', 'Sales Lead'),\n    ],\n    'Design': [",
+        "peekOfCode": "DEPT_PEOPLE_MAP = {\n    'Marketing': [\n        # Marketing fields don't exist in your Model yet, so we leave this empty \n        # to prevent crashes. Uncomment/Update if you add 'marketing_head' to models.py\n        # ('marketing_head', 'Marketing Head'), \n    ],\n    'Sales': [\n        ('sales_head', 'Sales Head'), \n        ('sales_lead', 'Sales Lead')\n    ],",
         "detail": "core.constants",
         "documentation": {}
     },
     {
-        "label": "METRICS_CONFIG",
+        "label": "ROLE_CONFIG",
         "kind": 5,
         "importPath": "core.constants",
         "description": "core.constants",
-        "peekOfCode": "METRICS_CONFIG = {\n    \"Sales\": {\n        \"Pre\": [\n            {\"label\": \"Requirements Uploaded\", \"field\": \"req_uploaded\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Site Visit Reports\", \"field\": \"site_visit_report\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Client Visits\", \"field\": \"client_access\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n        ],\n        \"Post\": [\n            {\"label\": \"Requirements Uploaded\", \"field\": \"req_uploaded\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},\n            {\"label\": \"Site Visit Reports\", \"field\": \"site_visit_report\", \"def\": 1.0, \"roles\": [\"Sales Lead\", \"Sales Head\"]},",
+        "peekOfCode": "ROLE_CONFIG = {\n    # Sales\n    'Sales Lead':      {'field': 'sales_lead', 'link': 'f_s_lead', 'dept': 'Sales'},\n    'Sales Head':      {'field': 'sales_head', 'link': 'f_s_head', 'dept': 'Sales'},\n    # Design\n    'ID':              {'field': 'design_id',  'link': 'f_d_id',   'dept': 'Design'},\n    '3D':              {'field': 'design_3d',  'link': 'f_d_3d',   'dept': 'Design'},\n    'DM':              {'field': 'design_dm',  'link': 'f_d_dm',   'dept': 'Design'},\n    'DH':              {'field': 'design_dh',  'link': 'f_d_dh',   'dept': 'Design'},\n    # Operations (Standardized Keys)",
         "detail": "core.constants",
         "documentation": {}
     },
@@ -1486,7 +1487,7 @@
         "kind": 6,
         "importPath": "core.models",
         "description": "core.models",
-        "peekOfCode": "class Project(models.Model):\n    # --- ID & Metadata ---\n    project_code = models.CharField(max_length=50, unique=True)\n    project_name = models.CharField(max_length=255, null=True, blank=True)\n    sbu = models.CharField(max_length=50, null=True, blank=True)\n    stage = models.CharField(max_length=50, null=True, blank=True)\n    # --- Dates ---\n    login_date = models.DateField(null=True, blank=True)\n    start_date = models.DateField(null=True, blank=True)\n    end_date = models.DateField(null=True, blank=True)",
+        "peekOfCode": "class Project(models.Model):\n    \"\"\"\n    Represents a single project entry imported from the Excel sheet.\n    Acts as the central entity for all scoring and reporting.\n    \"\"\"\n    # --- Identification ---\n    project_code = models.CharField(max_length=50, unique=True, help_text=\"Unique Identifier (e.g. FS-MUM-001)\")\n    project_name = models.CharField(max_length=255, null=True, blank=True)\n    sbu = models.CharField(max_length=50, null=True, blank=True, verbose_name=\"Region/SBU\")\n    stage = models.CharField(max_length=50, null=True, blank=True, verbose_name=\"Project Stage\")",
         "detail": "core.models",
         "documentation": {}
     },
@@ -1495,7 +1496,7 @@
         "kind": 6,
         "importPath": "core.models",
         "description": "core.models",
-        "peekOfCode": "class Department(models.Model):\n    name = models.CharField(max_length=50, unique=True) # e.g., 'Sales', 'Design', 'Operations'\n    def __str__(self):\n        return self.name\nclass UserGroup(models.Model):\n    department = models.ForeignKey(Department, on_delete=models.CASCADE)\n    name = models.CharField(max_length=50) # e.g., 'ID', 'DH', 'PM', 'Sales Lead'\n    def __str__(self):\n        return f\"{self.department.name} - {self.name}\"\nclass SuccessMetric(models.Model):",
+        "peekOfCode": "class Department(models.Model):\n    \"\"\" High-level functional areas (e.g. Sales, Design). \"\"\"\n    name = models.CharField(max_length=50, unique=True)\n    def __str__(self):\n        return self.name\nclass UserGroup(models.Model):\n    \"\"\" Specific Roles within a Department (e.g. 'Sales Lead', '3D Visualizer'). \"\"\"\n    department = models.ForeignKey(Department, on_delete=models.CASCADE)\n    name = models.CharField(max_length=50)\n    def __str__(self):",
         "detail": "core.models",
         "documentation": {}
     },
@@ -1504,7 +1505,7 @@
         "kind": 6,
         "importPath": "core.models",
         "description": "core.models",
-        "peekOfCode": "class UserGroup(models.Model):\n    department = models.ForeignKey(Department, on_delete=models.CASCADE)\n    name = models.CharField(max_length=50) # e.g., 'ID', 'DH', 'PM', 'Sales Lead'\n    def __str__(self):\n        return f\"{self.department.name} - {self.name}\"\nclass SuccessMetric(models.Model):\n    COLOR_CHOICES = [\n        ('primary', 'Blue (Primary)'),\n        ('secondary', 'Grey (Secondary)'),\n        ('success', 'Green (Success)'),",
+        "peekOfCode": "class UserGroup(models.Model):\n    \"\"\" Specific Roles within a Department (e.g. 'Sales Lead', '3D Visualizer'). \"\"\"\n    department = models.ForeignKey(Department, on_delete=models.CASCADE)\n    name = models.CharField(max_length=50)\n    def __str__(self):\n        return f\"{self.department.name} - {self.name}\"\nclass SuccessMetric(models.Model):\n    \"\"\" Tags for UI coloring (e.g. 'Critical' = Red, 'Good' = Green). \"\"\"\n    COLOR_CHOICES = [\n        ('primary', 'Blue (Primary)'),",
         "detail": "core.models",
         "documentation": {}
     },
@@ -1513,7 +1514,7 @@
         "kind": 6,
         "importPath": "core.models",
         "description": "core.models",
-        "peekOfCode": "class SuccessMetric(models.Model):\n    COLOR_CHOICES = [\n        ('primary', 'Blue (Primary)'),\n        ('secondary', 'Grey (Secondary)'),\n        ('success', 'Green (Success)'),\n        ('danger', 'Red (Danger)'),\n        ('warning', 'Yellow (Warning)'),\n        ('info', 'Cyan (Info)'),\n        ('light', 'White (Light)'),\n        ('dark', 'Black (Dark)'),",
+        "peekOfCode": "class SuccessMetric(models.Model):\n    \"\"\" Tags for UI coloring (e.g. 'Critical' = Red, 'Good' = Green). \"\"\"\n    COLOR_CHOICES = [\n        ('primary', 'Blue (Primary)'),\n        ('secondary', 'Grey (Secondary)'),\n        ('success', 'Green (Success)'),\n        ('danger', 'Red (Danger)'),\n        ('warning', 'Yellow (Warning)'),\n        ('info', 'Cyan (Info)'),\n        ('light', 'White (Light)'),",
         "detail": "core.models",
         "documentation": {}
     },
@@ -1522,7 +1523,7 @@
         "kind": 6,
         "importPath": "core.models",
         "description": "core.models",
-        "peekOfCode": "class Metric(models.Model):\n    STAGE_CHOICES = [('Pre', 'Pre-Stage'), ('Post', 'Post-Stage')]\n    label = models.CharField(max_length=100) # The display name e.g., \"Key Plans Ratio\"\n    field_name = models.CharField(max_length=100, help_text=\"Must match a field in the Project model exactly (e.g., key_plans_ratio)\")\n    department = models.ForeignKey(Department, on_delete=models.CASCADE)\n    stage = models.CharField(max_length=10, choices=STAGE_CHOICES)\n    # Logic & Config\n    default_threshold = models.FloatField(default=0.0)\n    # Success Category (For color-coding in UI)\n    success_metric = models.ForeignKey(SuccessMetric, on_delete=models.SET_NULL, null=True, blank=True)",
+        "peekOfCode": "class Metric(models.Model):\n    \"\"\" \n    Defines a KPI to be tracked.\n    Maps a user-friendly Label (e.g. 'Client Visits') to a Database Field (e.g. 'client_access').\n    \"\"\"\n    STAGE_CHOICES = [('Pre', 'Pre-Stage'), ('Post', 'Post-Stage')]\n    label = models.CharField(max_length=100) \n    field_name = models.CharField(max_length=100, help_text=\"Must match a field in the Project model exactly.\")\n    department = models.ForeignKey(Department, on_delete=models.CASCADE)\n    stage = models.CharField(max_length=10, choices=STAGE_CHOICES)",
         "detail": "core.models",
         "documentation": {}
     },
@@ -1531,7 +1532,7 @@
         "kind": 6,
         "importPath": "core.models",
         "description": "core.models",
-        "peekOfCode": "class MetricWeight(models.Model):\n    \"\"\"\n        This table solves multiple user group to one metrics problem.\n        It links a specific Metric to a specific Group with a specific Importance.\n    \"\"\"\n    metric = models.ForeignKey(Metric, on_delete=models.CASCADE)\n    user_group = models.ForeignKey(UserGroup, on_delete=models.CASCADE)\n    # 10 Levels of Importance (as you requested)\n    WEIGHT_CHOICES = [\n        (1, '1 - Minimal'), ",
+        "peekOfCode": "class MetricWeight(models.Model):\n    \"\"\"\n    The Core Scoring Engine Configuration.\n    Assigns an 'Importance Factor' to a Metric for a specific User Group.\n    \"\"\"\n    metric = models.ForeignKey(Metric, on_delete=models.CASCADE)\n    user_group = models.ForeignKey(UserGroup, on_delete=models.CASCADE)\n    WEIGHT_CHOICES = [\n        (1, '1 - Minimal'), (2, '2 - Very Low'), (3, '3 - Low'),\n        (4, '4 - Low-Medium'), (5, '5 - Medium (Standard)'),",
         "detail": "core.models",
         "documentation": {}
     },
@@ -1540,8 +1541,17 @@
         "kind": 5,
         "importPath": "core.urls",
         "description": "core.urls",
-        "peekOfCode": "urlpatterns = [\n    # 1. Dashboard (The Homepage)\n    path('', views.dashboard_view, name='dashboard'),\n    # 2. Upload Page (To process new Excel files)\n    path('upload/', views.upload_view, name='upload'),\n    # 3. Live Report (The HTML table in a new tab)\n    path('report/', views.report_view, name='report'),\n    # 4. Summary Export (The Excel download logic)\n    path('export/', views.export_view, name='export_data'),\n    # 5. Detailed Export (The Detailed Excel download logic)",
+        "peekOfCode": "urlpatterns = [\n    # --- Dashboard & Ingestion ---\n    path('', views.dashboard_view, name='dashboard'),\n    path('upload/', views.upload_view, name='upload'),\n    # --- Live Reporting ---\n    path('report/', views.report_view, name='report'),\n    path('report-detailed/', views.report_detailed_view, name='report_detailed'),\n    # --- Excel Exports ---\n    path('export/', views.export_view, name='export_data'),\n    path('export-detailed/', views.export_detailed_view, name='export_detailed'),",
         "detail": "core.urls",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard_view",
+        "kind": 2,
+        "importPath": "core.views",
+        "description": "core.views",
+        "peekOfCode": "def dashboard_view(request):\n    threshold_map = _handle_threshold_session(request)\n    view_mode, start_str, end_str, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    people_opts, selected_filters = _get_dropdown_context(request)\n    # 1. Fetch Projects (Exclude Test Project)\n    projects = Project.objects.filter(sbu__in=sbu_filter).exclude(project_code=\"PS-02AUG23-BB1_TEST-SOMERSET-01\")\n    projects = _apply_people_filters(projects, view_mode, request)\n    all_departments = Department.objects.values_list('name', flat=True).order_by('name')\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    pre_count = qs_pre.count()",
+        "detail": "core.views",
         "documentation": {}
     },
     {
@@ -1554,11 +1564,11 @@
         "documentation": {}
     },
     {
-        "label": "dashboard_view",
+        "label": "project_detail",
         "kind": 2,
         "importPath": "core.views",
         "description": "core.views",
-        "peekOfCode": "def dashboard_view(request):\n    view_mode, start_str, end_str, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    people_opts, selected_filters = _get_dropdown_context(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    all_departments = Department.objects.values_list('name', flat=True).order_by('name')\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    pre_count = qs_pre.count()\n    post_count = qs_post.count()\n    def calculate_card_metrics(queryset, metrics_list, prefix):",
+        "peekOfCode": "def project_detail(request, pk):\n    project = get_object_or_404(Project, pk=pk)\n    return render(request, 'core/project_detail.html', {'project': project})\n# ==============================================================================\n# SECTION 4: EXPORTS & REPORTS (FIXED: SEPARATED SUMMARY & DETAILED)\n# ==============================================================================\ndef export_view(request):\n    \"\"\" \n        Excel Export for Leadership Summary (Counts & %) \n    \"\"\"",
         "detail": "core.views",
         "documentation": {}
     },
@@ -1567,25 +1577,7 @@
         "kind": 2,
         "importPath": "core.views",
         "description": "core.views",
-        "peekOfCode": "def export_view(request):\n    view_mode, _, _, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    def generate_summary_df(queryset, metrics_list, prefix):\n        total = queryset.count()\n        data = [{\"Metric Name\": \"TOTAL PROJECTS\", \"Threshold\": \"-\", \"Value\": total, \"%\": \"-\"}]\n        for m in metrics_list:\n            param_name = f\"thresh_{prefix}_{m['field']}\"",
-        "detail": "core.views",
-        "documentation": {}
-    },
-    {
-        "label": "export_detailed_view",
-        "kind": 2,
-        "importPath": "core.views",
-        "description": "core.views",
-        "peekOfCode": "def export_detailed_view(request):\n    view_mode, _, _, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    def generate_detailed_df(queryset, metrics_list):\n        if not metrics_list and not queryset.exists(): return pd.DataFrame()\n        role_map = {\n            'Sales': {'Sales Head': 'sales_head', 'Sales Lead': 'sales_lead'},\n            'Design': {'DH': 'design_dh', 'DM': 'design_dm', 'ID': 'design_id', '3D': 'design_3d'},",
-        "detail": "core.views",
-        "documentation": {}
-    },
-    {
-        "label": "report_detailed_view",
-        "kind": 2,
-        "importPath": "core.views",
-        "description": "core.views",
-        "peekOfCode": "def report_detailed_view(request):\n    # Reuse Logic from Export Detailed\n    # NOTE: Since this is identical logic, we are re-using the exact same flow \n    # but rendering HTML instead of Excel.\n    view_mode, start_str, end_str, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    def generate_detailed_df(queryset, metrics_list):\n        if not metrics_list and not queryset.exists(): return pd.DataFrame()",
+        "peekOfCode": "def export_view(request):\n    \"\"\" \n        Excel Export for Leadership Summary (Counts & %) \n    \"\"\"\n    return _handle_summary_report(request, is_excel=True)\ndef report_view(request):\n    \"\"\" \n        HTML Live View for Leadership Summary (Counts & %) \n    \"\"\"\n    return _handle_summary_report(request, is_excel=False)",
         "detail": "core.views",
         "documentation": {}
     },
@@ -1594,16 +1586,25 @@
         "kind": 2,
         "importPath": "core.views",
         "description": "core.views",
-        "peekOfCode": "def report_view(request):\n    \"\"\"\n    Renders the 'Leadership Summary' (Counts & Percentages) as a live HTML page.\n    Reuses report_detailed.html but sends summary dataframes.\n    \"\"\"\n    view_mode, start_str, end_str, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter)\n    projects = _apply_people_filters(projects, view_mode, request)\n    qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)\n    def generate_summary_df(queryset, metrics_list, prefix):",
+        "peekOfCode": "def report_view(request):\n    \"\"\" \n        HTML Live View for Leadership Summary (Counts & %) \n    \"\"\"\n    return _handle_summary_report(request, is_excel=False)\ndef export_detailed_view(request):\n    \"\"\" \n        Excel Export for Detailed Project List (Rows & Columns) \n    \"\"\"\n    return _handle_detailed_report(request, is_excel=True)",
         "detail": "core.views",
         "documentation": {}
     },
     {
-        "label": "project_detail",
+        "label": "export_detailed_view",
         "kind": 2,
         "importPath": "core.views",
         "description": "core.views",
-        "peekOfCode": "def project_detail(request, pk):\n    # 1. Fetch Project or 404\n    project = get_object_or_404(Project, pk=pk)\n    # 2. Render Template\n    return render(request, 'core/project_detail.html', {\n        'project': project,\n    })\n# ==============================================================================\n# 7. PROJECT SCORECARD (The Credit System)\n# ==============================================================================",
+        "peekOfCode": "def export_detailed_view(request):\n    \"\"\" \n        Excel Export for Detailed Project List (Rows & Columns) \n    \"\"\"\n    return _handle_detailed_report(request, is_excel=True)\ndef report_detailed_view(request):\n    \"\"\" \n        HTML Live View for Detailed Project List (Rows & Columns) \n    \"\"\"\n    return _handle_detailed_report(request, is_excel=False)",
+        "detail": "core.views",
+        "documentation": {}
+    },
+    {
+        "label": "report_detailed_view",
+        "kind": 2,
+        "importPath": "core.views",
+        "description": "core.views",
+        "peekOfCode": "def report_detailed_view(request):\n    \"\"\" \n        HTML Live View for Detailed Project List (Rows & Columns) \n    \"\"\"\n    return _handle_detailed_report(request, is_excel=False)\n# --- INTERNAL REPORT HANDLERS ---\ndef _handle_summary_report(request, is_excel=False):\n    threshold_map = _handle_threshold_session(request) \n    view_mode, _, _, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)\n    projects = Project.objects.filter(sbu__in=sbu_filter).exclude(project_code=\"PS-02AUG23-BB1_TEST-SOMERSET-01\")",
         "detail": "core.views",
         "documentation": {}
     },
@@ -1612,7 +1613,7 @@
         "kind": 2,
         "importPath": "core.views",
         "description": "core.views",
-        "peekOfCode": "def project_scorecard_view(request, project_code):\n    project = get_object_or_404(Project, project_code=project_code)\n    # 1. Get role from URL\n    raw_role_param = request.GET.get('metric_role', 'Design - ID')\n    # 2. Extract search term (e.g., \"ID\" from \"Design - ID\")\n    search_term = raw_role_param.split(' - ')[-1] if ' - ' in raw_role_param else raw_role_param\n    # 3. Find UserGroup and handle \"None\" safety\n    user_group = UserGroup.objects.filter(name__icontains=search_term).first()\n    all_groups = UserGroup.objects.select_related('department').order_by('department__name', 'name')\n    if not user_group:",
+        "peekOfCode": "def project_scorecard_view(request, project_code):\n    threshold_map = _handle_threshold_session(request)\n    project = get_object_or_404(Project, project_code=project_code)\n    raw_role_param = request.GET.get('metric_role', 'Design - ID')\n    search_term = raw_role_param.split(' - ')[-1] if ' - ' in raw_role_param else raw_role_param\n    user_group = UserGroup.objects.filter(name__icontains=search_term).first()\n    all_groups = UserGroup.objects.select_related('department').order_by('department__name', 'name')\n    if not user_group:\n         return render(request, 'core/project_scorecard.html', {\n            'project': project, 'error': f\"Role '{search_term}' not found.\",",
         "detail": "core.views",
         "documentation": {}
     },
@@ -1621,17 +1622,17 @@
         "kind": 2,
         "importPath": "core.views",
         "description": "core.views",
-        "peekOfCode": "def leaderboard_view(request):\n    # 1. Get Params\n    view_mode, start_str, end_str, start_dt, end_dt, _, _, _, _ = _get_request_params(request)\n    # 2. Dynamic SBU Options\n    all_sbu_options = list(Project.objects.exclude(sbu__isnull=True).exclude(sbu=\"\").values_list('sbu', flat=True).distinct())\n    all_sbu_options.sort()\n    if not all_sbu_options: all_sbu_options = ['North', 'South', 'East', 'Central']\n    if 'sbu' in request.GET: sbu_filter = request.GET.getlist('sbu')\n    else: sbu_filter = all_sbu_options \n    # 3. Role Config",
+        "peekOfCode": "def leaderboard_view(request):\n    threshold_map = _handle_threshold_session(request)\n    _, start_str, end_str, start_dt, end_dt, sbu_filter, _, _, _ = _get_request_params(request)\n    all_sbu_options = list(Project.objects.exclude(sbu__isnull=True).exclude(sbu=\"\").values_list('sbu', flat=True).distinct())\n    all_sbu_options.sort()\n    grouped_roles = defaultdict(list)\n    for role, conf in ROLE_CONFIG.items():\n        dept = conf.get('dept', 'Other')\n        grouped_roles[dept].append(role)\n    sorted_grouped_roles = []",
         "detail": "core.views",
         "documentation": {}
     },
     {
-        "label": "FILE_PATH",
-        "kind": 5,
-        "importPath": "check_sys",
-        "description": "check_sys",
-        "peekOfCode": "FILE_PATH = 'C:\\Users\\rishi\\Downloads\\Example Report _14 Jan 2026_05.14 pm.xlsx' # <--- CHANGE THIS to your actual file name\nif not os.path.exists(FILE_PATH):\n    print(f\"❌ File not found: {FILE_PATH}\")\nelse:\n    xls = pd.ExcelFile(FILE_PATH)\n    print(f\"\\n📂 File Found: {FILE_PATH}\")\n    print(\"=\"*40)\n    for sheet in xls.sheet_names:\n        df = pd.read_excel(xls, sheet_name=sheet)\n        print(f\"\\n📄 SHEET: {sheet}\")",
-        "detail": "check_sys",
+        "label": "leaderboard_summary_view",
+        "kind": 2,
+        "importPath": "core.views",
+        "description": "core.views",
+        "peekOfCode": "def leaderboard_summary_view(request):\n    threshold_map = _handle_threshold_session(request)\n    _, start_str, end_str, start_dt, end_dt, sbu_filter, _, _, _ = _get_request_params(request)\n    all_sbu_options = list(Project.objects.exclude(sbu__isnull=True).exclude(sbu=\"\").values_list('sbu', flat=True).distinct())\n    all_sbu_options.sort()\n    sbu_filter = request.GET.getlist('sbu') or all_sbu_options or ['North', 'South', 'East', 'Central']\n    hall_of_fame = defaultdict(dict)\n    for role_name, config in ROLE_CONFIG.items():\n        if 'dept' not in config: continue \n        department = config['dept']",
+        "detail": "core.views",
         "documentation": {}
     },
     {

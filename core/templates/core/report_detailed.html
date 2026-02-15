@@ -5,94 +5,146 @@
     
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="fw-bold text-primary">{{ report_title|default:"Detailed Project Report" }}</h2>
-            <p class="text-muted mb-0">
-                <i class="fas fa-layer-group me-1"></i> Department: <strong>{{ view_mode }}</strong> | 
-                <i class="far fa-calendar-alt ms-2 me-1"></i> Range: {{ start_date }} to {{ end_date }}
-            </p>
+            <h2 class="mb-0 fw-bold text-dark">
+                <i class="fas fa-table text-primary me-2"></i>{{ report_title|default:"Detailed Project Report" }}
+            </h2>
+            
+            <form method="get" class="d-flex align-items-center text-muted small mt-2">
+                <input type="hidden" name="start" value="{{ start_date }}">
+                <input type="hidden" name="end" value="{{ end_date }}">
+                
+                <span class="me-2 fw-bold text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Viewing:</span>
+                
+                <select name="view" class="form-select form-select-sm d-inline-block w-auto border shadow-sm py-1 ps-2 pe-5 fw-bold text-primary" 
+                        style="cursor: pointer; font-size: 0.9rem; background-color: var(--card-bg);" onchange="this.form.submit()">
+                    <option value="Marketing" {% if view_mode == 'Marketing' %}selected{% endif %}>Marketing</option>
+                    <option value="Sales" {% if view_mode == 'Sales' %}selected{% endif %}>Sales</option>
+                    <option value="Design" {% if view_mode == 'Design' %}selected{% endif %}>Design</option>
+                    <option value="Operations" {% if view_mode == 'Operations' %}selected{% endif %}>Operations</option>
+                    <option value="Purchase" {% if view_mode == 'Purchase' %}selected{% endif %}>Purchase</option>
+                    <option value="Finance" {% if view_mode == 'Finance' %}selected{% endif %}>Finance</option>
+                </select>
+                
+                <span class="mx-3 text-muted">|</span>
+                <span class="text-muted"><i class="far fa-calendar-alt me-1"></i> {{ start_date }} to {{ end_date }}</span>
+            </form>
         </div>
-        <div>
-            <button onclick="window.print()" class="btn btn-outline-secondary">
-                <i class="fas fa-print me-1"></i> Print / Save PDF
-            </button>
-            <a href="{% url 'dashboard' %}?view={{ view_mode }}&start={{ start_date }}&end={{ end_date }}" class="btn btn-primary ms-2">
-                <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+        
+        <div class="d-flex gap-2">
+            <a href="{% url 'dashboard' %}?view={{ view_mode }}&start={{ start_date }}&end={{ end_date }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back
             </a>
+            <button onclick="window.print()" class="btn btn-outline-primary">
+                <i class="fas fa-print me-2"></i>Print
+            </button>
+            <form action="{% url 'export_detailed' %}" method="get">
+                <input type="hidden" name="view" value="{{ view_mode }}">
+                <input type="hidden" name="start" value="{{ start_date }}">
+                <input type="hidden" name="end" value="{{ end_date }}">
+                {% for sbu in request.GET.getlist.sbu %}<input type="hidden" name="sbu" value="{{ sbu }}">{% endfor %}
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-file-excel me-2"></i>Excel
+                </button>
+            </form>
         </div>
     </div>
 
-    {% if df_pre %}
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-light py-3">
-            <h5 class="mb-0 text-secondary">
-                {% if view_mode == 'Sales' %}Pre-Sales Stage{% else %}Pre-Stage / Login{% endif %}
-            </h5>
-        </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                {{ df_pre|safe }}
+    <div class="card shadow-sm border" style="background-color: var(--card-bg);">
+        <div class="card-body p-4">
+            
+            {% if not df_pre and not df_post %}
+            <div class="alert alert-warning text-center p-5 my-3 rounded-3 border-0 bg-warning bg-opacity-10 text-warning">
+                <h4 class="fw-bold"><i class="fas fa-search me-2"></i>No Data Found</h4>
+                <p class="mb-0 opacity-75" style="color: var(--text-main);">
+                    No projects matched your criteria for <strong>{{ view_mode }}</strong> in this date range.
+                </p>
             </div>
-        </div>
-    </div>
-    {% endif %}
+            {% endif %}
 
-    {% if df_post %}
-    <div class="card shadow-sm">
-        <div class="card-header bg-light py-3">
-            <h5 class="mb-0 text-secondary">
-                {% if view_mode == 'Sales' %}Post-Sales Stage{% else %}Post-Stage / Execution{% endif %}
-            </h5>
-        </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                {{ df_post|safe }}
+            <div class="table-responsive custom-scrollbar" style="max-height: 70vh;">
+                {% if df_pre %}
+                <div class="mb-5">
+                    <h5 class="text-primary fw-bold border-bottom pb-3 mb-3 d-flex align-items-center">
+                        <span class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 24px; height: 24px; font-size: 0.75rem;">1</span>
+                        Pre-Stage Analysis
+                    </h5>
+                    {{ df_pre|safe }}
+                </div>
+                {% endif %}
+
+                {% if df_post %}
+                <div class="mb-3">
+                    <h5 class="text-success fw-bold border-bottom pb-3 mb-3 d-flex align-items-center">
+                        <span class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 24px; height: 24px; font-size: 0.75rem;">2</span>
+                        Post-Stage / Execution Analysis
+                    </h5>
+                    {{ df_post|safe }}
+                </div>
+                {% endif %}
             </div>
+
         </div>
     </div>
-    {% endif %}
-
-    {% if not df_pre and not df_post %}
-    <div class="alert alert-warning text-center p-5">
-        <h4><i class="fas fa-exclamation-circle me-2"></i>No Data Found</h4>
-        <p class="mb-0">No projects matched your criteria ({{ view_mode }} | {{ start_date }} to {{ end_date }}).</p>
-    </div>
-    {% endif %}
-
 </div>
 
 <style>
-    /* Force Pandas tables to fit Bootstrap styling */
+    /* PANDAS TABLE STYLING */
     table.dataframe {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 0;
-    }
-    table.dataframe th {
-        background-color: #f8f9fa;
-        color: #495057;
-        font-weight: 600;
-        text-align: center;
-        padding: 12px;
-        border-bottom: 2px solid #dee2e6;
-    }
-    table.dataframe td {
-        padding: 10px;
-        border-bottom: 1px solid #dee2e6;
-        vertical-align: middle;
-        text-align: center; /* Center align data for better readability */
-    }
-    table.dataframe tr:nth-child(even) {
-        background-color: #f8f9fa; /* Striped effect */
-    }
-    table.dataframe tr:hover {
-        background-color: #e9ecef; /* Hover effect */
+        width: 100%; border-collapse: separate; /* Required for sticky */
+        border-spacing: 0; margin-bottom: 0;
+        font-size: 0.85rem; color: var(--text-main);
     }
     
-    /* Specific tweaks for Leadership Summary Table */
-    /* If the table has fewer columns (Summary view), constrain width for readability */
-    table.dataframe th:first-child, table.dataframe td:first-child {
-        text-align: left; /* Align Metric Names to left */
-        padding-left: 20px;
+    /* HEADER STYLES (STICKY) */
+    table.dataframe th {
+        background-color: var(--bg-body) !important; /* Force Solid Background */
+        color: var(--text-muted) !important;
+        font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px;
+        text-align: left; padding: 15px 12px;
+        border-bottom: 2px solid var(--border-color);
+        white-space: nowrap; 
+        
+        /* STICKY LOGIC */
+        position: sticky; 
+        top: 0; 
+        z-index: 100; /* High Z-index to sit on top of data */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow to separate header from rows */
+    }
+    
+    /* CELL STYLES */
+    table.dataframe td {
+        background-color: var(--card-bg) !important;
+        color: var(--text-main) !important;
+        padding: 10px 12px; border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+        max-width: 160px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
+    }
+
+    /* Column Specifics */
+    table.dataframe td:nth-child(1), table.dataframe td:nth-child(2) {
+        max-width: 250px; font-weight: 600;
+    }
+
+    /* Metric Columns (Center) */
+    table.dataframe td:not(:nth-child(1)):not(:nth-child(2)) { text-align: center; }
+    
+    /* Hover Expansion */
+    table.dataframe td:hover {
+        overflow: visible; white-space: normal; position: relative; z-index: 50;
+        background-color: var(--card-bg) !important; 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        outline: 1px solid var(--primary-color);
+    }
+
+    /* Stripes */
+    table.dataframe tbody tr:nth-of-type(odd) td {
+        background-color: rgba(128, 128, 128, 0.04) !important;
+    }
+    
+    /* Row Hover */
+    table.dataframe tbody tr:hover td { 
+        background-color: rgba(79, 70, 229, 0.1) !important;
+        color: var(--text-main) !important;
     }
 </style>
 {% endblock %}

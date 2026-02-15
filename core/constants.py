@@ -1,4 +1,8 @@
-# Keeps METRICS_CONFIG & EXCEL_COL_MAP  (CHANGES NEED TO MADE FOR COL NAMES)
+# core/constants.py
+
+# ==============================================================================
+# DEPARTMENT CONFIGURATION
+# ==============================================================================
 DEPT_CHOICES = (
     ('Marketing', 'Marketing'),
     ('Sales', 'Sales'),
@@ -8,122 +12,82 @@ DEPT_CHOICES = (
     ('Finance', 'Finance'),
 )
 
+# Maps Department View Mode to specific Database Fields for filtering.
+# CRITICAL FIX: The first item in the tuple MUST be the exact field name in models.py
 DEPT_PEOPLE_MAP = {
     'Marketing': [
-        ('m_head', 'Marketing Head'),
-        ('m_lead', 'Marketing Lead'),
+        # Marketing fields don't exist in your Model yet, so we leave this empty 
+        # to prevent crashes. Uncomment/Update if you add 'marketing_head' to models.py
+        # ('marketing_head', 'Marketing Head'), 
     ],
     'Sales': [
-        ('s_head', 'Sales Head'),
-        ('s_lead', 'Sales Lead'),
+        ('sales_head', 'Sales Head'), 
+        ('sales_lead', 'Sales Lead')
     ],
     'Design': [
-        ('d_dh', 'DH'),
-        ('d_dm', 'DM'),
-        ('d_id', 'ID'),
-        ('d_3d', '3D'),
+        ('design_dh', 'DH'), 
+        ('design_dm', 'DM'), 
+        ('design_id', 'ID'), 
+        ('design_3d', '3D')
     ],
     'Operations': [
-        ('o_head', 'Cluster/BU Head'),
-        ('o_pm', 'SPM/PM'),
-        ('o_om', 'SOM/OM'),
-        ('o_ss', 'SS'),
-        ('o_mep', 'MEP'),
-        ('o_csc', 'CSC'),
+        ('ops_head', 'Cluster/BU Head'), 
+        ('ops_pm', 'SPM/PM'),
+        ('ops_om', 'SOM/OM'), 
+        ('ops_ss', 'SS'),
+        ('ops_mep', 'MEP'), 
+        ('ops_csc', 'CSC')
     ],
     'Purchase': [
-        ('p_head', 'Purchase Head'),
-        ('p_mgr', 'Purchase Manager'),
-        ('p_exec', 'Purchase Executive'),
+        # Purchase fields don't exist in Model yet
+        # ('purchase_head', 'Purchase Head'), 
     ],
     'Finance': [
-        ('f_head', 'Finance Head'), 
+        # Finance fields don't exist in Model yet
+        # ('finance_head', 'Finance Head'), 
     ],
 }
 
-METRICS_CONFIG = {
-    "Sales": {
-        "Pre": [
-            {"label": "Requirements Uploaded", "field": "req_uploaded", "def": 1.0, "roles": ["Sales Lead", "Sales Head"]},
-            {"label": "Site Visit Reports", "field": "site_visit_report", "def": 1.0, "roles": ["Sales Lead", "Sales Head"]},
-            {"label": "Client Visits", "field": "client_access", "def": 1.0, "roles": ["Sales Lead", "Sales Head"]},
-        ],
-        "Post": [
-            {"label": "Requirements Uploaded", "field": "req_uploaded", "def": 1.0, "roles": ["Sales Lead", "Sales Head"]},
-            {"label": "Site Visit Reports", "field": "site_visit_report", "def": 1.0, "roles": ["Sales Lead", "Sales Head"]},
-            {"label": "Client Visits", "field": "client_access", "def": 1.0, "roles": ["Sales Lead", "Sales Head"]},
-            {"label": "BOQs Uploaded", "field": "boq_uploaded", "def": 1.0, "roles": ["Sales Lead", "Sales Head"]},
-            {"label": "Contracts Uploaded", "field": "contract_uploaded", "def": 1.0, "roles": ["Sales Head"]},
-        ]
-    },
-    "Design": {
-        "Pre": [
-            # ID
-            {"label": "Pins Mapped", "field": "mapped_spaces", "def": 3.0, "roles": ["ID"]},
-            {"label": "Key Plans to Spaces", "field": "key_plans_ratio", "def": 0.33, "roles": ["ID"]},
-            {"label": "No Key Plans Spaces", "field": "no_plans_for_key_spaces", "def": 1.0, "roles": ["ID"]},
-            
-            # 3D
-            {"label": "Renders", "field": "renders", "def": 5.0, "roles": ["3D", "DM", "DH"]}, # User said 3D=Upload Renders
-            
-            # DM/DH
-            {"label": "Furniture Layouts", "field": "furniture_layouts", "def": 1.0, "roles": ["DM", "DH"]},
-            {"label": "Approved Furniture Layouts", "field": "approved_layouts", "def": 1.0, "roles": ["DM", "DH"]},
-            {"label": "Approved Renders", "field": "approved_renders", "def": 5.0, "roles": ["DM", "DH"]},
-            {"label": "Material Deck", "field": "material_deck", "def": 1.0, "roles": ["DM", "DH"]},
-        ],
-        "Post": [
-            # ID
-            {"label": "Other Layouts", "field": "other_layouts", "def": 1.0, "roles": ["ID"]},
-            {"label": "Furniture Layouts", "field": "furniture_layouts", "def": 1.0, "roles": ["ID", "DM", "DH"]}, # Shared
-            {"label": "Mapped Spaces", "field": "mapped_spaces", "def": 3.0, "roles": ["ID"]},
-            {"label": "No Key Plans Spaces", "field": "no_plans_for_key_spaces", "def": 1.0, "roles": ["ID"]},
-            {"label": "TD & Elevations", "field": "td_elevations", "def": 10.0, "roles": ["ID"]},
-            {"label": "CAD Files", "field": "cad_files", "def": 10.0, "roles": ["ID"]},
-            {"label": "GFC Download", "field": "gfc_download", "def": 7.0, "roles": ["ID", "DM", "DH"]}, # Shared
-
-            # 3D
-            {"label": "Renders", "field": "renders", "def": 5.0, "roles": ["3D", "DM", "DH"]}, 
-            {"label": "Approved Renders", "field": "approved_renders", "def": 5.0, "roles": ["3D", "DM", "DH"]}, 
-
-            # DM/DH (Specifics)
-            {"label": "Approved Furniture Layouts", "field": "approved_layouts", "def": 1.0, "roles": ["DM", "DH"]},
-            {"label": "Slides Downloaded", "field": "slides_download", "def": 1.0, "roles": ["DM", "DH"]},
-            {"label": "Material Deck", "field": "material_deck", "def": 1.0, "roles": ["DM", "DH"]},
-            {"label": "Client Visits", "field": "client_visit_des", "def": 7.0, "roles": ["DM", "DH"]},
-        ]
-    },
-    "Operations": [
-        # MEP
-        {"label": "MEP Drawings", "field": "mep_drawings", "def": 3.0, "roles": ["BU Head", "MEP"]},
-
-        # SPM / PM
-        {"label": "GRNs/SRNs Approved", "field": "grn_approved", "def": 3.0, "roles": ["BU Head", "SPM", "PM"]},
-        {"label": "WPRs Downloaded", "field": "wpr_download", "def": 3.0, "roles": ["BU Head", "SPM", "PM"]},
-        {"label": "WPRs Shared", "field": "wpr_shared", "def": 3.0, "roles": ["BU Head", "SPM", "PM"]},
-        {"label": "Invoices / Receipts", "field": "invoices", "def": 1.0, "roles": ["BU Head", "SPM", "PM"]},
-
-        # SS
-        {"label": "DPR Added (% days)", "field": "dpr_ratio", "def": 0.5, "roles": ["BU Head", "SS"]},
-        {"label": "GRNs/SRNs Created", "field": "grn_created", "def": 3.0, "roles": ["BU Head", "SS"]},
-
-        # General / Unassigned (Will show in All Roles, but hidden for specific roles unless added)
-        {"label": "Site Images", "field": "site_images", "def": 30.0, "roles": ["BU Head", "SS", "PM"]},
-        {"label": "Handover Documents", "field": "handover_docs", "def": 3.0, "roles": ["BU Head", "PM"]},
-        {"label": "Unique Weekly Tasks", "field": "weekly_tasks", "def": 10.0, "roles": ["BU Head", "PM"]},
-        {"label": "Unique Daily Tasks", "field": "daily_tasks", "def": 30.0, "roles": ["BU Head", "SS", "PM"]},
-        {"label": "Manpower Ratio", "field": "manpower_ratio", "def": 0.66, "roles": ["BU Head", "SS", "PM"]},
-    ],
-
-    "Marketing": [],
-
-    "Fiannce": [],
-
-    "Purchase": [],
+# ==============================================================================
+# ROLE DEFINITIONS (Used in Leaderboards & Links)
+# ==============================================================================
+# Format: 'Display Name': {'field': 'db_column_name', 'link': 'url_param', 'dept': 'Department'}
+ROLE_CONFIG = {
+    # Sales
+    'Sales Lead':      {'field': 'sales_lead', 'link': 'f_s_lead', 'dept': 'Sales'},
+    'Sales Head':      {'field': 'sales_head', 'link': 'f_s_head', 'dept': 'Sales'},
     
+    # Design
+    'ID':              {'field': 'design_id',  'link': 'f_d_id',   'dept': 'Design'},
+    '3D':              {'field': 'design_3d',  'link': 'f_d_3d',   'dept': 'Design'},
+    'DM':              {'field': 'design_dm',  'link': 'f_d_dm',   'dept': 'Design'},
+    'DH':              {'field': 'design_dh',  'link': 'f_d_dh',   'dept': 'Design'},
+    
+    # Operations (Standardized Keys)
+    'Cluster/BU Head': {'field': 'ops_head',   'link': 'f_o_head', 'dept': 'Operations'},
+    'SPM/PM':          {'field': 'ops_pm',     'link': 'f_o_pm',   'dept': 'Operations'},
+    'SOM/OM':          {'field': 'ops_om',     'link': 'f_o_om',   'dept': 'Operations'},
+    'SS':              {'field': 'ops_ss',     'link': 'f_o_ss',   'dept': 'Operations'},
+    'MEP':             {'field': 'ops_mep',    'link': 'f_o_mep',  'dept': 'Operations'},
+    'CSC':             {'field': 'ops_csc',    'link': 'f_o_csc',  'dept': 'Operations'},
+
+    # Purchase
+    'Purchase Head':      {'field': 'p_head', 'link': 'f_p_head', 'dept': 'Purchase'},
+    'Purchase Manager':   {'field': 'p_mgr',  'link': 'f_p_mgr',  'dept': 'Purchase'},
+    'Purchase Executive': {'field': 'p_exec', 'link': 'f_p_exec', 'dept': 'Purchase'},
+
+    # Finance
+    'Finance Head':       {'field': 'f_head', 'link': 'f_f_head', 'dept': 'Finance'},
+    
+    # Marketing
+    'Marketing Head':     {'field': 'm_head', 'link': 'f_m_head', 'dept': 'Marketing'},
+    'Marketing Lead':     {'field': 'm_lead', 'link': 'f_m_lead', 'dept': 'Marketing'},
 }
 
-# Used for mapping Excel Column names to Django Model Fields
+# ==============================================================================
+# EXCEL MAPPING & METRICS DEFAULTS
+# ==============================================================================
+# Used to map Excel Column names to Django Model Fields
 EXCEL_COL_MAP = {
     # Sales
     "Requirements": "req_uploaded",
@@ -151,8 +115,8 @@ EXCEL_COL_MAP = {
     "Invoices, Receipts": "invoices",
     "MEP Drawings": "mep_drawings",
     "Handover Documents": "handover_docs",
-    "WPRs Download": "wpr_download",
-    "WPR Shared Client": "wpr_shared",
+    "WPR Download": "wpr_download",
+    "WPR Share to Client": "wpr_shared",
     "Total Unique Weekly Tasks": "weekly_tasks",
     "Total Unique Daily Tasks": "daily_tasks",
     "Total GRN/SRN": "grn_created",

@@ -1,14 +1,13 @@
 from django.contrib import admin            # type: ignore
-from django.db.models import Sum            # type: ignore
 from .models import Project, Metric, Department, UserGroup, SuccessMetric, MetricWeight
 
-# --- 1. Success Metrics (Tags) ---
+# --- 1. Success Metrics ---
 @admin.register(SuccessMetric)
 class SuccessMetricAdmin(admin.ModelAdmin):
     list_display = ('name', 'color')
     list_editable = ('color',)
 
-# --- 2. User Groups & Departments ---
+# --- 2. Organization Structure ---
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -19,52 +18,54 @@ class UserGroupAdmin(admin.ModelAdmin):
     list_filter = ('department',)
     search_fields = ('name',)
 
-# --- 3. Inline for Metric Weights ---
+# --- 3. Weight Configuration Inline ---
 class MetricWeightInline(admin.TabularInline):
     model = MetricWeight
-    extra = 0 # Clean UI: Start with no empty rows
+    extra = 0
     min_num = 0
     can_delete = True
     verbose_name = "Weight per Group"
-    verbose_name_plural = "Weight Configuration (Auto-Balances 100%)"
-    
-    # This creates a searchable dropdown for Groups (Best for long lists)
+    verbose_name_plural = "Scoring Weights (Higher = More Points)"
     autocomplete_fields = ['user_group']
 
-# --- 4. Projects (Standard) ---
+# --- 4. Project Data ---
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('project_name', 'project_code', 'stage', 'sbu', 'login_date')
-    search_fields = ('project_name', 'project_code')
-    # REMOVED 'department' from here to fix the error
-    list_filter = ('sbu', 'stage')
+    list_display = ('project_code', 'project_name', 'sbu', 'stage', 'login_date')
+    list_filter = ('sbu', 'stage', 'login_date')
+    search_fields = ('project_code', 'project_name', 'sales_lead', 'ops_pm')
+    date_hierarchy = 'login_date'
 
-# --- 5. The Smart Metric Admin (Auto-Balancing) ---
+# --- 5. Metrics Configuration ---
 @admin.register(Metric)
 class MetricAdmin(admin.ModelAdmin):
-    list_display = ('label', 'department', 'stage', 'get_assigned_weights', 'success_metric')
-    list_filter = ('department', 'stage')
+    list_display = ('label', 'department', 'stage', 'default_threshold', 'get_assigned_weights')
+    list_filter = ('department', 'stage', 'success_metric')
     search_fields = ('label', 'field_name')
     
-    # THIS puts the Weight Table inside the Metric Page
+    # This places the Weight Table directly inside the Metric page
     inlines = [MetricWeightInline]
 
     fieldsets = (
-        ('Basic Info', {
-            'fields': ('label', 'field_name', 'department', 'stage', 'success_metric')
+        ('Display Info', {
+            'fields': ('label', 'department', 'success_metric')
         }),
-        ('Logic', {
-            'fields': ('default_threshold',) 
+        ('Technical Mapping', {
+            'fields': ('field_name', 'stage', 'default_threshold'),
+            'description': 'Field Name must match the Excel column mapping exactly.'
         }),
-        ('Visibility Filter', {
+        ('Legacy Visibility', {
             'fields': ('visible_to_groups',),
-            'description': 'Use this to tag groups broadly. Use the table below to set specific weights.'
+            'classes': ('collapse',), # Hide by default to encourage using Weights
         }),
     )
 
     filter_horizontal = ('visible_to_groups',)
 
-    @admin.display(description="Configured Weights")
+    @admin.display(description="Active Weights")
     def get_assigned_weights(self, obj):
-        # Shows a summary in the list view: "ID (10), DM (5)"
-        return ", ".join([f"{w.user_group.name}: {w.factor}" for w in obj.metricweight_set.all()])
+        # formatted summary for list view
+        weights = obj.metricweight_set.filter(factor__gt=0)
+        if not weights.exists():
+            return "-"
+        return ", ".join([f"{w.user_group.name} ({w.factor})" for w in weights])

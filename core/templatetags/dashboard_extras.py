@@ -1,4 +1,4 @@
-from django import template             # type:ignore
+from django import template         # type: ignore
 
 register = template.Library()
 
@@ -6,8 +6,8 @@ register = template.Library()
 def update_params(context, **kwargs):
     """
         Returns the current URL query string with updated parameters.
-        Usage: {% update_params group='operations' %}
-        Result: ?start_date=2025-01-01&region=North&group=operations
+        Usage: <a href="?{% update_params page=2 %}">Next</a>
+        Keeps existing filters (like start_date, sbu) while changing one specific param.
     """
     query = context['request'].GET.copy()
     for key, value in kwargs.items():

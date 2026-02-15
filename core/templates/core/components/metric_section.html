@@ -1,36 +1,88 @@
+<style>
+    /* --- COMPONENT STYLES --- */
+    
+    /* 1. Adaptive Badges (Glowing in Dark Mode) */
+    .section-badge { font-size: 0.75rem; letter-spacing: 0.5px; transition: all 0.3s ease; }
+    
+    /* Light Mode */
+    .badge-post { background: #d1e7dd; color: #0f5132; border-color: #a3cfbb; }
+    .badge-pre  { background: #ffecb5; color: #664d03; border-color: #ffdf7e; }
+
+    /* Dark Mode Override */
+    [data-theme="dark"] .badge-post { 
+        background: rgba(16, 185, 129, 0.2); 
+        color: #6ee7b7; 
+        border-color: rgba(16, 185, 129, 0.4); 
+    }
+    [data-theme="dark"] .badge-pre { 
+        background: rgba(245, 158, 11, 0.2); 
+        color: #fcd34d; 
+        border-color: rgba(245, 158, 11, 0.4); 
+    }
+
+    /* 2. Toggler Button */
+    .btn-toggler {
+        background-color: var(--card-bg); color: var(--text-muted); border-color: var(--border-color); font-size: 0.85rem;
+    }
+    .btn-toggler:hover {
+        background-color: var(--bg-body); color: var(--text-main); border-color: var(--text-muted);
+    }
+
+    /* 3. Extended Metrics Area (Inset Look) */
+    .extended-area {
+        background-color: var(--bg-body) !important;
+        border: 1px dashed var(--border-color) !important;
+    }
+
+    /* 4. Headers */
+    .extended-header {
+        text-transform: uppercase; font-weight: 700; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 1rem;
+        color: var(--text-muted);
+    }
+    
+    .section-header { border-bottom-color: var(--border-color) !important; }
+</style>
+
 <div class="mb-5">
-    <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-4">
-        <h5 class="text-secondary mb-0 fw-bold">
-            <i class="{{ icon_class }} me-2 text-primary opacity-50"></i>{{ title }}
+    <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-4 section-header">
+        <h5 class="fw-bold mb-0" style="color: var(--text-main);">
+            <i class="{{ icon_class }} me-2 {% if is_post %}text-success{% else %}text-warning{% endif %}"></i>{{ title }}
         </h5>
-        <span class="project-count-badge" {% if is_post %}style="color: #0f5132; background-color: #d1e7dd;"{% endif %}>
+        
+        <span class="badge rounded-pill border fw-bold section-badge {% if is_post %}badge-post{% else %}badge-pre{% endif %}">
             {{ count }} PROJECTS
         </span>
     </div>
 
-    <div class="row g-4 mb-4">
-        {% include "core/components/metric_loop.html" with metrics_list=prim_list is_post=is_post %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4 mb-4">
+        {% for card in prim_list %}
+            <div class="col animate-enter">
+                {% include "core/components/metric_card.html" with card=card is_post=is_post %}
+            </div>
+        {% endfor %}
     </div>
 
     {% if sec_list %}
-    <div class="collapse" id="collapse{{ section_id }}">
-        <div class="card card-body border-0 bg-light shadow-inner mb-4 p-4 rounded-4">
-            <h6 class="text-muted text-uppercase fw-bold small mb-3">
-                <i class="fas fa-plus-circle me-2"></i>Additional Metrics
-            </h6>
-            <div class="row g-4">
-                {% include "core/components/metric_loop.html" with metrics_list=sec_list is_post=is_post %}
+        <div class="text-center mb-3">
+            <button class="btn btn-sm rounded-pill px-4 btn-toggler shadow-sm" type="button" 
+                    data-bs-toggle="collapse" data-bs-target="#collapse{{ section_id }}">
+                <span class="fw-bold">Show More Metrics <i class="fas fa-chevron-down ms-1"></i></span>
+            </button>
+        </div>
+
+        <div class="collapse" id="collapse{{ section_id }}">
+            <div class="card card-body extended-area p-4 rounded-4 shadow-none">
+                <h6 class="extended-header">
+                    <i class="fas fa-plus-circle me-2"></i>Extended Metrics
+                </h6>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4">
+                    {% for card in sec_list %}
+                        <div class="col">
+                            {% include "core/components/metric_card.html" with card=card is_post=is_post %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="text-center">
-        <button class="btn btn-sm btn-outline-secondary rounded-pill px-4" type="button" 
-                data-bs-toggle="collapse" data-bs-target="#collapse{{ section_id }}" 
-                aria-expanded="false" 
-                onclick="this.innerHTML = this.getAttribute('aria-expanded') === 'true' ? 'Show Less <i class=\'fas fa-chevron-up ms-1\'></i>' : 'Show More <i class=\'fas fa-chevron-down\'></i>'">
-            Show More <i class="fas fa-chevron-down"></i>
-        </button>
-    </div>
     {% endif %}
 </div>

@@ -5,41 +5,67 @@
     
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="fw-bold text-secondary">
-                <i class="fas fa-chart-line me-2"></i>Live Web Report
+            <h2 class="mb-0 fw-bold text-dark">
+                <i class="fas fa-chart-pie text-secondary me-2"></i>Leadership Summary
             </h2>
-            <p class="text-muted mb-0">
-                View: <strong>{{ view_mode }}</strong>
-            </p>
+            
+            <form method="get" class="d-flex align-items-center text-muted small mt-2">
+                <input type="hidden" name="start" value="{{ start_date }}">
+                <input type="hidden" name="end" value="{{ end_date }}">
+                
+                <span class="me-2 fw-bold text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">Viewing:</span>
+                
+                <select name="view" class="form-select form-select-sm d-inline-block w-auto border shadow-sm py-1 ps-2 pe-5 fw-bold text-primary" 
+                        style="cursor: pointer; font-size: 0.9rem; background-color: var(--card-bg);" onchange="this.form.submit()">
+                    <option value="Marketing" {% if view_mode == 'Marketing' %}selected{% endif %}>Marketing</option>
+                    <option value="Sales" {% if view_mode == 'Sales' %}selected{% endif %}>Sales</option>
+                    <option value="Design" {% if view_mode == 'Design' %}selected{% endif %}>Design</option>
+                    <option value="Operations" {% if view_mode == 'Operations' %}selected{% endif %}>Operations</option>
+                    <option value="Purchase" {% if view_mode == 'Purchase' %}selected{% endif %}>Purchase</option>
+                    <option value="Finance" {% if view_mode == 'Finance' %}selected{% endif %}>Finance</option>
+                </select>
+                
+                <span class="mx-3 text-muted">|</span>
+                <span class="text-muted"><i class="far fa-calendar-alt me-1"></i> {{ start_date }} to {{ end_date }}</span>
+            </form>
         </div>
         
         <div class="d-flex gap-2">
-            <form action="{% url 'dashboard' %}" method="get">
-                <input type="hidden" name="view" value="{{ view_mode }}">
-                <input type="hidden" name="start" value="{{ start_date }}">
-                <input type="hidden" name="end" value="{{ end_date }}">
-                <button type="submit" class="btn btn-outline-primary">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
-                </button>
-            </form>
+            <a href="{% url 'dashboard' %}?view={{ view_mode }}&start={{ start_date }}&end={{ end_date }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back
+            </a>
+
+            <button onclick="window.print()" class="btn btn-outline-primary">
+                <i class="fas fa-print me-2"></i>Print / PDF
+            </button>
 
             <form action="{% url 'export_data' %}" method="get">
                 <input type="hidden" name="view" value="{{ view_mode }}">
                 <input type="hidden" name="start" value="{{ start_date }}">
                 <input type="hidden" name="end" value="{{ end_date }}">
+                {% for sbu in selected_sbus %}<input type="hidden" name="sbu" value="{{ sbu }}">{% endfor %}
                 <button type="submit" class="btn btn-success">
-                    <i class="fas fa-file-excel me-2"></i>Download Excel
+                    <i class="fas fa-file-excel me-2"></i>Excel
                 </button>
             </form>
         </div>
     </div>
 
-    <div class="card shadow-sm border-0">
-        <div class="card-body">
+    <div class="card shadow-sm border" style="background-color: var(--card-bg);">
+        <div class="card-body p-4">
             
+            {% if not df_pre and not df_post %}
+                <div class="alert alert-warning text-center p-5 my-3 rounded-3 border-0 bg-warning bg-opacity-10 text-warning">
+                    <h4 class="fw-bold"><i class="fas fa-search me-2"></i>No Data Found</h4>
+                    <p class="mb-0 opacity-75" style="color: var(--text-main);">Try adjusting your date range or filters on the Dashboard.</p>
+                </div>
+            {% endif %}
+
             {% if df_pre %}
             <div class="mb-5">
-                <h5 class="text-primary border-bottom pb-2 mb-3">Pre-Sales / Pre-Stage Analysis</h5>
+                <h5 class="text-primary fw-bold border-bottom pb-2 mb-3">
+                    Pre-Sales Analysis
+                </h5>
                 <div class="table-responsive">
                     {{ df_pre|safe }}
                 </div>
@@ -48,21 +74,57 @@
 
             {% if df_post %}
             <div class="mb-3">
-                <h5 class="text-success border-bottom pb-2 mb-3">Execution / Post-Stage Analysis</h5>
+                <h5 class="text-success fw-bold border-bottom pb-2 mb-3">
+                    Post-Sales Analysis
+                </h5>
                 <div class="table-responsive">
                     {{ df_post|safe }}
                 </div>
             </div>
             {% endif %}
 
-            {% if not df_pre and not df_post %}
-            <div class="alert alert-warning text-center p-5">
-                <h4><i class="fas fa-search me-2"></i>No Data Found</h4>
-                <p>Try adjusting your date range or filters on the Dashboard.</p>
-            </div>
-            {% endif %}
-
         </div>
     </div>
 </div>
+
+<style>
+    /* --- PANDAS TABLE STYLING --- */
+    table.dataframe {
+        width: 100%; border-collapse: collapse; margin-bottom: 0;
+        font-size: 0.95rem; border: 1px solid var(--border-color);
+        color: var(--text-main);
+    }
+    
+    /* Header */
+    table.dataframe th {
+        background-color: var(--bg-body) !important; 
+        color: var(--text-muted) !important;
+        font-weight: 700;
+        text-align: center; padding: 14px; border-bottom: 2px solid var(--border-color);
+    }
+    
+    /* Cells (Force Dark Background) */
+    table.dataframe td {
+        background-color: var(--card-bg) !important;
+        color: var(--text-main) !important;
+        padding: 12px; border-bottom: 1px solid var(--border-color);
+        vertical-align: middle; text-align: center;
+    }
+    
+    /* Stripes (Needs !important to override the cell force above) */
+    table.dataframe tbody tr:nth-of-type(odd) td {
+        background-color: rgba(128, 128, 128, 0.04) !important; 
+    }
+    
+    /* Hover */
+    table.dataframe tbody tr:hover td {
+        background-color: rgba(79, 70, 229, 0.1) !important; 
+        color: var(--text-main) !important;
+    }
+    
+    /* Align first column (Metric Name) to left */
+    table.dataframe th:first-child, table.dataframe td:first-child {
+        text-align: left; padding-left: 20px; font-weight: 600;
+    }
+</style>
 {% endblock %}

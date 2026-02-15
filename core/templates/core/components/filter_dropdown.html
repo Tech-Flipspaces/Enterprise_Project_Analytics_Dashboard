@@ -1,35 +1,59 @@
 <div class="dropdown people-dropdown" id="dd_{{ field_name }}">
-    <button class="btn btn-outline-secondary btn-sm w-100 text-start d-flex justify-content-between align-items-center" 
+    <button class="btn btn-outline-secondary btn-sm w-100 text-start d-flex justify-content-between align-items-center bg-white" 
             type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-        <span class="text-truncate btn-label">
-            {% if selected|length == 0 %}All{% else %}{{ selected|length }} Selected{% endif %}
+        <span class="text-truncate btn-label fw-bold small text-dark">
+            {% if selected|length == 0 %}
+                Select...
+            {% else %}
+                {{ selected|length }} Selected
+            {% endif %}
         </span>
-        <i class="fas fa-chevron-down small"></i>
+        <i class="fas fa-chevron-down text-muted" style="font-size: 0.7rem;"></i>
     </button>
-    <div class="dropdown-menu dropdown-menu-form">
-        <div class="dropdown-search-box">
+
+    <div class="dropdown-menu dropdown-menu-form shadow border-0 mt-1">
+        
+        <div class="dropdown-search-box p-2 border-bottom bg-light">
             <input type="text" class="form-control form-control-sm search-input" 
-                   placeholder="Search..." onkeyup="filterDropdown('{{ field_name }}')">
+                   placeholder="Type to search..." onkeyup="filterDropdown('{{ field_name }}')">
         </div>
-        <div class="dropdown-header-sticky">
+
+        <div class="dropdown-header-sticky px-3 py-2 border-bottom bg-white">
             <div class="form-check mb-0">
                 <input class="form-check-input select-all" type="checkbox" 
                        id="all_{{ field_name }}" onchange="toggleAll('{{ field_name }}')">
-                <label class="form-check-label fw-bold small" for="all_{{ field_name }}">Select All</label>
+                <label class="form-check-label fw-bold small text-primary cursor-pointer" for="all_{{ field_name }}">
+                    Select All Results
+                </label>
             </div>
         </div>
-        <div class="dropdown-scroll-area list-container" id="list_{{ field_name }}">
+
+        <div class="dropdown-scroll-area list-container custom-scrollbar" id="list_{{ field_name }}" style="max-height: 200px; overflow-y: auto;">
             {% for p in options %}
-            <div class="dropdown-item-text" onclick="document.getElementById('{{ field_name }}_{{ forloop.counter }}').click()">
-                <input class="form-check-input item-checkbox" type="checkbox" 
-                       name="{{ field_name }}" value="{{ p }}" 
-                       id="{{ field_name }}_{{ forloop.counter }}" 
-                       {% if p in selected %}checked{% endif %} 
-                       onchange="updateBtn('{{ field_name }}')" 
-                       onclick="event.stopPropagation()">
-                <label class="form-check-label" for="{{ field_name }}_{{ forloop.counter }}">{{ p }}</label>
+            <div class="dropdown-item-text px-3 py-1 hover-bg-light" onclick="document.getElementById('{{ field_name }}_{{ forloop.counter }}').click()">
+                <div class="form-check mb-0">
+                    <input class="form-check-input item-checkbox" type="checkbox" 
+                           name="{{ field_name }}" value="{{ p }}" 
+                           id="{{ field_name }}_{{ forloop.counter }}" 
+                           {% if p in selected %}checked{% endif %} 
+                           onchange="updateBtn('{{ field_name }}')" 
+                           onclick="event.stopPropagation()">
+                    <label class="form-check-label small text-secondary w-100" for="{{ field_name }}_{{ forloop.counter }}">
+                        {{ p }}
+                    </label>
+                </div>
             </div>
+            {% empty %}
+                <div class="px-3 py-2 text-muted small fst-italic">No options available</div>
             {% endfor %}
         </div>
     </div>
 </div>
+
+<style>
+    /* specific tweaks for this component */
+    .dropdown-item-text { cursor: pointer; transition: background 0.2s; }
+    .hover-bg-light:hover { background-color: #f8f9fa; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #dee2e6; border-radius: 4px; }
+</style>

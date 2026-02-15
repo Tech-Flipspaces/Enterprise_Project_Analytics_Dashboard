@@ -1,136 +1,106 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
+
+{% block title %}Upload Data | Nexus{% endblock %}
+{% block page_title %}Data Import{% endblock %}
+{% block page_subtitle %}Upload Excel files to update project metrics{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-    body { background-color: #f4f6f8; font-family: 'Inter', sans-serif; }
-
-    .upload-card {
-        max-width: 600px;
-        margin: 60px auto;
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        border: none;
-        overflow: hidden;
-    }
-
-    .card-header-custom {
-        background: #fff;
-        padding: 30px 40px 10px;
-        text-align: center;
-        border-bottom: none;
-    }
-
-    .upload-zone {
-        border: 2px dashed #cbd5e1;
-        border-radius: 12px;
-        padding: 40px;
-        text-align: center;
-        background-color: #f8fafc;
-        transition: all 0.2s;
-        cursor: pointer;
-        margin: 20px 40px;
-    }
-    .upload-zone:hover {
-        border-color: #3b82f6;
-        background-color: #eff6ff;
-    }
-    
-    .upload-icon { font-size: 3rem; margin-bottom: 15px; display: block; }
-    
-    /* Hide the ugly default file input */
-    input[type="file"] {
-        display: none; 
-    }
-
-    /* Loading Overlay (Same as Dashboard) */
-    #loading-overlay {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        z-index: 9999; display: none;
-        justify-content: center; align-items: center; flex-direction: column;
-    }
-    .spinner-ring {
-        width: 50px; height: 50px;
-        border: 4px solid rgba(59, 130, 246, 0.2);
-        border-top: 4px solid #3b82f6;
-        border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px;
-    }
-    .loading-text { font-weight: 600; color: #334155; animation: pulse 2s infinite; }
-    
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
-    .is-loading { display: flex !important; }
-</style>
-
-<div id="loading-overlay">
-    <div class="spinner-ring"></div>
-    <div class="loading-text">Processing your Excel sheet...</div>
-</div>
-
-<div class="container">
-    <div class="card upload-card animate-enter">
+<div class="row justify-content-center" style="min-height: 60vh; align-items: center;">
+    <div class="col-md-6">
         
-        <div class="card-header-custom">
-            <h3 class="fw-bold text-dark">Upload Data</h3>
-            <p class="text-muted small">Supports .xlsx and .xls files</p>
-        </div>
-
-        <form method="POST" enctype="multipart/form-data" id="uploadForm">
-            {% csrf_token %}
-            
-            <label for="id_file" class="upload-zone" id="drop-zone">
-                <span class="upload-icon">📂</span>
-                <h6 class="fw-bold text-dark mb-1">Click to browse</h6>
-                <p class="text-muted small mb-0" id="file-name">or drag and drop your Excel file here</p>
+        <div id="upload-card" class="card shadow-sm border-0 animate-enter" style="background-color: var(--card-bg);">
+            <div class="card-body p-5 text-center">
                 
-                <input type="file" name="file" id="id_file" required accept=".xlsx,.xls">
-            </label>
-
-            {% if form.errors %}
-                <div class="px-5 mb-3">
-                    <div class="alert alert-danger py-2 small rounded-3">
-                        {{ form.errors }}
+                <div class="mb-4">
+                    <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                        <i class="fas fa-cloud-upload-alt fa-3x"></i>
                     </div>
                 </div>
-            {% endif %}
 
-            <div class="px-5 pb-5 d-grid">
-                <button type="submit" class="btn btn-primary py-2 fw-bold shadow-sm">
-                    🚀 Process Data
-                </button>
-                <a href="{% url 'dashboard' %}" class="btn btn-link text-muted mt-2 small text-decoration-none">
-                    Cancel and return to Dashboard
-                </a>
+                <h4 class="fw-bold mb-3" style="color: var(--text-main);">Upload Project Data</h4>
+                <p class="text-muted mb-4">
+                    Supported formats: <strong>.xlsx, .xls</strong><br>
+                    Ensure sheets are named: <em>Sales, Design, Operations</em>
+                </p>
+
+                <form method="post" enctype="multipart/form-data" class="text-start" id="upload-form">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-uppercase text-muted">Select File</label>
+                        <input class="form-control form-control-lg" type="file" name="file" required
+                               style="background-color: var(--bg-body); border-color: var(--border-color); color: var(--text-main);">
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg fw-bold shadow-sm transition-all">
+                            <i class="fas fa-upload me-2"></i>Process Data
+                        </button>
+                    </div>
+                </form>
+
             </div>
-        </form>
+            <div class="card-footer border-0 py-3 text-center" style="background-color: var(--bg-body) !important;">
+                <small class="text-muted">
+                    <i class="fas fa-info-circle me-1"></i> 
+                    Uploading will overwrite existing project data for matched IDs.
+                </small>
+            </div>
+        </div>
+
+        <div id="processing-view" class="d-none text-center animate-enter">
+            
+            <div class="mb-4 position-relative d-inline-block">
+                <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem; border-width: 4px;"></div>
+                <div class="position-absolute top-50 start-50 translate-middle text-primary">
+                    <i class="fas fa-cog fa-lg fa-spin" style="animation-duration: 3s;"></i>
+                </div>
+            </div>
+
+            <h3 class="fw-bold mb-2" style="color: var(--text-main);">Processing Data...</h3>
+            <p class="text-muted mb-4">
+                Analyzing Excel sheets and updating metrics.<br>
+                <span class="small opacity-75">This may take a few moments. Do not refresh.</span>
+            </p>
+
+            <div class="progress" style="height: 6px; background-color: var(--border-color); max-width: 300px; margin: 0 auto;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 100%"></div>
+            </div>
+
+        </div>
+
     </div>
 </div>
+{% endblock %}
 
+{% block extra_js %}
 <script>
-    // 1. File Selection Logic (Visual Feedback)
-    const fileInput = document.getElementById('id_file');
-    const fileNameDisplay = document.getElementById('file-name');
-    const dropZone = document.getElementById('drop-zone');
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById('upload-form');
+        const card = document.getElementById('upload-card');
+        const loader = document.getElementById('processing-view');
 
-    fileInput.addEventListener('change', function() {
-        if (this.files && this.files.length > 0) {
-            fileNameDisplay.innerHTML = `Selected: <span class="text-primary fw-bold">${this.files[0].name}</span>`;
-            dropZone.style.borderColor = '#3b82f6';
-            dropZone.style.backgroundColor = '#eff6ff';
-        }
-    });
+        form.addEventListener('submit', function() {
+            // 1. Fade out the card
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            card.style.transition = 'all 0.3s ease';
 
-    // 2. Loading Screen Logic
-    const loader = document.getElementById('loading-overlay');
-    const form = document.getElementById('uploadForm');
-
-    form.addEventListener('submit', function() {
-        // Show loader instantly when "Process Data" is clicked
-        loader.classList.add('is-loading');
+            // 2. Wait 300ms, then swap views
+            setTimeout(() => {
+                card.classList.add('d-none');
+                loader.classList.remove('d-none');
+                
+                // 3. Fade in the loader
+                loader.style.opacity = '0';
+                loader.style.transform = 'translateY(10px)';
+                requestAnimationFrame(() => {
+                    loader.style.transition = 'all 0.4s ease';
+                    loader.style.opacity = '1';
+                    loader.style.transform = 'translateY(0)';
+                });
+            }, 300);
+        });
     });
 </script>
-
 {% endblock %}

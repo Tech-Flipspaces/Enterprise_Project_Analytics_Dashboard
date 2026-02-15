@@ -1,229 +1,325 @@
 {% extends "core/base.html" %}
 
-{% block content %}
-<div class="container py-5">
+{% block title %}Leaderboard{% endblock %}
+{% block page_title %}🏆 Performance Leaderboard{% endblock %}
+{% block page_subtitle %}Ranking based on Total Earned Credits across {{ selected_sbus|length }} Regions{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* --- 1. ADAPTIVE CARD STYLING --- */
+    .filter-card, .leaderboard-card, .podium-card { 
+        background: var(--card-bg); 
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-soft);
+        border-radius: 12px;
+    }
+    .filter-card {
+        padding: 20px;
+        margin-bottom: 2rem;
+        overflow: visible !important; 
+        z-index: 100 !important;
+        position: relative;
+    }
+
+    /* --- 2. TABLE STYLING --- */
+    table.leaderboard-table { width: 100%; border-collapse: collapse; color: var(--text-main); }
     
-    <div class="text-center mb-5">
+    table.leaderboard-table th {
+        background-color: var(--bg-body);
+        color: var(--text-muted);
+        font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px;
+        padding: 16px; border-bottom: 2px solid var(--border-color); vertical-align: middle;
+    }
+    table.leaderboard-table td {
+        padding: 16px; border-bottom: 1px solid var(--border-color); vertical-align: middle; font-weight: 500;
+    }
+    table.leaderboard-table tr:nth-child(even) { background-color: rgba(128, 128, 128, 0.02); }
+    table.leaderboard-table tr:hover td { background-color: rgba(79, 70, 229, 0.05); }
+
+    /* --- 3. COMPONENT STYLING --- */
+    .avatar-circle { 
+        width: 42px; height: 42px; 
+        background-color: var(--bg-body) !important; 
+        color: var(--primary-color);
+        border: 2px solid var(--border-color);
+        transition: transform 0.2s; 
+    }
+    .avatar-circle:hover { transform: scale(1.1); border-color: var(--primary-color) !important; }
+
+    .hover-scale { transition: transform 0.2s; }
+    .hover-scale:hover { transform: scale(1.03); }
+    
+    .hover-primary:hover { color: var(--primary-color) !important; text-decoration: underline !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-0">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div></div>
+        <div class="btn-group shadow-sm" role="group">
+            <button type="button" class="btn btn-primary active fw-bold">
+                <i class="fas fa-list me-2"></i>Detailed List
+            </button>
+            <a href="{% url 'leaderboard_summary' %}?start={{ start_date }}&end={{ end_date }}{% for sbu in selected_sbus %}&sbu={{ sbu }}{% endfor %}" 
+               class="btn btn-outline-secondary fw-bold" 
+               style="border-color: var(--border-color); color: var(--text-muted);">
+                <i class="fas fa-th-large me-2"></i>Top Performers
+            </a>
+        </div>
+    </div>
+    
+    <div class="text-center mb-5 animate-enter">
         <h1 class="display-5 fw-bold text-primary">🏆 Performance Leaderboard</h1>
         <p class="text-muted">Ranking based on Total Earned Credits (Sum of all Project Scores)</p>
     </div>
 
-    <div class="card border-0 shadow-sm mb-4">
-        <div class="card-body bg-light">
-            <form method="get" class="row g-3 align-items-end">
-                <div class="col-md-3">
-                    <label class="small fw-bold text-muted">LEAGUE / ROLE</label>
-                    <select name="role" class="form-select shadow-sm" onchange="this.form.submit()">
-                        {% for r in all_roles %}
-                            <option value="{{ r }}" {% if r == selected_role %}selected{% endif %}>{{ r }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+    <div class="filter-card animate-enter delay-1">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-muted text-uppercase mb-1">League / Role</label>
+                <select name="role" class="form-select form-select-sm fw-bold border-0 shadow-sm text-primary" 
+                        style="background-color: var(--bg-body); color: var(--text-main);"
+                        onchange="this.form.submit()">
+                    {% for r in all_roles %}
+                        <option value="{{ r }}" {% if r == selected_role %}selected{% endif %}>{{ r }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-                <div class="col-md-3">
-                    <label class="small fw-bold text-muted">REGIONS (SBUs)</label>
-                    <div class="d-flex flex-wrap gap-2 pt-1">
-                        
-                        {% for sbu in sbu_options %}
-                        <div class="form-check form-check-inline small">
-                            <input class="form-check-input" type="checkbox" name="sbu" value="{{ sbu }}" 
-                                id="sbu_{{ forloop.counter }}" 
-                                {% if sbu in selected_sbus %}checked{% endif %}
-                                onchange="this.form.submit()">
-                            <label class="form-check-label" for="sbu_{{ forloop.counter }}">{{ sbu }}</label>
-                        </div>
-                        {% endfor %}
-                        
-                    </div>
-                </div>
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-muted text-uppercase mb-1">Regions (SBUs)</label>
+                {% with field_name="sbu" options=sbu_options selected=selected_sbus %}
+                    {% include "core/components/filter_dropdown.html" %}
+                {% endwith %}
+            </div>
 
-                <div class="col-md-4">
-                    <label class="small fw-bold text-muted">DATE RANGE (Project Start/Login)</label>
-                    <div class="input-group input-group-sm shadow-sm">
-                        <input type="date" name="start" class="form-control" value="{{ start_date }}">
-                        <span class="input-group-text">to</span>
-                        <input type="date" name="end" class="form-control" value="{{ end_date }}">
-                        <button class="btn btn-primary" type="submit">Apply</button>
-                    </div>
+            <div class="col-md-4">
+                <label class="form-label small fw-bold text-muted text-uppercase mb-1">Performance Period</label>
+                <div class="input-group input-group-sm shadow-sm">
+                    <input type="date" name="start" class="form-control border-0 fw-bold" 
+                           style="background-color: var(--bg-body); color: var(--text-main);" value="{{ start_date }}">
+                    <span class="input-group-text border-0 text-muted" style="background-color: var(--bg-body);">to</span>
+                    <input type="date" name="end" class="form-control border-0 fw-bold" 
+                           style="background-color: var(--bg-body); color: var(--text-main);" value="{{ end_date }}">
                 </div>
-            </form>
-        </div>
+            </div>
+
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary btn-sm w-100 fw-bold shadow-sm">
+                    <i class="fas fa-filter me-2"></i>Apply
+                </button>
+            </div>
+        </form>
     </div>
 
     {% if error %}
-        <div class="alert alert-danger text-center">{{ error }}</div>
+        <div class="alert alert-danger text-center shadow-sm border-0"><i class="fas fa-exclamation-circle me-2"></i>{{ error }}</div>
     {% else %}
         
         {% if leaderboard|length >= 3 %}
-        <div class="row justify-content-center mb-5 align-items-end">
+        <div class="row justify-content-center mb-5 align-items-end animate-enter delay-1">
             <div class="col-md-3 text-center">
-                <div class="card border-0 shadow-sm mb-3" style="transform: scale(0.9);">
-                    <div class="card-body">
-                        <h2 class="text-secondary fw-bold">#2</h2>
-                        <h5 class="text-truncate">{{ leaderboard.1.name }}</h5>
-                        <h3 class="fw-bold text-primary">{{ leaderboard.1.total_score }}</h3>
-                        <small class="text-muted">Credits</small>
-                    </div>
+                <div class="podium-card mb-3 hover-scale p-4" style="transform: scale(0.9);">
+                    <h2 class="text-secondary fw-bold mb-0">🥈 #2</h2>
+                    <h5 class="text-truncate fw-bold mt-2" style="color: var(--text-main);">{{ leaderboard.1.name }}</h5>
+                    <h3 class="fw-bold text-primary mb-0">{{ leaderboard.1.total_score }}</h3>
+                    <small class="text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Credits</small>
                 </div>
             </div>
             <div class="col-md-4 text-center">
-                <div class="card border-0 shadow mb-3 border-warning" style="border-top-width: 5px;">
-                    <div class="card-body py-5">
-                        <h1 class="text-warning fw-bold">👑 #1</h1>
-                        <h4 class="text-truncate fw-bold">{{ leaderboard.0.name }}</h4>
-                        <h2 class="display-4 fw-bold text-primary">{{ leaderboard.0.total_score }}</h2>
-                        <span class="badge bg-light text-dark border">{{ leaderboard.0.projects }} Projects</span>
-                    </div>
+                <div class="podium-card mb-3 border-top border-warning border-5 hover-scale py-5">
+                    <h1 class="text-warning fw-bold mb-0">👑 #1</h1>
+                    <h4 class="text-truncate fw-bold mt-2" style="color: var(--text-main);">{{ leaderboard.0.name }}</h4>
+                    <h2 class="display-4 fw-bolder text-primary mb-2">{{ leaderboard.0.total_score }}</h2>
+                    <span class="badge rounded-pill border" style="background-color: var(--bg-body); color: var(--text-muted);">
+                        {{ leaderboard.0.projects }} Projects
+                    </span>
                 </div>
             </div>
             <div class="col-md-3 text-center">
-                <div class="card border-0 shadow-sm mb-3" style="transform: scale(0.9);">
-                    <div class="card-body">
-                        <h2 class="text-secondary fw-bold">#3</h2>
-                        <h5 class="text-truncate">{{ leaderboard.2.name }}</h5>
-                        <h3 class="fw-bold text-primary">{{ leaderboard.2.total_score }}</h3>
-                        <small class="text-muted">Credits</small>
-                    </div>
+                <div class="podium-card mb-3 hover-scale p-4" style="transform: scale(0.9);">
+                    <h2 class="text-secondary fw-bold mb-0">🥉 #3</h2>
+                    <h5 class="text-truncate fw-bold mt-2" style="color: var(--text-main);">{{ leaderboard.2.name }}</h5>
+                    <h3 class="fw-bold text-primary mb-0">{{ leaderboard.2.total_score }}</h3>
+                    <small class="text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Credits</small>
                 </div>
             </div>
         </div>
         {% endif %}
 
-        <div class="card border-0 shadow-lg overflow-hidden">
-            <table class="table table-hover align-middle">
-                <thead class="table-light small text-muted text-uppercase">
-                    <tr>
-                        <th class="ps-4">Rank</th>
-                        <th>User / Email</th>
-                        <th class="text-center">Projects Active</th>
-                        <th class="text-center">Performance Percentile</th> <th class="text-end pe-4">Total Earned Credits</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in leaderboard %}
-                    <tr>
-                        <td class="ps-4 fw-bold text-muted">#{{ row.rank }}</td>
-                        
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="avatar-circle bg-light text-primary fw-bold me-3 rounded-circle d-flex align-items-center justify-content-center border" style="width: 40px; height: 40px;">
-                                    {{ row.name|slice:":1"|upper }}
-                                </div>
-                                <div>
-                                    <a href="{% url 'dashboard' %}?view={{ link_view }}&{{ link_param }}={{ row.name }}&start={{ start_date }}&end={{ end_date }}" 
-                                    class="fw-bold text-dark text-decoration-none stretched-link-custom hover-primary">
-                                        {{ row.name }}
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-
-                        <td class="text-center">
-                            <span class="badge bg-light text-dark border">{{ row.projects }} Projects</span>
-                        </td>
-
-                        <td class="text-center" style="width: 25%;">
-                            <div class="d-flex flex-column justify-content-center h-100">
-                                
-                                <div class="mb-1">
-                                    {% if row.percentile >= 90 %}
-                                        <span class="badge bg-success bg-opacity-10 text-success border border-success">Top 10% ({{ row.percentile }}%ile)</span>
-                                    {% elif row.percentile >= 50 %}
-                                        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary">Top 50% ({{ row.percentile }}%ile)</span>
-                                    {% else %}
-                                        <span class="badge bg-secondary bg-opacity-10 text-secondary border">{{ row.percentile }}%ile</span>
-                                    {% endif %}
-                                </div>
-
-                                <div class="progress" style="height: 4px; width: 100px; margin: 0 auto;">
-                                    <div class="progress-bar {% if row.percentile >= 80 %}bg-success{% elif row.percentile >= 50 %}bg-primary{% else %}bg-secondary{% endif %}" 
-                                        role="progressbar" 
-                                        style="width: {{ row.percentile }}%">
+        <div class="leaderboard-card mb-5 animate-enter delay-1">
+            <div class="table-responsive">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Rank</th>
+                            <th>User / Email</th>
+                            <th class="text-center">Projects Active</th>
+                            <th class="text-center">Performance Percentile</th> 
+                            <th class="text-end pe-4">Total Earned Credits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in leaderboard %}
+                        <tr>
+                            <td class="ps-4 fw-bold text-muted" style="width: 80px;">
+                                {% if row.rank == 1 %}🥇 #1{% elif row.rank == 2 %}🥈 #2{% elif row.rank == 3 %}🥉 #3{% else %}#{{ row.rank }}{% endif %}
+                            </td>
+                            
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-circle rounded-circle d-flex align-items-center justify-content-center shadow-sm me-3 fw-bold">
+                                        {{ row.name|slice:":1"|upper }}
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'dashboard' %}?view={{ link_view }}&{{ link_param }}={{ row.name }}&start={{ start_date }}&end={{ end_date }}" 
+                                           class="fw-bold text-decoration-none hover-primary" style="color: var(--text-main);">
+                                             {{ row.name }}
+                                        </a>
+                                        <small class="d-block text-muted" style="font-size: 0.75rem;">{{ selected_role }}</small>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
 
-                        <td class="text-end pe-4">
-                            <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#breakdownModal{{ forloop.counter }}">
-                                <h5 class="fw-bold text-primary mb-0 hover-scale">{{ row.total_score }}</h5>
-                                <small class="text-muted d-block" style="font-size: 0.75rem; cursor: pointer;">
-                                    View Breakdown <i class="fas fa-chevron-down ms-1"></i>
-                                </small>
-                            </a>
+                            <td class="text-center">
+                                <span class="badge border px-3 py-2" style="background-color: var(--bg-body); color: var(--text-main); border-color: var(--border-color);">
+                                    {{ row.projects }} Projects
+                                </span>
+                            </td>
 
-                            <div class="modal fade text-start" id="breakdownModal{{ forloop.counter }}" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content border-0 shadow">
-                                        <div class="modal-header bg-primary text-white">
-                                            <h5 class="modal-title fs-6">
-                                                <i class="fas fa-chart-pie me-2"></i>Performance Breakdown: <strong>{{ row.name }}</strong>
-                                            </h5>
-                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body p-0">
-                                            <table class="table table-striped table-hover mb-0">
-                                                <thead class="bg-light small text-muted text-uppercase">
-                                                    <tr>
-                                                        <th class="ps-4">Project Name</th>
-                                                        <th class="text-center">Stage</th>
-                                                        <th class="text-center">SBU</th>
-                                                        <th class="text-end pe-4">Credits Earned</th>
-                                                        <th></th> </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {% for p in row.breakdown %}
-                                                        <tr>
-                                                            <td class="ps-4 flex-wrap text-dark">{{ p.project_name }}</td>
-                                                            <td class="text-center">
-                                                                <span class="badge bg-light text-dark border">{{ p.stage }}</span>
-                                                            </td>
-                                                            <td class="text-center small text-muted">{{ p.sbu }}</td>
-                                                            <td class="text-end pe-4 fw-bold text-primary">{{ p.score }}</td>
-                                                            
-                                                            <td class="text-end pe-3">
+                            <td class="text-center" style="width: 25%;">
+                                <div class="d-flex flex-column justify-content-center h-100 px-4">
+                                    <div class="mb-1">
+                                        {% if row.percentile >= 90 %}
+                                            <span class="badge bg-success bg-opacity-10 text-success border border-success">Top 10% ({{ row.percentile }}%ile)</span>
+                                        {% elif row.percentile >= 50 %}
+                                            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary">Top 50% ({{ row.percentile }}%ile)</span>
+                                        {% else %}
+                                            <span class="badge border" style="color: var(--text-muted); border-color: var(--border-color);">{{ row.percentile }}%ile</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="progress" style="height: 6px; border-radius: 3px; background-color: var(--bg-body);">
+                                        <div class="progress-bar {% if row.percentile >= 80 %}bg-success{% elif row.percentile >= 50 %}bg-primary{% else %}bg-secondary{% endif %}" 
+                                             role="progressbar" style="width: {{ row.percentile }}%"></div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="text-end pe-4">
+                                <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#breakdownModal{{ forloop.counter }}">
+                                    <h5 class="fw-bold text-primary mb-0 hover-scale">{{ row.total_score }}</h5>
+                                    <small class="text-muted d-block" style="font-size: 0.7rem; cursor: pointer;">
+                                        View Breakdown <i class="fas fa-chevron-right ms-1" style="font-size: 0.6rem;"></i>
+                                    </small>
+                                </a>
+
+                                <div class="modal fade text-start modal-teleport" id="breakdownModal{{ forloop.counter }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content border-0 shadow" style="background-color: var(--card-bg); color: var(--text-main);">
+                                            <div class="modal-header bg-primary text-white">
+                                                <h5 class="modal-title fs-6 fw-bold">
+                                                    <i class="fas fa-chart-pie me-2"></i>Performance: {{ row.name }}
+                                                </h5>
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body p-0">
+                                                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                                    <table class="leaderboard-table mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="ps-4">Project Name</th>
+                                                                <th class="text-center">Stage</th>
+                                                                <th class="text-center">SBU</th>
+                                                                <th class="text-end pe-4">Credits</th>
+                                                                <th></th> 
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for p in row.breakdown %}
+                                                            <tr>
+                                                                <td class="ps-4 small fw-bold" style="color: var(--text-main);">{{ p.project_name }}</td>
+                                                                <td class="text-center">
+                                                                    <span class="badge border" style="background-color: var(--bg-body); color: var(--text-main);">{{ p.stage }}</span>
+                                                                </td>
+                                                                <td class="text-center small text-muted">{{ p.sbu }}</td>
+                                                                <td class="text-end pe-4 fw-bold text-primary">{{ p.score }}</td>
                                                                 <td class="text-end pe-3">
                                                                     {% if p.code %}
                                                                         <a href="{% url 'project_scorecard' p.code %}?metric_role={{ selected_role }}" 
-                                                                        class="btn btn-sm btn-outline-secondary py-0" style="font-size: 0.75rem;">
-                                                                            Audit <i class="fas fa-arrow-right ms-1"></i>
+                                                                           class="btn btn-sm border py-0 text-primary fw-bold hover-scale" 
+                                                                           style="font-size: 0.7rem; background-color: var(--bg-body); border-color: var(--border-color);">
+                                                                           Audit
                                                                         </a>
-                                                                    {% else %}
-                                                                        <span class="text-muted small">No Code</span>
                                                                     {% endif %}
                                                                 </td>
-                                                            </td>
-                                                        </tr>
-
-                                                        {% empty %}
-                                                        <tr><td colspan="5" class="text-center p-3">No active projects found.</td></tr>
-                                                    {% endfor %}
-
-                                                </tbody>
-                                                <tfoot class="bg-light fw-bold">
-                                                    <tr>
-                                                        <td colspan="3" class="text-end pe-3">TOTAL:</td>
-                                                        <td class="text-end pe-4 text-primary fs-5">{{ row.total_score }}</td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer py-2" style="background-color: var(--bg-body); border-top-color: var(--border-color);">
+                                                <small class="text-muted me-auto">Showing {{ row.breakdown|length }} projects</small>
+                                                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center py-5 text-muted">
-                            No data found.
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-5 text-muted">
+                                <i class="fas fa-users-slash fa-3x mb-3 opacity-25"></i>
+                                <h5 class="fw-bold">No Data Found</h5>
+                                <p class="mb-0 small">Try adjusting the filters or date range.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     {% endif %}
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // 1. Dropdown Logic
+    function filterDropdown(inputId) {
+        const dropdownMenu = document.getElementById('dd_' + inputId); if(!dropdownMenu) return; 
+        const input = dropdownMenu.querySelector('.dropdown-search-box input');
+        const filter = input.value.toLowerCase();
+        const items = dropdownMenu.querySelectorAll('.dropdown-item-text');
+        items.forEach(item => { const text = item.innerText.toLowerCase(); item.style.display = text.includes(filter) ? "" : "none"; });
+    }
+    function toggleAll(fieldId) {
+        const container = document.getElementById('dd_' + fieldId); if(!container) return;
+        const selectAllCheckbox = container.querySelector('.select-all');
+        const visibleItems = Array.from(container.querySelectorAll('.dropdown-item-text')).filter(item => item.style.display !== 'none');
+        visibleItems.forEach(item => { item.querySelector('.item-checkbox').checked = selectAllCheckbox.checked; });
+        updateBtn(fieldId);
+    }
+    function updateBtn(fieldId) {
+        const container = document.getElementById('dd_' + fieldId); if(!container) return;
+        const count = container.querySelectorAll('.item-checkbox:checked').length;
+        const button = container.querySelector('button .btn-label');
+        if(button) button.innerText = count > 0 ? `${count} Selected` : 'Select...';
+    }
+
+    // 2. MODAL TELEPORT FIX
+    document.addEventListener("DOMContentLoaded", () => {
+        updateBtn('sbu'); 
+
+        // Teleport Modals to Body
+        var modals = document.querySelectorAll('.modal-teleport');
+        modals.forEach(function(modal) {
+            document.body.appendChild(modal);
+        });
+    });
+</script>
 {% endblock %}

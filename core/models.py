@@ -1,38 +1,55 @@
-from django.db import models            # type:ignore
+from django.db import models            # type: ignore
+
+# ==============================================================================
+# 1. CORE DATA MODEL (The Project)
+# ==============================================================================
 
 class Project(models.Model):
-    # --- ID & Metadata ---
-    project_code = models.CharField(max_length=50, unique=True)
+    """
+    Represents a single project entry imported from the Excel sheet.
+    Acts as the central entity for all scoring and reporting.
+    """
+    # --- Identification ---
+    project_code = models.CharField(max_length=50, unique=True, help_text="Unique Identifier (e.g. FS-MUM-001)")
     project_name = models.CharField(max_length=255, null=True, blank=True)
-    sbu = models.CharField(max_length=50, null=True, blank=True)
-    stage = models.CharField(max_length=50, null=True, blank=True)
+    sbu = models.CharField(max_length=50, null=True, blank=True, verbose_name="Region/SBU")
+    stage = models.CharField(max_length=50, null=True, blank=True, verbose_name="Project Stage")
     
-    # --- Dates ---
+    # --- Key Dates ---
     login_date = models.DateField(null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     
-    # --- Team ---
-    sales_head = models.CharField(max_length=100, null=True, blank=True)
-    sales_lead = models.CharField(max_length=100, null=True, blank=True)
+    # --- Stakeholders (Team) ---
+    sales_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="Sales Head")
+    sales_lead = models.CharField(max_length=100, null=True, blank=True, verbose_name="Sales Lead")
 
-    design_dh = models.CharField(max_length=100, null=True, blank=True)
-    design_dm = models.CharField(max_length=100, null=True, blank=True)
-    design_id = models.CharField(max_length=100, null=True, blank=True)
-    design_3d = models.CharField(max_length=100, null=True, blank=True)
+    design_dh = models.CharField(max_length=100, null=True, blank=True, verbose_name="DH")
+    design_dm = models.CharField(max_length=100, null=True, blank=True, verbose_name="DM")
+    design_id = models.CharField(max_length=100, null=True, blank=True, verbose_name="ID")
+    design_3d = models.CharField(max_length=100, null=True, blank=True, verbose_name="3D")
 
-    ops_head = models.CharField(max_length=100, null=True, blank=True)
-    ops_pm = models.CharField(max_length=100, null=True, blank=True)
-    ops_om = models.CharField(max_length=100, null=True, blank=True)
-    ops_ss = models.CharField(max_length=100, null=True, blank=True)
-    ops_mep = models.CharField(max_length=100, null=True, blank=True)
-    ops_csc = models.CharField(max_length=100, null=True, blank=True)
+    ops_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="Cluster/BU Head")
+    ops_pm = models.CharField(max_length=100, null=True, blank=True, verbose_name="SPM/PM")
+    ops_om = models.CharField(max_length=100, null=True, blank=True, verbose_name="SOM/OM")
+    ops_ss = models.CharField(max_length=100, null=True, blank=True, verbose_name="SS")
+    ops_mep = models.CharField(max_length=100, null=True, blank=True, verbose_name="MEP")
+    ops_csc = models.CharField(max_length=100, null=True, blank=True, verbose_name="CSC")
+
+    m_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="Marketing Head")
+    m_lead = models.CharField(max_length=100, null=True, blank=True, verbose_name="Marketing Lead")
+    
+    p_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="Purchase Head")
+    p_mgr = models.CharField(max_length=100, null=True, blank=True, verbose_name="Purchase Manager")
+    p_exec = models.CharField(max_length=100, null=True, blank=True, verbose_name="Purchase Executive")
+    
+    f_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="Finance Head")
 
     # =========================================================
-    # METRICS (Must match constants.py EXCEL_COL_MAP keys exactly)
+    # RAW METRICS (Populated via Excel Upload)
     # =========================================================
-
-    # --- Sales Metrics ---
+    
+    # Sales
     req_uploaded = models.FloatField(default=0.0)
     site_visit_report = models.FloatField(default=0.0)
     client_access = models.FloatField(default=0.0)
@@ -41,7 +58,7 @@ class Project(models.Model):
     boq = models.FloatField(default=0.0)         
     contract = models.FloatField(default=0.0)    
 
-    # --- Design Metrics ---
+    # Design
     furniture_layouts = models.FloatField(default=0.0)
     approved_layouts = models.FloatField(default=0.0)
     mapped_spaces = models.FloatField(default=0.0)
@@ -59,7 +76,7 @@ class Project(models.Model):
     key_plans_ratio = models.FloatField(default=0.0)
     other_layouts = models.FloatField(default=0.0)
 
-    # --- Ops Metrics ---
+    # Operations
     site_images = models.FloatField(default=0.0)
     invoices = models.FloatField(default=0.0)
     mep_drawings = models.FloatField(default=0.0)
@@ -77,26 +94,31 @@ class Project(models.Model):
     dpr_ratio = models.FloatField(default=0.0)
     manpower_day_ratio = models.FloatField(default=0.0)
 
-def __str__(self):
-        return self.project_code
+    def __str__(self):
+        return f"{self.project_code} - {self.project_name}"
 
 
-# --- NEW: Admin Panel Structures ---
+# ==============================================================================
+# 2. CONFIGURATION MODELS (Admin Managed)
+# ==============================================================================
 
 class Department(models.Model):
-    name = models.CharField(max_length=50, unique=True) # e.g., 'Sales', 'Design', 'Operations'
+    """ High-level functional areas (e.g. Sales, Design). """
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
 
 class UserGroup(models.Model):
+    """ Specific Roles within a Department (e.g. 'Sales Lead', '3D Visualizer'). """
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50) # e.g., 'ID', 'DH', 'PM', 'Sales Lead'
+    name = models.CharField(max_length=50)
 
     def __str__(self):
         return f"{self.department.name} - {self.name}"
     
 class SuccessMetric(models.Model):
+    """ Tags for UI coloring (e.g. 'Critical' = Red, 'Good' = Green). """
     COLOR_CHOICES = [
         ('primary', 'Blue (Primary)'),
         ('secondary', 'Grey (Secondary)'),
@@ -108,28 +130,29 @@ class SuccessMetric(models.Model):
         ('dark', 'Black (Dark)'),
     ]
 
-    name = models.CharField(max_length=50, unique=True) # e.g. "Completeness"
-    color = models.CharField(max_length=20, choices=COLOR_CHOICES, default='secondary') # e.g. "success", "warning", "danger"
+    name = models.CharField(max_length=50, unique=True)
+    color = models.CharField(max_length=20, choices=COLOR_CHOICES, default='secondary')
 
     def __str__(self):
         return self.name
 
 class Metric(models.Model):
+    """ 
+    Defines a KPI to be tracked.
+    Maps a user-friendly Label (e.g. 'Client Visits') to a Database Field (e.g. 'client_access').
+    """
     STAGE_CHOICES = [('Pre', 'Pre-Stage'), ('Post', 'Post-Stage')]
 
-    label = models.CharField(max_length=100) # The display name e.g., "Key Plans Ratio"
-    field_name = models.CharField(max_length=100, help_text="Must match a field in the Project model exactly (e.g., key_plans_ratio)")
+    label = models.CharField(max_length=100) 
+    field_name = models.CharField(max_length=100, help_text="Must match a field in the Project model exactly.")
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     stage = models.CharField(max_length=10, choices=STAGE_CHOICES)
     
-    # Logic & Config
-    default_threshold = models.FloatField(default=0.0)
-
-    # Success Category (For color-coding in UI)
+    # Logic
+    default_threshold = models.FloatField(default=0.0, help_text="Target value for success (e.g. 1.0 for binary tasks).")
     success_metric = models.ForeignKey(SuccessMetric, on_delete=models.SET_NULL, null=True, blank=True)
     
-    # User Group Link (Which roles see this metric?)
-    # ManyToMany because "Key Plans" might be visible to both 'ID' and 'DH'
+    # Legacy Visibility (kept for backward compatibility, but MetricWeight is preferred)
     visible_to_groups = models.ManyToManyField(UserGroup, blank=True)
 
     def __str__(self):
@@ -137,31 +160,24 @@ class Metric(models.Model):
 
 class MetricWeight(models.Model):
     """
-        This table solves multiple user group to one metrics problem.
-        It links a specific Metric to a specific Group with a specific Importance.
+    The Core Scoring Engine Configuration.
+    Assigns an 'Importance Factor' to a Metric for a specific User Group.
     """
     metric = models.ForeignKey(Metric, on_delete=models.CASCADE)
     user_group = models.ForeignKey(UserGroup, on_delete=models.CASCADE)
     
-    # 10 Levels of Importance (as you requested)
     WEIGHT_CHOICES = [
-        (1, '1 - Minimal'), 
-        (2, '2 - Very Low'), 
-        (3, '3 - Low'),
-        (4, '4 - Low-Medium'), 
-        (5, '5 - Medium (Standard)'),
-        (6, '6 - Medium-High'), 
-        (7, '7 - High'), 
-        (8, '8 - Very High'),
-        (9, '9 - Critical'), 
-        (10, '10 - Maximum Priority'),
+        (1, '1 - Minimal'), (2, '2 - Very Low'), (3, '3 - Low'),
+        (4, '4 - Low-Medium'), (5, '5 - Medium (Standard)'),
+        (6, '6 - Medium-High'), (7, '7 - High'), (8, '8 - Very High'),
+        (9, '9 - Critical'), (10, '10 - Maximum Priority'),
     ]
     
-    factor = models.IntegerField(choices=WEIGHT_CHOICES, default=1, help_text="Importance relative to other tasks for THIS group.")
+    factor = models.IntegerField(choices=WEIGHT_CHOICES, default=1)
 
     class Meta:
-        unique_together = ('metric', 'user_group') # Prevents duplicate rules
+        unique_together = ('metric', 'user_group')
         verbose_name = "Group Weight"
 
     def __str__(self):
-        return f"{self.user_group} - {self.factor}"
+        return f"{self.user_group} : {self.metric} ({self.factor})"
