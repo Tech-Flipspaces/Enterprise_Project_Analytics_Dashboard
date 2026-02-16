@@ -60,14 +60,24 @@
             <div class="d-flex justify-content-end mb-3 align-items-center">
                 <span class="text-muted small fw-bold me-2 text-uppercase">Auditing As:</span>
                 <form method="get">
-                    <select name="metric_role" class="form-select form-select-sm fw-bold border-0 shadow-sm text-primary" 
-                            style="background-color: var(--card-bg); width: auto;"
+                    <select name="metric_role" class="form-select form-select-sm fw-bold border-0 shadow-sm form-control-dark w-auto" 
                             onchange="this.form.submit()">
-                        {% for group in all_groups %}
-                            <option value="{{ group.name }}" {% if user_group.id == group.id %}selected{% endif %}>
-                                {{ group.name }}
-                            </option>
+                        
+                        {% for dept, roles in grouped_roles.items %}
+                            <optgroup label="{{ dept }}" style="font-weight: 700; color: var(--text-muted);">
+                                {% for r in roles %}
+                                    <option value="{{ r }}" style="color: var(--text-main);" 
+                                            {% if r == metric_role %}selected{% endif %}>
+                                        {{ r }}
+                                    </option>
+                                {% endfor %}
+                            </optgroup>
+                        {% empty %}
+                            {% for r in all_roles %}
+                                <option value="{{ r }}" {% if r == metric_role %}selected{% endif %}>{{ r }}</option>
+                            {% endfor %}
                         {% endfor %}
+
                     </select>
                 </form>
             </div>

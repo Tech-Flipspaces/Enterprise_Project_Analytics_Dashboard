@@ -192,6 +192,37 @@ def _calculate_project_score(project, valid_metrics, stage_totals):
                 
     return round(project_score, 1), current_stage
 
+def group_roles_by_dept(flat_roles):
+    """
+        Helper: Groups a list of role names into specific Departments in a specific order for Dropdown menus.
+    """
+    groups = {
+        'Sales': ['Sales Head', 'Sales Lead'],
+        'Design': ['DH', 'DM', 'ID', '3D'],
+        'Operations': ['Cluster/BU Head', 'SPM/PM', 'SOM/OM', 'SS', 'CSC', 'MEP'],
+        'Purchase': ['Purchase Head', 'Purchase Manager', 'Purchase Executive'],
+        'Marketing': ['Marketing Head', 'Marketing Lead'],
+        'Finance': ['Finance Head'],
+    }
+    
+    # Create a result dict preserving the order above
+    ordered_result = {k: [] for k in groups}
+    ordered_result['Other'] = [] # Catch-all bucket
+
+    for role in flat_roles:
+        found = False
+        for dept, role_list in groups.items():
+            # Check if role matches exactly or contains the string
+            if role in role_list:
+                ordered_result[dept].append(role)
+                found = True
+                break
+        if not found:
+            ordered_result['Other'].append(role)
+            
+    # Remove empty departments and return
+    return {k: v for k, v in ordered_result.items() if v}
+
 # ==============================================================================
 # SECTION 2: DASHBOARD SPECIFIC HELPERS
 # ==============================================================================
@@ -718,13 +749,18 @@ def project_scorecard_view(request, project_code):
 
     final_scores.sort(key=lambda x: x['factor'], reverse=True)
 
+    all_role_keys = sorted(ROLE_CONFIG.keys())
+    grouped_roles = group_roles_by_dept(all_role_keys)
+
     return render(request, 'core/project_scorecard.html', {
         'project': project, 'user_group': user_group,
         'selected_group_id': user_group.id, 'all_groups': all_groups, 
         'total_factor': total_factor_sum, 'scores': final_scores, 
         'project_total': project_score,
         'project_total_int': int(project_score),
-        'metric_stage': metric_stage_key
+        'metric_stage': metric_stage_key,
+        'grouped_roles': grouped_roles,
+        'metric_role': raw_role_param,
     })
 
 def leaderboard_view(request):
@@ -734,14 +770,9 @@ def leaderboard_view(request):
     all_sbu_options = list(Project.objects.exclude(sbu__isnull=True).exclude(sbu="").values_list('sbu', flat=True).distinct())
     all_sbu_options.sort()
 
-    grouped_roles = defaultdict(list)
-    for role, conf in ROLE_CONFIG.items():
-        dept = conf.get('dept', 'Other')
-        grouped_roles[dept].append(role)
-    
-    sorted_grouped_roles = []
-    for dept in sorted(grouped_roles.keys()):
-        sorted_grouped_roles.append((dept, sorted(grouped_roles[dept])))
+    all_role_keys = sorted(ROLE_CONFIG.keys())
+
+    grouped_roles = group_roles_by_dept(all_role_keys)
 
     selected_role_name = request.GET.get('role', 'Sales Lead')
     config, simple_role_name = _get_role_details(selected_role_name)
@@ -789,7 +820,7 @@ def leaderboard_view(request):
         row['total_score'] = round(row['total_score'], 1)
 
     context = {
-        'leaderboard': sorted_leaderboard, 'selected_role': selected_role_name, 'grouped_roles': sorted_grouped_roles,
+        'leaderboard': sorted_leaderboard, 'selected_role': selected_role_name, 'grouped_roles': grouped_roles,
         'all_roles': sorted(ROLE_CONFIG.keys()), 'start_date': start_str, 'end_date': end_str,
         'selected_sbus': sbu_filter, 'sbu_options': all_sbu_options,
         'link_view': config['dept'], 'link_param': config['link']

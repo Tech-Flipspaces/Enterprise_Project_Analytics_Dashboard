@@ -1546,6 +1546,15 @@
         "documentation": {}
     },
     {
+        "label": "group_roles_by_dept",
+        "kind": 2,
+        "importPath": "core.views",
+        "description": "core.views",
+        "peekOfCode": "def group_roles_by_dept(flat_roles):\n    \"\"\"\n        Helper: Groups a list of role names into specific Departments in a specific order for Dropdown menus.\n    \"\"\"\n    groups = {\n        'Sales': ['Sales Head', 'Sales Lead'],\n        'Design': ['DH', 'DM', 'ID', '3D'],\n        'Operations': ['Cluster/BU Head', 'SPM/PM', 'SOM/OM', 'SS', 'CSC', 'MEP'],\n        'Purchase': ['Purchase Head', 'Purchase Manager', 'Purchase Executive'],\n        'Marketing': ['Marketing Head', 'Marketing Lead'],",
+        "detail": "core.views",
+        "documentation": {}
+    },
+    {
         "label": "dashboard_view",
         "kind": 2,
         "importPath": "core.views",
@@ -1622,7 +1631,7 @@
         "kind": 2,
         "importPath": "core.views",
         "description": "core.views",
-        "peekOfCode": "def leaderboard_view(request):\n    threshold_map = _handle_threshold_session(request)\n    _, start_str, end_str, start_dt, end_dt, sbu_filter, _, _, _ = _get_request_params(request)\n    all_sbu_options = list(Project.objects.exclude(sbu__isnull=True).exclude(sbu=\"\").values_list('sbu', flat=True).distinct())\n    all_sbu_options.sort()\n    grouped_roles = defaultdict(list)\n    for role, conf in ROLE_CONFIG.items():\n        dept = conf.get('dept', 'Other')\n        grouped_roles[dept].append(role)\n    sorted_grouped_roles = []",
+        "peekOfCode": "def leaderboard_view(request):\n    threshold_map = _handle_threshold_session(request)\n    _, start_str, end_str, start_dt, end_dt, sbu_filter, _, _, _ = _get_request_params(request)\n    all_sbu_options = list(Project.objects.exclude(sbu__isnull=True).exclude(sbu=\"\").values_list('sbu', flat=True).distinct())\n    all_sbu_options.sort()\n    all_role_keys = sorted(ROLE_CONFIG.keys())\n    grouped_roles = group_roles_by_dept(all_role_keys)\n    selected_role_name = request.GET.get('role', 'Sales Lead')\n    config, simple_role_name = _get_role_details(selected_role_name)\n    if not config: return render(request, 'core/leaderboard.html', {'error': \"Role not found.\"})",
         "detail": "core.views",
         "documentation": {}
     },

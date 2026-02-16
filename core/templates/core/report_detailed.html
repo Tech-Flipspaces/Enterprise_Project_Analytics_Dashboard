@@ -26,7 +26,11 @@
                 </select>
                 
                 <span class="mx-3 text-muted">|</span>
-                <span class="text-muted"><i class="far fa-calendar-alt me-1"></i> {{ start_date }} to {{ end_date }}</span>
+                <span class="text-muted">
+                    <i class="far fa-calendar-alt me-1"></i> 
+                    <span class="formatted-date" data-date="{{ start_date }}"></span> to 
+                    <span class="formatted-date" data-date="{{ end_date }}"></span>
+                </span>
             </form>
         </div>
         
@@ -90,14 +94,14 @@
 <style>
     /* PANDAS TABLE STYLING */
     table.dataframe {
-        width: 100%; border-collapse: separate; /* Required for sticky */
+        width: 100%; border-collapse: separate; 
         border-spacing: 0; margin-bottom: 0;
         font-size: 0.85rem; color: var(--text-main);
     }
     
     /* HEADER STYLES (STICKY) */
     table.dataframe th {
-        background-color: var(--bg-body) !important; /* Force Solid Background */
+        background-color: var(--bg-body) !important; 
         color: var(--text-muted) !important;
         font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px;
         text-align: left; padding: 15px 12px;
@@ -107,8 +111,8 @@
         /* STICKY LOGIC */
         position: sticky; 
         top: 0; 
-        z-index: 100; /* High Z-index to sit on top of data */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow to separate header from rows */
+        z-index: 100; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
     }
     
     /* CELL STYLES */
@@ -146,5 +150,82 @@
         background-color: rgba(79, 70, 229, 0.1) !important;
         color: var(--text-main) !important;
     }
+
+    /* Project Link Styling */
+    .project-link {
+        color: var(--primary-color);
+        transition: all 0.2s;
+    }
+    .project-link:hover {
+        text-decoration: underline !important;
+        color: #000000; 
+    }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // DATE LOGIC
+        const dateSpans = document.querySelectorAll('.formatted-date');
+        
+        dateSpans.forEach(span => {
+            const rawDate = span.getAttribute('data-date'); 
+            if(rawDate) {
+                const dateObj = new Date(rawDate);
+                const day = dateObj.getDate();
+                const month = dateObj.toLocaleString('default', { month: 'long' });
+                const year = dateObj.getFullYear();
+                
+                let suffix = 'th';
+                if (day % 10 === 1 && day !== 11) suffix = 'st';
+                else if (day % 10 === 2 && day !== 12) suffix = 'nd';
+                else if (day % 10 === 3 && day !== 13) suffix = 'rd';
+                
+                span.innerText = `${day}${suffix} ${month} ${year}`;
+            }
+        });
+
+        // --- 2. CLICKABLE PROJECT SCORECARD LOGIC ---
+        // Generates a base URL like /project/scorecard/ and removes the dummy ID
+        const scoreUrlTemplate = "{% url 'project_scorecard' '0000' %}"; 
+
+        const tables = document.querySelectorAll('table.dataframe');
+
+        tables.forEach(table => {
+            // Find column indices
+            const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText.trim().toUpperCase());
+            const idIndex = headers.indexOf('PROJECT ID');
+            const nameIndex = headers.indexOf('PROJECT NAME');
+
+            if (idIndex !== -1 && nameIndex !== -1) {
+                const rows = table.querySelectorAll('tbody tr');
+                
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    
+                    if (cells.length > Math.max(idIndex, nameIndex)) {
+                        const projectId = cells[idIndex].innerText.trim();
+                        const projectName = cells[nameIndex].innerText.trim();
+
+                        if (projectId && projectName) {
+                            // Create the Link
+                            const link = document.createElement('a');
+                            
+                            // FIX: Replace '0000' with the actual ID to get a clean URL
+                            link.href = scoreUrlTemplate.replace('0000', projectId);
+                            
+                            link.className = "fw-bold text-decoration-none project-link";
+                            link.innerText = projectName;
+                            link.innerHTML += ' <i class="fas fa-external-link-alt fa-xs ms-1 opacity-50"></i>';
+
+                            // Replace cell content
+                            cells[nameIndex].innerHTML = '';
+                            cells[nameIndex].appendChild(link);
+                        }
+                    }
+                });
+            }
+        });    
+    });
+</script>
+
 {% endblock %}

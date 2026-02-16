@@ -60,12 +60,12 @@
         <div></div>
         <div class="btn-group shadow-sm" role="group">
             <button type="button" class="btn btn-primary active fw-bold">
-                <i class="fas fa-list me-2"></i>Detailed List
+                <i class="fas fa-list me-2"></i>Per User Group
             </button>
             <a href="{% url 'leaderboard_summary' %}?start={{ start_date }}&end={{ end_date }}{% for sbu in selected_sbus %}&sbu={{ sbu }}{% endfor %}" 
                class="btn btn-outline-secondary fw-bold" 
                style="border-color: var(--border-color); color: var(--text-muted);">
-                <i class="fas fa-th-large me-2"></i>Top Performers
+                <i class="fas fa-th-large me-2"></i>All User Groups
             </a>
         </div>
     </div>
@@ -79,12 +79,23 @@
         <form method="get" class="row g-3 align-items-end">
             <div class="col-md-3">
                 <label class="form-label small fw-bold text-muted text-uppercase mb-1">League / Role</label>
-                <select name="role" class="form-select form-select-sm fw-bold border-0 shadow-sm text-primary" 
-                        style="background-color: var(--bg-body); color: var(--text-main);"
+                <select name="role" class="form-select form-select-sm fw-bold border-0 shadow-sm form-control-dark" 
                         onchange="this.form.submit()">
-                    {% for r in all_roles %}
-                        <option value="{{ r }}" {% if r == selected_role %}selected{% endif %}>{{ r }}</option>
+                    
+                    {% for dept, roles in grouped_roles.items %}
+                        <optgroup label="{{ dept }}">
+                            {% for r in roles %}
+                                <option value="{{ r }}" {% if r == selected_role %}selected{% endif %}>{{ r }}</option>
+                            {% endfor %}
+                        </optgroup>
                     {% endfor %}
+
+                    {% if not grouped_roles %}
+                        {% for r in all_roles %}
+                            <option value="{{ r }}" {% if r == selected_role %}selected{% endif %}>{{ r }}</option>
+                        {% endfor %}
+                    {% endif %}
+                    
                 </select>
             </div>
 

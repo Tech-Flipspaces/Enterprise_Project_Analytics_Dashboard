@@ -1,6 +1,6 @@
 {% extends "core/base.html" %}
 
-{% block title %}Hall of Fame{% endblock %}
+{% block title %}Hall of Fame | Nexus{% endblock %}
 {% block page_title %}🏆 Performance Hall of Fame{% endblock %}
 {% block page_subtitle %}Top performers across all departments{% endblock %}
 
@@ -8,26 +8,25 @@
 <style>
     /* --- 1. FILTER CARD STYLING --- */
     .filter-card { 
-        background: white; border-radius: 12px; 
-        box-shadow: 0 2px 10px rgba(0,0,0,0.03); 
-        padding: 20px; margin-bottom: 2rem;
-        border: 1px solid rgba(0,0,0,0.05);
-        overflow: visible !important; z-index: 100 !important; position: relative;
+        background: var(--card-bg); 
+        border-radius: 12px; 
+        box-shadow: var(--shadow-soft); 
+        padding: 20px; 
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-color);
+        overflow: visible !important; 
+        z-index: 100 !important; 
+        position: relative;
     }
     
-    /* --- 2. COMPONENT STYLES --- */
-    .form-control-sm, .form-select-sm, .btn-sm { height: 38px; font-size: 0.9rem; }
-    .input-group-text { font-size: 0.85rem; }
-    .dropdown-menu-form { min-width: 260px; z-index: 1055 !important; }
-
-    /* --- 3. NEW: DEPARTMENT SECTIONS (The Separation Fix) --- */
+    /* --- 2. DEPARTMENT SECTIONS --- */
     .dept-section {
-        background: white;
+        background: var(--card-bg);
         border-radius: 16px;
         padding: 30px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-        margin-bottom: 3rem; /* Huge gap between departments */
-        border: 1px solid rgba(0,0,0,0.04);
+        box-shadow: var(--shadow-soft);
+        margin-bottom: 3rem; 
+        border: 1px solid var(--border-color);
     }
     
     .dept-header {
@@ -35,60 +34,86 @@
     }
     
     .dept-badge {
-        background: #eef2ff; color: var(--primary-color);
+        background: rgba(79, 70, 229, 0.1); 
+        color: var(--primary-color);
         padding: 10px 20px; border-radius: 50rem;
         font-weight: 800; font-size: 0.95rem; letter-spacing: 1px;
-        text-transform: uppercase; border: 1px solid #e0e7ff;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        text-transform: uppercase; 
+        border: 1px solid rgba(79, 70, 229, 0.2);
     }
     
     .dept-line {
-        flex-grow: 1; height: 2px; background: #f1f5f9; margin-left: 20px; border-radius: 2px;
+        flex-grow: 1; height: 2px; 
+        background: var(--border-color); 
+        margin-left: 20px; border-radius: 2px;
     }
 
-    /* --- 4. WINNER CARDS --- */
+    /* --- 3. WINNER CARDS (ADAPTIVE) --- */
     .medal-icon { font-size: 1.6rem; margin-right: 15px; }
     
-    .gold-card { 
-        background: linear-gradient(to right, #fffbeb, #fff); 
-        border: 1px solid #fcd34d; transition: transform 0.2s; 
+    .role-card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        transition: transform 0.2s;
     }
-    .gold-card:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(251, 191, 36, 0.15); }
-    
-    .silver-card { 
-        background: linear-gradient(to right, #f8fafc, #fff); 
-        border: 1px solid #e2e8f0; transition: transform 0.2s; 
-    }
-    .silver-card:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
-    
+
     .role-header {
-        font-size: 1rem; font-weight: 700; color: #1e293b;
+        font-size: 1rem; font-weight: 700; color: var(--text-main);
         letter-spacing: -0.5px;
     }
+
+    /* GOLD CARD (Adaptive) */
+    .gold-card { 
+        background: linear-gradient(to right, #fffbeb, #fff); 
+        border: 1px solid #fcd34d; 
+        color: #1f2937; /* Force dark text in light mode */
+        transition: transform 0.2s; 
+    }
+    [data-theme="dark"] .gold-card {
+        background: linear-gradient(to right, #422006, #713f12); /* Deep Amber/Gold */
+        border: 1px solid #a16207;
+        color: #fef3c7; /* Light Gold Text */
+    }
+    .gold-card:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(251, 191, 36, 0.15); }
+
+    /* SILVER CARD (Adaptive) */
+    .silver-card { 
+        background: linear-gradient(to right, #f8fafc, #fff); 
+        border: 1px solid #e2e8f0; 
+        color: #1f2937;
+        transition: transform 0.2s; 
+    }
+    [data-theme="dark"] .silver-card {
+        background: linear-gradient(to right, #1e293b, #334155); /* Slate/Silver */
+        border: 1px solid #475569;
+        color: #e2e8f0;
+    }
+    .silver-card:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container py-4">
+<div class="container-fluid py-0">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <div><h2 class="fw-bold text-dark mb-0">Hall of Fame</h2></div>
+        <div></div>
         <div class="btn-group shadow-sm" role="group">
-            <a href="{% url 'leaderboard' %}?start={{ start_date }}&end={{ end_date }}{% for sbu in selected_sbus %}&sbu={{ sbu }}{% endfor %}" class="btn btn-outline-primary fw-bold">
-                <i class="fas fa-list me-2"></i>Detailed List
+            <a href="{% url 'leaderboard' %}?start={{ start_date }}&end={{ end_date }}{% for sbu in selected_sbus %}&sbu={{ sbu }}{% endfor %}" 
+               class="btn btn-outline-secondary fw-bold" style="border-color: var(--border-color); color: var(--text-muted);">
+                <i class="fas fa-list me-2"></i>Per User Group
             </a>
             <button type="button" class="btn btn-primary active fw-bold">
-                <i class="fas fa-th-large me-2"></i>Top Performers
+                <i class="fas fa-th-large me-2"></i>All User Groups
             </button>
         </div>
     </div>
 
-    <div class="text-center mb-5">
+    <div class="text-center mb-5 animate-enter">
         <h1 class="display-5 fw-bold text-primary">🏆 Performance Hall of Fame</h1>
         <p class="text-muted">Recognizing the top achievers across the organization.</p>
     </div>
 
-    <div class="filter-card">
+    <div class="filter-card animate-enter delay-1">
         <form method="get" class="row g-3 align-items-end justify-content-center">
             <div class="col-md-4">
                 <label class="form-label small fw-bold text-muted text-uppercase mb-1">Regions (SBUs)</label>
@@ -96,14 +121,18 @@
                     {% include "core/components/filter_dropdown.html" %}
                 {% endwith %}
             </div>
+
             <div class="col-md-4">
                 <label class="form-label small fw-bold text-muted text-uppercase mb-1">Performance Period</label>
                 <div class="input-group input-group-sm shadow-sm">
-                    <input type="date" name="start" class="form-control border-0 bg-light fw-bold text-secondary" value="{{ start_date }}">
-                    <span class="input-group-text border-0 bg-light text-muted">to</span>
-                    <input type="date" name="end" class="form-control border-0 bg-light fw-bold text-secondary" value="{{ end_date }}">
+                    <input type="date" name="start" class="form-control border-0 fw-bold" 
+                           style="background-color: var(--bg-body); color: var(--text-main);" value="{{ start_date }}">
+                    <span class="input-group-text border-0 text-muted" style="background-color: var(--bg-body);">to</span>
+                    <input type="date" name="end" class="form-control border-0 fw-bold" 
+                           style="background-color: var(--bg-body); color: var(--text-main);" value="{{ end_date }}">
                 </div>
             </div>
+
             <div class="col-md-2">
                 <button type="submit" class="btn btn-primary btn-sm w-100 fw-bold shadow-sm">
                     <i class="fas fa-sync-alt me-2"></i>Update
@@ -113,7 +142,7 @@
     </div>
 
     {% for dept, roles in hall_of_fame.items %}
-        <div class="dept-section animate-enter">
+        <div class="dept-section animate-enter delay-1">
             <div class="dept-header">
                 <span class="dept-badge">{{ dept }}</span>
                 <div class="dept-line"></div>
@@ -121,21 +150,22 @@
             
             <div class="row g-4">
                 {% for role_name, top_users in roles.items %}
-                    <div class="col-lg-6"> <div class="card h-100 shadow-none border bg-light">
-                            <div class="card-header bg-white border-bottom py-3">
+                    <div class="col-lg-6"> 
+                        <div class="card h-100 shadow-none role-card">
+                            <div class="card-header border-bottom py-3" style="background-color: var(--bg-body); border-color: var(--border-color);">
                                 <div class="role-header text-center">{{ role_name }}</div>
                             </div>
-                            <div class="card-body p-4 bg-white">
+                            <div class="card-body p-4" style="background-color: var(--card-bg);">
                                 {% if top_users %}
                                     <div class="d-flex align-items-center p-3 rounded mb-3 gold-card">
                                         <div class="medal-icon">🥇</div>
                                         <div class="flex-grow-1 overflow-hidden">
-                                            <div class="fw-bold text-dark text-truncate">{{ top_users.0.name }}</div>
-                                            <small class="text-muted fw-bold" style="font-size: 0.75rem;">RANK 1</small>
+                                            <div class="fw-bold text-truncate" style="font-size: 1.05rem;">{{ top_users.0.name }}</div>
+                                            <small class="opacity-75 fw-bold text-uppercase" style="font-size: 0.75rem;">Rank 1</small>
                                         </div>
                                         <div class="text-end">
                                             <div class="badge bg-warning text-dark shadow-sm fs-6 mb-1">{{ top_users.0.total_score }}</div>
-                                            <div class="small text-muted" style="font-size: 0.65rem;">PTS</div>
+                                            <div class="small opacity-75" style="font-size: 0.65rem;">PTS</div>
                                         </div>
                                     </div>
 
@@ -143,12 +173,14 @@
                                         <div class="d-flex align-items-center p-3 rounded silver-card">
                                             <div class="medal-icon">🥈</div>
                                             <div class="flex-grow-1 overflow-hidden">
-                                                <div class="fw-bold text-dark text-truncate">{{ top_users.1.name }}</div>
-                                                <small class="text-muted fw-bold" style="font-size: 0.75rem;">RANK 2</small>
+                                                <div class="fw-bold text-truncate" style="font-size: 1.05rem;">{{ top_users.1.name }}</div>
+                                                <small class="opacity-75 fw-bold text-uppercase" style="font-size: 0.75rem;">Rank 2</small>
                                             </div>
                                             <div class="text-end">
-                                                <div class="badge bg-light text-dark border fs-6 mb-1">{{ top_users.1.total_score }}</div>
-                                                <div class="small text-muted" style="font-size: 0.65rem;">PTS</div>
+                                                <div class="badge border fs-6 mb-1" style="background-color: var(--bg-body); color: var(--text-main);">
+                                                    {{ top_users.1.total_score }}
+                                                </div>
+                                                <div class="small opacity-75" style="font-size: 0.65rem;">PTS</div>
                                             </div>
                                         </div>
                                     {% endif %}
@@ -159,9 +191,10 @@
                                 {% endif %}
                             </div>
                             
-                            {% if top_users and top_users.0.link_param %}
-                            <div class="card-footer bg-white border-top-0 text-center pb-3 pt-0">
-                                <a href="{% url 'leaderboard' %}?role={{ role_name }}&start={{ start_date }}&end={{ end_date }}" class="btn btn-link btn-sm text-decoration-none fw-bold small">
+                            {% if top_users %}
+                            <div class="card-footer border-top-0 text-center pb-3 pt-0" style="background-color: var(--card-bg);">
+                                <a href="{% url 'leaderboard' %}?role={{ role_name }}&start={{ start_date }}&end={{ end_date }}" 
+                                   class="btn btn-link btn-sm text-decoration-none fw-bold small hover-primary" style="color: var(--text-muted);">
                                     See Full {{ role_name }} List <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>
