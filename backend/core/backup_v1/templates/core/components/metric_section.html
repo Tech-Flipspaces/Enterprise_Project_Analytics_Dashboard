@@ -1,0 +1,36 @@
+<div class="mb-5">
+    <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-4">
+        <h5 class="text-secondary mb-0 fw-bold">
+            <i class="{{ icon_class }} me-2 text-primary opacity-50"></i>{{ title }}
+        </h5>
+        <span class="project-count-badge" {% if is_post %}style="color: #0f5132; background-color: #d1e7dd;"{% endif %}>
+            {{ count }} PROJECTS
+        </span>
+    </div>
+
+    <div class="row g-4 mb-4">
+        {% include "core/components/metric_loop.html" with metrics_list=prim_list is_post=is_post %}
+    </div>
+
+    {% if sec_list %}
+    <div class="collapse" id="collapse{{ section_id }}">
+        <div class="card card-body border-0 bg-light shadow-inner mb-4 p-4 rounded-4">
+            <h6 class="text-muted text-uppercase fw-bold small mb-3">
+                <i class="fas fa-plus-circle me-2"></i>Additional Metrics
+            </h6>
+            <div class="row g-4">
+                {% include "core/components/metric_loop.html" with metrics_list=sec_list is_post=is_post %}
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-sm btn-outline-secondary rounded-pill px-4" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#collapse{{ section_id }}" 
+                aria-expanded="false" 
+                onclick="this.innerHTML = this.getAttribute('aria-expanded') === 'true' ? 'Show More <i class=\'fas fa-chevron-down ms-1\'></i>' : 'Show Less <i class=\'fas fa-chevron-up\'></i>'">
+            Show More <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+    {% endif %}
+</div>
