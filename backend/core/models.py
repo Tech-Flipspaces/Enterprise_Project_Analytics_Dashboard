@@ -24,29 +24,29 @@ class Project(models.Model):
     end_date = models.DateField(null=True, blank=True)
     
     # --- Stakeholders (Team) ---
-    sales_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="Sales Head")
-    sales_lead = models.CharField(max_length=100, null=True, blank=True, verbose_name="Sales Lead")
+    sales_head = models.CharField(max_length=500, null=True, blank=True, verbose_name="Sales Head")
+    sales_lead = models.CharField(max_length=500, null=True, blank=True, verbose_name="Sales Lead")
 
-    design_dh = models.CharField(max_length=100, null=True, blank=True, verbose_name="DH")
-    design_dm = models.CharField(max_length=100, null=True, blank=True, verbose_name="DM")
-    design_id = models.CharField(max_length=100, null=True, blank=True, verbose_name="ID")
-    design_3d = models.CharField(max_length=100, null=True, blank=True, verbose_name="3D")
+    design_dh = models.CharField(max_length=500, null=True, blank=True, verbose_name="DH")
+    design_dm = models.CharField(max_length=500, null=True, blank=True, verbose_name="DM")
+    design_id = models.CharField(max_length=500, null=True, blank=True, verbose_name="ID")
+    design_3d = models.CharField(max_length=500, null=True, blank=True, verbose_name="3D")
 
-    ops_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="Cluster/BU Head")
-    ops_pm = models.CharField(max_length=100, null=True, blank=True, verbose_name="SPM/PM")
-    ops_om = models.CharField(max_length=100, null=True, blank=True, verbose_name="SOM/OM")
-    ops_ss = models.CharField(max_length=100, null=True, blank=True, verbose_name="SS")
-    ops_mep = models.CharField(max_length=100, null=True, blank=True, verbose_name="MEP")
-    ops_csc = models.CharField(max_length=100, null=True, blank=True, verbose_name="CSC")
+    ops_head = models.CharField(max_length=500, null=True, blank=True, verbose_name="Cluster/BU Head")
+    ops_pm = models.CharField(max_length=500, null=True, blank=True, verbose_name="SPM/PM")
+    ops_om = models.CharField(max_length=500, null=True, blank=True, verbose_name="SOM/OM")
+    ops_ss = models.CharField(max_length=500, null=True, blank=True, verbose_name="SS")
+    ops_mep = models.CharField(max_length=500, null=True, blank=True, verbose_name="MEP")
+    ops_csc = models.CharField(max_length=500, null=True, blank=True, verbose_name="CSC")
 
-    m_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="Marketing Head")
-    m_lead = models.CharField(max_length=100, null=True, blank=True, verbose_name="Marketing Lead")
+    m_head = models.CharField(max_length=500, null=True, blank=True, verbose_name="Marketing Head")
+    m_lead = models.CharField(max_length=500, null=True, blank=True, verbose_name="Marketing Lead")
     
-    p_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="Purchase Head")
-    p_mgr = models.CharField(max_length=100, null=True, blank=True, verbose_name="Purchase Manager")
-    p_exec = models.CharField(max_length=100, null=True, blank=True, verbose_name="Purchase Executive")
+    p_head = models.CharField(max_length=500, null=True, blank=True, verbose_name="Purchase Head")
+    p_mgr = models.CharField(max_length=500, null=True, blank=True, verbose_name="Purchase Manager")
+    p_exec = models.CharField(max_length=500, null=True, blank=True, verbose_name="Purchase Executive")
     
-    f_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="Finance Head")
+    f_head = models.CharField(max_length=500, null=True, blank=True, verbose_name="Finance Head")
 
     # =========================================================
     # RAW METRICS (Populated via Excel Upload)
