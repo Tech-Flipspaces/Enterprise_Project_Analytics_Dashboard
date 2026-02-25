@@ -13,3 +13,6 @@ python manage.py collectstatic --noinput
 
 # 4. Migrate Database (Apply changes to Postgres)
 python manage.py migrate
+
+# 5. Asked in the terminal to create a new SuperUser (Admin) is not created. (RENDER)
+python create_superuser.py

@@ -554,6 +554,38 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -568,6 +600,15 @@
         "importPath": "django.db.models.deletion",
         "description": "django.db.models.deletion",
         "detail": "django.db.models.deletion",
+        "documentation": {}
+    },
+    {
+        "label": "django",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django",
+        "description": "django",
+        "detail": "django",
         "documentation": {}
     },
     {
@@ -836,6 +877,14 @@
         "documentation": {}
     },
     {
+        "label": "get_user_model",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
         "label": "sys",
         "kind": 6,
         "isExtraImport": true,
@@ -867,7 +916,7 @@
         "kind": 5,
         "importPath": "backend.config.settings",
         "description": "backend.config.settings",
-        "peekOfCode": "SECRET_KEY = 'django-insecure-mcynl_zzdo$51vm6@!x^%(l0chdcskxm^9$vp^k!r9dl#=-4%f'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\n# Allow localhost AND any URL that Render gives the app (for production)\nALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',",
+        "peekOfCode": "SECRET_KEY = 'django-insecure-mcynl_zzdo$51vm6@!x^%(l0chdcskxm^9$vp^k!r9dl#=-4%f'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\n# Allow localhost AND any URL that Render gives the app (for production)\nALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes', ",
         "detail": "backend.config.settings",
         "documentation": {}
     },
@@ -876,7 +925,7 @@
         "kind": 5,
         "importPath": "backend.config.settings",
         "description": "backend.config.settings",
-        "peekOfCode": "DEBUG = True\n# Allow localhost AND any URL that Render gives the app (for production)\nALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',",
+        "peekOfCode": "DEBUG = True\n# Allow localhost AND any URL that Render gives the app (for production)\nALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes', \n    'django.contrib.sessions',\n    'django.contrib.messages',",
         "detail": "backend.config.settings",
         "documentation": {}
     },
@@ -885,7 +934,7 @@
         "kind": 5,
         "importPath": "backend.config.settings",
         "description": "backend.config.settings",
-        "peekOfCode": "ALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'core', ",
+        "peekOfCode": "ALLOWED_HOSTS = ['*']\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes', \n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'core', ",
         "detail": "backend.config.settings",
         "documentation": {}
     },
@@ -894,7 +943,7 @@
         "kind": 5,
         "importPath": "backend.config.settings",
         "description": "backend.config.settings",
-        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'core', \n]\nMIDDLEWARE = [",
+        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes', \n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'core', \n]\nMIDDLEWARE = [",
         "detail": "backend.config.settings",
         "documentation": {}
     },
@@ -1502,6 +1551,24 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "backend.core.migrations.0020_alter_project_design_3d_alter_project_design_dh_and_more",
+        "description": "backend.core.migrations.0020_alter_project_design_3d_alter_project_design_dh_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0019_project_days_till_date_project_manpower_added_days_and_more'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='project',\n            name='design_3d',\n            field=models.CharField(blank=True, max_length=500, null=True, verbose_name='3D'),\n        ),",
+        "detail": "backend.core.migrations.0020_alter_project_design_3d_alter_project_design_dh_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "backend.core.migrations.0021_alter_project_design_3d_alter_project_design_dh_and_more",
+        "description": "backend.core.migrations.0021_alter_project_design_3d_alter_project_design_dh_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('core', '0020_alter_project_design_3d_alter_project_design_dh_and_more'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='project',\n            name='design_3d',\n            field=models.CharField(blank=True, max_length=5000, null=True, verbose_name='3D'),\n        ),",
+        "detail": "backend.core.migrations.0021_alter_project_design_3d_alter_project_design_dh_and_more",
+        "documentation": {}
+    },
+    {
         "label": "get_item",
         "kind": 2,
         "importPath": "backend.core.templatetags.custom_filters",
@@ -1832,6 +1899,42 @@
         "description": "backend.core.views",
         "peekOfCode": "def leaderboard_summary_view(request):\n    threshold_map = _handle_threshold_session(request)\n    _, start_str, end_str, start_dt, end_dt, sbu_filter, _, _, _ = _get_request_params(request)\n    all_sbu_options = list(Project.objects.exclude(sbu__isnull=True).exclude(sbu=\"\").values_list('sbu', flat=True).distinct())\n    all_sbu_options.sort()\n    sbu_filter = request.GET.getlist('sbu') or all_sbu_options or ['North', 'South', 'East', 'Central']\n    hall_of_fame = defaultdict(dict)\n    for role_name, config in ROLE_CONFIG.items():\n        if 'dept' not in config: continue \n        department = config['dept']",
         "detail": "backend.core.views",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 5,
+        "importPath": "backend.create_superuser",
+        "description": "backend.create_superuser",
+        "peekOfCode": "User = get_user_model()\nusername = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')\nemail = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')\npassword = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'default_pass')\nif not User.objects.filter(username=username).exists():\n    print(f\"Creating superuser: {username}\")\n    User.objects.create_superuser(username=username, email=email, password=password)\nelse:\n    print(f\"Superuser {username} already exists.\")",
+        "detail": "backend.create_superuser",
+        "documentation": {}
+    },
+    {
+        "label": "username",
+        "kind": 5,
+        "importPath": "backend.create_superuser",
+        "description": "backend.create_superuser",
+        "peekOfCode": "username = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')\nemail = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')\npassword = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'default_pass')\nif not User.objects.filter(username=username).exists():\n    print(f\"Creating superuser: {username}\")\n    User.objects.create_superuser(username=username, email=email, password=password)\nelse:\n    print(f\"Superuser {username} already exists.\")",
+        "detail": "backend.create_superuser",
+        "documentation": {}
+    },
+    {
+        "label": "email",
+        "kind": 5,
+        "importPath": "backend.create_superuser",
+        "description": "backend.create_superuser",
+        "peekOfCode": "email = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')\npassword = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'default_pass')\nif not User.objects.filter(username=username).exists():\n    print(f\"Creating superuser: {username}\")\n    User.objects.create_superuser(username=username, email=email, password=password)\nelse:\n    print(f\"Superuser {username} already exists.\")",
+        "detail": "backend.create_superuser",
+        "documentation": {}
+    },
+    {
+        "label": "password",
+        "kind": 5,
+        "importPath": "backend.create_superuser",
+        "description": "backend.create_superuser",
+        "peekOfCode": "password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'default_pass')\nif not User.objects.filter(username=username).exists():\n    print(f\"Creating superuser: {username}\")\n    User.objects.create_superuser(username=username, email=email, password=password)\nelse:\n    print(f\"Superuser {username} already exists.\")",
+        "detail": "backend.create_superuser",
         "documentation": {}
     },
     {
