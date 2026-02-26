@@ -29,7 +29,6 @@ DEBUG = True
 # Allow localhost AND any URL that Render gives the app (for production)
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
