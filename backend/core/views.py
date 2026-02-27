@@ -322,9 +322,9 @@ def _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll
 
     if view_mode == 'Sales':
         qs_pre = projects.filter(login_date__gte=start_dt, login_date__lte=end_dt, stage='Pre Sales')
-        qs_post = projects.filter(q_rolling, stage='Post Sales')
+        qs_post = projects.filter(login_date__gte=start_dt, login_date__lte=end_dt, stage='Post Sales')
     elif view_mode == 'Design':
-        qs_pre = projects.filter(login_date__gte=start_dt, login_date__lte=end_dt)
+        qs_pre = projects.filter(login_date__gte=start_dt, login_date__lte=end_dt, stage="Pre Sales")
         qs_post = projects.filter(q_rolling).distinct()
     elif view_mode == 'Operations':
         qs_post = projects.filter(q_rolling).distinct()
