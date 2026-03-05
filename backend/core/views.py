@@ -765,7 +765,11 @@ def project_scorecard_view(request, project_code):
     threshold_map = _handle_threshold_session(request)
     project = get_object_or_404(Project, project_code=project_code)
     
-    raw_role_param = request.GET.get('metric_role', 'Design - ID')
+    raw_role_param = request.GET.get('metric_role')  
+
+    if not raw_role_param or raw_role_param == 'All Roles':
+        raw_role_param = 'Sales - Sales Head'
+
     search_term = raw_role_param.split(' - ')[-1] if ' - ' in raw_role_param else raw_role_param
     
     user_group = UserGroup.objects.filter(name__icontains=search_term).first()

@@ -1879,7 +1879,7 @@
         "kind": 2,
         "importPath": "backend.core.views",
         "description": "backend.core.views",
-        "peekOfCode": "def project_scorecard_view(request, project_code):\n    threshold_map = _handle_threshold_session(request)\n    project = get_object_or_404(Project, project_code=project_code)\n    raw_role_param = request.GET.get('metric_role', 'Design - ID')\n    search_term = raw_role_param.split(' - ')[-1] if ' - ' in raw_role_param else raw_role_param\n    user_group = UserGroup.objects.filter(name__icontains=search_term).first()\n    all_groups = UserGroup.objects.select_related('department').order_by('department__name', 'name')\n    if not user_group:\n         return render(request, 'core/project_scorecard.html', {\n            'project': project, 'error': f\"Role '{search_term}' not found.\",",
+        "peekOfCode": "def project_scorecard_view(request, project_code):\n    threshold_map = _handle_threshold_session(request)\n    project = get_object_or_404(Project, project_code=project_code)\n    raw_role_param = request.GET.get('metric_role')  \n    if not raw_role_param or raw_role_param == 'All Roles':\n        raw_role_param = 'Sales - Sales Head'\n    search_term = raw_role_param.split(' - ')[-1] if ' - ' in raw_role_param else raw_role_param\n    user_group = UserGroup.objects.filter(name__icontains=search_term).first()\n    all_groups = UserGroup.objects.select_related('department').order_by('department__name', 'name')\n    if not user_group:",
         "detail": "backend.core.views",
         "documentation": {}
     },
