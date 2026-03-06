@@ -200,6 +200,9 @@
             <a href="{% url 'dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
                 <i class="fas fa-chart-pie" style="width: 20px;"></i> Dashboard
             </a>
+            <a href="{% url 'comparison' %}" class="nav-link {% if request.resolver_match.url_name == 'comparison' %}active{% endif %}">
+                <i class="fas fa-balance-scale" style="width: 20px;"></i> Trend Comparison
+            </a>
             <a href="{% url 'leaderboard' %}" class="nav-link {% if 'leaderboard' in request.resolver_match.url_name %}active{% endif %}">
                 <i class="fas fa-trophy" style="width: 20px;"></i> Leaderboard
             </a>

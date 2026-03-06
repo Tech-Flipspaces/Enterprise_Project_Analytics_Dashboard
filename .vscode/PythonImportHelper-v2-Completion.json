@@ -877,6 +877,15 @@
         "documentation": {}
     },
     {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
         "label": "get_user_model",
         "importPath": "django.contrib.auth",
         "description": "django.contrib.auth",
@@ -1798,7 +1807,7 @@
         "kind": 5,
         "importPath": "backend.core.urls",
         "description": "backend.core.urls",
-        "peekOfCode": "urlpatterns = [\n    # --- Dashboard & Ingestion ---\n    path('', views.dashboard_view, name='dashboard'),\n    path('upload/', views.upload_view, name='upload'),\n    # --- Live Reporting ---\n    path('report/', views.report_view, name='report'),\n    path('report-detailed/', views.report_detailed_view, name='report_detailed'),\n    # --- Excel Exports ---\n    path('export/', views.export_view, name='export_data'),\n    path('export-detailed/', views.export_detailed_view, name='export_detailed'),",
+        "peekOfCode": "urlpatterns = [\n    # --- Dashboard & Ingestion ---\n    path('', views.dashboard_view, name='dashboard'),\n    path('upload/', views.upload_view, name='upload'),\n    # --- Live Reporting ---\n    path('report/', views.report_view, name='report'),\n    path('report-detailed/', views.report_detailed_view, name='report_detailed'),\n    path('comparison/', views.comparison_view, name='comparison'),\n    # --- Excel Exports ---\n    path('export/', views.export_view, name='export_data'),",
         "detail": "backend.core.urls",
         "documentation": {}
     },
@@ -1898,6 +1907,15 @@
         "importPath": "backend.core.views",
         "description": "backend.core.views",
         "peekOfCode": "def leaderboard_summary_view(request):\n    threshold_map = _handle_threshold_session(request)\n    _, start_str, end_str, start_dt, end_dt, sbu_filter, _, _, _ = _get_request_params(request)\n    all_sbu_options = list(Project.objects.exclude(sbu__isnull=True).exclude(sbu=\"\").values_list('sbu', flat=True).distinct())\n    all_sbu_options.sort()\n    sbu_filter = request.GET.getlist('sbu') or all_sbu_options or ['North', 'South', 'East', 'Central']\n    hall_of_fame = defaultdict(dict)\n    for role_name, config in ROLE_CONFIG.items():\n        if 'dept' not in config: continue \n        department = config['dept']",
+        "detail": "backend.core.views",
+        "documentation": {}
+    },
+    {
+        "label": "comparison_view",
+        "kind": 2,
+        "importPath": "backend.core.views",
+        "description": "backend.core.views",
+        "peekOfCode": "def comparison_view(request):\n    threshold_map = _handle_threshold_session(request)\n    # We borrow SBU, Role, View Mode and Default Dates from your existing helper\n    view_mode, _, _, default_start_dt, default_end_dt, sbu_filter, role_filter, _, _ = _get_request_params(request)\n    people_opts, selected_filters = _get_dropdown_context(request)\n    all_departments = Department.objects.values_list('name', flat=True).order_by('name')\n    all_role_keys = sorted(ROLE_CONFIG.keys())\n    grouped_roles = group_roles_by_dept(all_role_keys)\n    # 1. Parse Date Panels\n    date_ranges = _parse_comparison_ranges(request, default_start_dt, default_end_dt)",
         "detail": "backend.core.views",
         "documentation": {}
     },

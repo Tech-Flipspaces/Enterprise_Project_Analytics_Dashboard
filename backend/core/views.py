@@ -2,6 +2,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from io import BytesIO
 from collections import defaultdict
+import json     # for Chart.js
 
 from django.shortcuts import render, redirect, get_object_or_404            # type: ignore
 from django.contrib import messages                                         # type: ignore
@@ -275,7 +276,7 @@ def _fetch_metrics_from_db(view_mode, stage, role_filter, threshold_map):
         db_min = getattr(m, 'min_threshold', 0.0)
         effective_val = threshold_map.get(m.field_name, db_min)
         
-        metrics_list.append({
+        metrics_list.append({   
             'label': m.label,
             'field': m.field_name,
             'def': effective_val,
@@ -679,8 +680,12 @@ def _handle_summary_report(request, is_excel=False):
 def _handle_detailed_report(request, is_excel=False):
     threshold_map = _handle_threshold_session(request)
     view_mode, _, _, start_dt, end_dt, sbu_filter, role_filter, roll_start, roll_end = _get_request_params(request)
+
+    people_opts, selected_filters = _get_dropdown_context(request)
+    
     projects = Project.objects.filter(sbu__in=sbu_filter).exclude(project_code="PS-02AUG23-BB1_TEST-SOMERSET-01")
     projects = _apply_people_filters(projects, view_mode, request)
+    
     qs_pre, qs_post = _get_stage_querysets(view_mode, projects, start_dt, end_dt, roll_start, roll_end)
 
     def generate_df(queryset, metrics_list, stage_key):
@@ -731,6 +736,7 @@ def _handle_detailed_report(request, is_excel=False):
 
     pre_metrics_db = _fetch_metrics_from_db(view_mode, 'Pre', role_filter, threshold_map)
     post_metrics_db = _fetch_metrics_from_db(view_mode, 'Post', role_filter, threshold_map)
+    
     df_pre = generate_df(qs_pre, pre_metrics_db, 'Pre') if view_mode != 'Operations' else pd.DataFrame()
     df_post = generate_df(qs_post, post_metrics_db, 'Post')
 
@@ -746,6 +752,12 @@ def _handle_detailed_report(request, is_excel=False):
     else:
         context = {
             'view_mode': view_mode, 'start_date': str(start_dt), 'end_date': str(end_dt),
+
+            'sbus': sorted([s for s in Project.objects.values_list('sbu', flat=True).distinct() if s]) or ['North', 'South', 'West', 'Central'],
+            'selected_sbus': sbu_filter,
+            'current_role': role_filter,
+            'people_opts': people_opts, 
+            'selected_filters': selected_filters,
             
             # PRE-STAGE DATA
             'pre_columns': df_pre.columns.tolist() if not df_pre.empty else [],
@@ -889,7 +901,7 @@ def project_scorecard_view(request, project_code):
     return render(request, 'core/project_scorecard.html', {
         'project': project, 'user_group': user_group,
         'project_color': project_color, 'scores': final_scores,
-        'selected_group_id': user_group.id, 'all_groups': all_groups, 
+        'selected_group_id': user_group.pk, 'all_groups': all_groups, 
         'total_factor': total_factor_sum, 'scores': final_scores, 
         'project_total': project_score,
         'project_total_int': int(project_score),
@@ -1008,3 +1020,143 @@ def leaderboard_summary_view(request):
         'selected_sbus': sbu_filter, 'sbu_options': all_sbu_options,
     }
     return render(request, 'core/leaderboard_summary.html', context)
+
+# ==============================================================================
+# SECTION 6: TREND & COMPARISON ANALYSIS
+# ==============================================================================
+
+def _parse_comparison_ranges(request, default_start_dt, default_end_dt):
+    """
+        Parses 'ranges' from URL. Fallback: Creates Current and Exactly Previous period.
+        Format expected: ?ranges=2026-01-01|2026-02-01,2025-12-01|2026-01-01
+    """
+    ranges_str = request.GET.get('ranges')
+    date_ranges = []
+    
+    if ranges_str:
+        for r in ranges_str.split(','):
+            try:
+                s, e = r.split('|')
+                s_dt = datetime.strptime(s, '%Y-%m-%d').date()
+                e_dt = datetime.strptime(e, '%Y-%m-%d').date()
+                date_ranges.append({'start': s_dt, 'end': e_dt})
+            except ValueError:
+                continue
+                
+    if not date_ranges:
+        # Default: Current and Previous
+        delta = default_end_dt - default_start_dt
+        
+        # Panel 1: Current
+        date_ranges.append({'start': default_start_dt, 'end': default_end_dt})
+        # Panel 2: Previous (Shifted by exact delta of days)
+        date_ranges.append({'start': default_start_dt - delta - timedelta(days=1), 'end': default_start_dt - timedelta(days=1)})
+        
+    return date_ranges
+
+def comparison_view(request):
+    threshold_map = _handle_threshold_session(request)
+    
+    # We borrow SBU, Role, View Mode and Default Dates from your existing helper
+    view_mode, _, _, default_start_dt, default_end_dt, sbu_filter, role_filter, _, _ = _get_request_params(request)
+    people_opts, selected_filters = _get_dropdown_context(request)
+
+    all_departments = Department.objects.values_list('name', flat=True).order_by('name')
+    all_role_keys = sorted(ROLE_CONFIG.keys())
+    grouped_roles = group_roles_by_dept(all_role_keys)
+    
+    # 1. Parse Date Panels
+    date_ranges = _parse_comparison_ranges(request, default_start_dt, default_end_dt)
+    range_labels = [f"{r['start'].strftime('%d %b %y')} - {r['end'].strftime('%d %b %y')}" for r in date_ranges]
+    
+    # 2. Base Query (Filtered globally once for speed)
+    base_projects = Project.objects.filter(sbu__in=sbu_filter).exclude(project_code="PS-02AUG23-BB1_TEST-SOMERSET-01")
+    base_projects = _apply_people_filters(base_projects, view_mode, request)
+    
+    pre_metrics = _fetch_metrics_from_db(view_mode, 'Pre', role_filter, threshold_map)
+    post_metrics = _fetch_metrics_from_db(view_mode, 'Post', role_filter, threshold_map)
+    
+    def build_comparison_data(metrics_list, stage_name):
+        data = []
+        for m in metrics_list:
+            counts = []
+            
+            # Count the metric for EACH date panel
+            for r in date_ranges:
+                r_start, r_end = r['start'], r['end']
+                
+                # CRITICAL: Dynamically shift the 6-month rolling window for historical panels!
+                tmp_roll_start = r_start - timedelta(days=180)
+                tmp_roll_end = r_end + timedelta(days=240)
+                
+                qs_pre, qs_post = _get_stage_querysets(view_mode, base_projects, r_start, r_end, tmp_roll_start, tmp_roll_end)
+                qs = qs_pre if stage_name == 'Pre' else qs_post
+                
+                count = qs.filter(**{f"{m['field']}__gte": m['def']}).count()
+                counts.append(count)
+            
+            # Calculate Deltas (Comparing Panel N to Panel N+1)
+            deltas = []
+            for i in range(len(counts) - 1):
+                current = counts[i]
+                previous = counts[i+1] # The older panel
+                
+                if previous > 0:
+                    diff = current - previous
+                    pct = round((diff / previous) * 100, 1)
+                    deltas.append({'val': abs(diff), 'pct': abs(pct), 'up': diff > 0, 'down': diff < 0})
+                else:
+                    deltas.append({'val': current, 'pct': 100 if current > 0 else 0, 'up': current > 0, 'down': False})
+            
+            data.append({'label': m['label'], 'category': m['success_cat'], 'counts': counts, 'deltas': deltas})
+        return data
+
+    pre_data = build_comparison_data(pre_metrics, 'Pre') if view_mode != 'Operations' else []
+    post_data = build_comparison_data(post_metrics, 'Post')
+    
+    # 3. Format Data for Chart.js
+    chart_labels = [m['label'] for m in post_metrics]
+    chart_datasets = []
+    
+    # Professional hex colors for the bars
+    panel_colors = ['#4f46e5', '#94a3b8', '#10b981', '#f59e0b', '#ec4899'] 
+
+    for i, r_label in enumerate(range_labels):
+        # Determine if this is the base/current panel or a comparison
+        if i == 0:
+            panel_name = "Panel 1 (Current)" 
+            color = '#4f46e5' # Strong Primary Blue
+        else:
+            panel_name = f"Panel {i+1} (Comparison)"
+            color = panel_colors[i % len(panel_colors)]
+
+        chart_datasets.append({
+            'label': panel_name,
+            'data': [m['counts'][i] for m in post_data],
+            'backgroundColor': color,
+            'borderRadius': 4
+        })
+    
+    context = {
+        'view_mode': view_mode,
+        'sbus': sorted([s for s in Project.objects.values_list('sbu', flat=True).distinct() if s]) or ['North', 'South', 'West', 'Central'],
+        'selected_sbus': sbu_filter,
+        'current_role': role_filter,
+        'people_opts': people_opts, 
+        'selected_filters': selected_filters,
+
+        'all_departments': all_departments,
+        'grouped_roles': grouped_roles,
+        
+        # New Comparison Data
+        'date_ranges': date_ranges,
+        'range_labels': range_labels,
+        'pre_data': pre_data,
+        'post_data': post_data,
+        
+        # Chart JSON
+        'chart_labels_json': json.dumps(chart_labels),
+        'chart_datasets_json': json.dumps(chart_datasets),
+        'raw_ranges_param': request.GET.get('ranges', '')
+    }
+    return render(request, 'core/comparison.html', context)

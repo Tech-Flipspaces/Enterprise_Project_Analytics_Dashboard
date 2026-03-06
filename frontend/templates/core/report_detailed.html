@@ -12,14 +12,12 @@
     /* --- 1. TABLE LAYOUT & ALIGNMENT FIXES --- */
     .table-container { font-size: 0.85rem; }
 
-    /* Force Table to fill width to prevent misalignment */
     .dataTables_scrollHeadInner, 
     .dataTables_scrollBody table, 
     .dataTables_scrollHead table {
         width: 100% !important; 
     }
 
-    /* Scrollbars */
     .dataTables_scrollBody::-webkit-scrollbar { width: 10px; height: 10px; }
     .dataTables_scrollBody::-webkit-scrollbar-thumb { background: #6c757d; border-radius: 4px; }
     .dataTables_scrollBody::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
@@ -34,14 +32,10 @@
         vertical-align: middle;
         white-space: nowrap;
         border-bottom: 2px solid var(--border-color);
-        /* ALIGNMENT FIX: Force symmetrical padding. 
-           DataTables usually adds ~25px right padding for the sort arrow. 
-           We override this to match the left padding. */
         padding: 10px 12px !important; 
         position: relative;
     }
 
-    /* REMOVE DEFAULT DATATABLES SORT ICONS & SPACE */
     table.dataTable thead .sorting::before,
     table.dataTable thead .sorting::after,
     table.dataTable thead .sorting_asc::before,
@@ -52,116 +46,42 @@
         content: "" !important;
     }
 
-    /* Flex Layout for Header Content */
     .header-wrapper {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        gap: 5px;
+        display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 5px;
     }
 
-    /* Filter Icon (The Trigger) */
     .excel-filter-trigger {
-        padding: 4px 6px;
-        border-radius: 4px;
-        cursor: pointer;
-        color: #adb5bd;
-        transition: all 0.2s;
-        min-width: 20px; 
-        text-align: center;
+        padding: 4px 6px; border-radius: 4px; cursor: pointer; color: #adb5bd; transition: all 0.2s; min-width: 20px; text-align: center;
     }
-    .excel-filter-trigger:hover {
-        background-color: rgba(0,0,0,0.1);
-        color: var(--primary-color);
-    }
-    .excel-filter-trigger.active-filter {
-        color: var(--primary-color);
-        background-color: rgba(var(--primary-rgb), 0.1);
-    }
+    .excel-filter-trigger:hover { background-color: rgba(0,0,0,0.1); color: var(--primary-color); }
+    .excel-filter-trigger.active-filter { color: var(--primary-color); background-color: rgba(var(--primary-rgb), 0.1); }
 
-    /* --- 3. EXCEL DROPDOWN MENU (Floating) --- */
+    /* --- 3. EXCEL DROPDOWN MENU --- */
     .excel-filter-menu {
-        display: none;
-        position: absolute;
-        width: 280px;
-        background: var(--card-bg); /* Dynamic Background */
-        border: 1px solid var(--border-color);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-        border-radius: 6px;
-        z-index: 10000;
-        padding: 10px;
-        font-size: 0.8rem;
-        color: var(--text-main); /* Dynamic Text */
+        display: none; position: absolute; width: 280px; background: var(--card-bg);
+        border: 1px solid var(--border-color); box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        border-radius: 6px; z-index: 10000; padding: 10px; font-size: 0.8rem; color: var(--text-main);
     }
-
-    .menu-section {
-        border-bottom: 1px solid var(--border-color);
-        padding-bottom: 8px;
-        margin-bottom: 8px;
-    }
-
-    .sort-btn {
-        display: block;
-        width: 100%;
-        text-align: left;
-        background: none;
-        border: none;
-        padding: 6px 10px;
-        border-radius: 4px;
-        color: var(--text-main);
-    }
+    .menu-section { border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 8px; }
+    .sort-btn { display: block; width: 100%; text-align: left; background: none; border: none; padding: 6px 10px; border-radius: 4px; color: var(--text-main); }
     .sort-btn:hover { background-color: rgba(0,0,0,0.05); color: var(--primary-color); }
-    .sort-btn i { margin-right: 8px; width: 20px; text-align: center; }
-
-    .menu-search {
-        width: 100%;
-        padding: 5px 8px;
-        border: 1px solid var(--border-color);
-        background-color: var(--bg-body);
-        color: var(--text-main);
-        border-radius: 4px;
-        margin-bottom: 8px;
-        font-size: 0.8rem;
-    }
-
-    .checkbox-list {
-        max-height: 200px;
-        overflow-y: auto;
-        border: 1px solid var(--border-color);
-        padding: 5px;
-        border-radius: 4px;
-    }
-
-    .checkbox-item {
-        display: block;
-        padding: 3px 5px;
-        cursor: pointer;
-        user-select: none;
-        color: var(--text-main);
-    }
+    .menu-search { width: 100%; padding: 5px 8px; border: 1px solid var(--border-color); background-color: var(--bg-body); color: var(--text-main); border-radius: 4px; margin-bottom: 8px; }
+    .checkbox-list { max-height: 200px; overflow-y: auto; border: 1px solid var(--border-color); padding: 5px; border-radius: 4px; }
+    .checkbox-item { display: block; padding: 3px 5px; cursor: pointer; user-select: none; color: var(--text-main); }
     .checkbox-item:hover { background-color: rgba(0,0,0,0.05); }
-    .checkbox-item input { margin-right: 8px; vertical-align: middle; }
 
-    /* --- 4. BODY CELLS --- */
+    /* --- 4. BODY CELLS & FILTER CARDS --- */
     table.dataTable tbody td {
-        vertical-align: middle;
-        white-space: nowrap;
-        max-width: 180px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 0.8rem;
-        border-color: var(--border-color);
-        padding: 10px 12px !important; /* Match Header Padding */
+        vertical-align: middle; white-space: nowrap; max-width: 180px; overflow: hidden; text-overflow: ellipsis; font-size: 0.8rem; border-color: var(--border-color); padding: 10px 12px !important;
     }
-
     .project-link { color: var(--primary-color); font-weight: 700; text-decoration: none; }
     .project-link:hover { text-decoration: underline; }
-    
-    /* Button Visibility Fix */
-    div.dt-buttons .btn {
-        margin-bottom: 0; /* Align correctly */
-    }
+    div.dt-buttons .btn { margin-bottom: 0; }
+
+    /* Custom Filter Dropdown Styles from Dashboard */
+    .filter-card { background: var(--card-bg); border-radius: 12px; overflow: visible !important; z-index: 100 !important; position: relative; border: 1px solid var(--border-color); }
+    .dropdown-menu-form { min-width: 260px; z-index: 1055 !important; }
+    .form-control-sm, .form-select-sm, .btn-sm { height: 34px; font-size: 0.85rem; }
 </style>
 {% endblock %}
 
@@ -173,58 +93,132 @@
             <h2 class="mb-0 fw-bold text-dark" style="color: var(--text-main) !important;">
                 <i class="fas fa-table text-primary me-2"></i>Detailed Project Report
             </h2>
-            
-            <form method="get" class="d-flex align-items-center text-muted small mt-2">
-                <input type="hidden" name="start" value="{{ start_date }}">
-                <input type="hidden" name="end" value="{{ end_date }}">
-                
-                <span class="me-2 fw-bold text-uppercase">Viewing:</span>
-                <select name="view" class="form-select form-select-sm d-inline-block w-auto border shadow-sm fw-bold text-primary" 
-                        onchange="this.form.submit()" style="cursor: pointer; min-width: 150px; background-color: var(--bg-body); color: var(--text-main); border-color: var(--border-color);">
-                    <option value="Marketing" {% if view_mode == 'Marketing' %}selected{% endif %}>Marketing</option>
-                    <option value="Sales" {% if view_mode == 'Sales' %}selected{% endif %}>Sales</option>
-                    <option value="Design" {% if view_mode == 'Design' %}selected{% endif %}>Design</option>
-                    <option value="Operations" {% if view_mode == 'Operations' %}selected{% endif %}>Operations</option>
-                    <option value="Purchase" {% if view_mode == 'Purchase' %}selected{% endif %}>Purchase</option>
-                    <option value="Finance" {% if view_mode == 'Finance' %}selected{% endif %}>Finance</option>
-                </select>
-                
-                <span class="mx-3">|</span>
-                <span class="text-muted">
-                    <i class="far fa-calendar-alt me-1"></i> 
-                    <span class="formatted-date" data-date="{{ start_date }}"></span> to 
-                    <span class="formatted-date" data-date="{{ end_date }}"></span>
-                </span>
-            </form>
         </div>
-        
-        <div class="d-flex gap-2">
+        <div>
             <a href="{% url 'dashboard' %}?view={{ view_mode }}&start={{ start_date }}&end={{ end_date }}" class="btn btn-outline-secondary">
-                <i class="fas fa-arrow-left me-2"></i>Back
+                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
             </a>
-            <form action="{% url 'export_detailed' %}" method="get">
-                <input type="hidden" name="view" value="{{ view_mode }}">
-                <input type="hidden" name="start" value="{{ start_date }}">
-                <input type="hidden" name="end" value="{{ end_date }}">
-                <button type="submit" class="btn btn-success">
-                    <i class="fas fa-file-excel me-2"></i>Excel
-                </button>
+            </div>
+    </div>
+
+    <div class="card mb-4 filter-card shadow-sm">
+        <div class="card-body p-4">
+            <form method="get" class="row g-3" id="filterForm">
+                
+                <div class="col-md-3 border-end pe-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase mb-1">Time Period</label>
+                    <div class="input-group input-group-sm">
+                        <input type="date" name="start" class="form-control border-0 bg-light" value="{{ start_date }}">
+                        <span class="input-group-text border-0 bg-light text-muted">-</span>
+                        <input type="date" name="end" class="form-control border-0 bg-light" value="{{ end_date }}">
+                    </div>
+                </div>
+
+                <div class="col-md-2 border-end px-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase mb-1">Perspective</label>
+                    <select name="view" class="form-select form-select-sm fw-bold border-0 bg-light shadow-sm text-primary" onchange="this.form.submit()">
+                        <option value="Sales" {% if view_mode == 'Sales' %}selected{% endif %}>Sales</option>
+                        <option value="Design" {% if view_mode == 'Design' %}selected{% endif %}>Design</option>
+                        <option value="Operations" {% if view_mode == 'Operations' %}selected{% endif %}>Operations</option>
+                        <option value="Purchase" {% if view_mode == 'Purchase' %}selected{% endif %}>Purchase</option>
+                        <option value="Finance" {% if view_mode == 'Finance' %}selected{% endif %}>Finance</option>
+                        <option value="Marketing" {% if view_mode == 'Marketing' %}selected{% endif %}>Marketing</option>
+                    </select>
+                </div>
+
+
+                <div class="col-md-3 px-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase mb-1">Region / SBU</label>
+                    {% with field_name="sbu" options=sbus selected=selected_sbus %}
+                        {% include "core/components/filter_dropdown.html" %}
+                    {% endwith %}
+                </div>
+
+                <div class="col-md-2 ps-3 border-start">
+                    <label class="form-label small fw-bold text-muted text-uppercase mb-1">&nbsp;</label>
+                    <button type="submit" class="btn btn-primary btn-sm w-100 fw-bold shadow-sm">
+                        <i class="fas fa-sync-alt me-2"></i>Update
+                    </button>
+                </div>
+
+                <div class="col-12 mt-4 pt-3 border-top">
+                    <div class="row g-3">
+                        {% if view_mode == 'Sales' %}
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted mb-1">Sales Head</label>
+                                {% with field_name="f_s_head" options=people_opts.s_head selected=selected_filters.s_head %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted mb-1">Sales Lead</label>
+                                {% with field_name="f_s_lead" options=people_opts.s_lead selected=selected_filters.s_lead %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+
+                        {% elif view_mode == 'Design' %}
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted mb-1">Interior Designers - ID</label>
+                                {% with field_name="f_d_id" options=people_opts.d_id selected=selected_filters.d_id %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted mb-1">3D Visualizers - 3D</label>
+                                {% with field_name="f_d_3d" options=people_opts.d_3d selected=selected_filters.d_3d %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted mb-1">Design Managers - DM</label>
+                                {% with field_name="f_d_dm" options=people_opts.d_dm selected=selected_filters.d_dm %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted mb-1">Design Heads - DH</label>
+                                {% with field_name="f_d_dh" options=people_opts.d_dh selected=selected_filters.d_dh %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+
+                        {% elif view_mode == 'Operations' %}
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted mb-1">Cluster/BU Heads</label>
+                                {% with field_name="f_o_head" options=people_opts.o_head selected=selected_filters.o_head %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted mb-1">Senior/Project Managers</label>
+                                {% with field_name="f_o_pm" options=people_opts.o_pm selected=selected_filters.o_pm %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted mb-1">Senior Ops Managers</label>
+                                {% with field_name="f_o_om" options=people_opts.o_om selected=selected_filters.o_om %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-muted mb-1">Site Supervisors - SS</label>
+                                {% with field_name="f_o_ss" options=people_opts.o_ss selected=selected_filters.o_ss %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+
+                        {% elif view_mode == 'Purchase' %}
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted mb-1">Purchase Head</label>
+                                {% with field_name="f_p_head" options=people_opts.p_head selected=selected_filters.p_head %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted mb-1">Manager</label>
+                                {% with field_name="f_p_mgr" options=people_opts.p_mgr selected=selected_filters.p_mgr %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted mb-1">Executive</label>
+                                {% with field_name="f_p_exec" options=people_opts.p_exec selected=selected_filters.p_exec %}{% include "core/components/filter_dropdown.html" %}{% endwith %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
             </form>
         </div>
     </div>
 
     {% if pre_data %}
-    <div class="card shadow-sm border mb-5" style="background-color: var(--card-bg); border-color: var(--border-color) !important;">
-        <div class="card-header bg-transparent border-bottom p-3" style="border-color: var(--border-color) !important;">
+    <div class="card shadow-sm border mb-5">
+        <div class="card-header bg-transparent border-bottom p-3">
             <h5 class="text-primary fw-bold mb-0">1. Pre-Stage Analysis</h5>
         </div>
         <div class="card-body p-0">
             <table id="preTable" class="table table-hover w-100 nowrap">
                 <thead>
                     <tr>
-                        {% for col in pre_columns %}
-                        <th>{{ col }}</th>
-                        {% endfor %}
+                        {% for col in pre_columns %}<th>{{ col }}</th>{% endfor %}
                     </tr>
                 </thead>
                 <tbody>
@@ -233,34 +227,33 @@
                         {% for col in pre_columns %}
                         <td title="{{ row|get_item:col }}">
                             {% if col == 'Project Name' %}
-                                <a href="{% url 'project_scorecard' row|get_item:'Project Code' %}" class="project-link">
-                                    {{ row|get_item:col }}
-                                </a>
-                            {% else %}
-                                {{ row|get_item:col }}
-                            {% endif %}
+                                <a href="{% url 'project_scorecard' row|get_item:'Project Code' %}" class="project-link">{{ row|get_item:col }}</a>
+                            {% else %}{{ row|get_item:col }}{% endif %}
                         </td>
                         {% endfor %}
                     </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    <tr class="table-light fw-bold text-primary border-top border-2">
+                        {% for col in pre_columns %}<th></th>{% endfor %}
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
     {% endif %}
 
     {% if post_data %}
-    <div class="card shadow-sm border mb-5" style="background-color: var(--card-bg); border-color: var(--border-color) !important;">
-        <div class="card-header bg-transparent border-bottom p-3" style="border-color: var(--border-color) !important;">
+    <div class="card shadow-sm border mb-5">
+        <div class="card-header bg-transparent border-bottom p-3">
             <h5 class="text-success fw-bold mb-0">2. Post-Stage / Execution Analysis</h5>
         </div>
         <div class="card-body p-0">
             <table id="postTable" class="table table-hover w-100 nowrap">
                 <thead>
                     <tr>
-                        {% for col in post_columns %}
-                        <th>{{ col }}</th>
-                        {% endfor %}
+                        {% for col in post_columns %}<th>{{ col }}</th>{% endfor %}
                     </tr>
                 </thead>
                 <tbody>
@@ -269,17 +262,18 @@
                         {% for col in post_columns %}
                         <td title="{{ row|get_item:col }}">
                             {% if col == 'Project Name' %}
-                                <a href="{% url 'project_scorecard' row|get_item:'Project Code' %}" class="project-link">
-                                    {{ row|get_item:col }}
-                                </a>
-                            {% else %}
-                                {{ row|get_item:col }}
-                            {% endif %}
+                                <a href="{% url 'project_scorecard' row|get_item:'Project Code' %}" class="project-link">{{ row|get_item:col }}</a>
+                            {% else %}{{ row|get_item:col }}{% endif %}
                         </td>
                         {% endfor %}
                     </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot>
+                    <tr class="table-light fw-bold text-success border-top border-2">
+                        {% for col in post_columns %}<th></th>{% endfor %}
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -287,8 +281,7 @@
 
     {% if not pre_data and not post_data %}
     <div class="alert alert-warning text-center p-5">
-        <h4>No Data Found</h4>
-        <p>Try adjusting your date range or filters.</p>
+        <h4>No Data Found</h4><p>Try adjusting your date range or filters.</p>
     </div>
     {% endif %}
 
@@ -303,32 +296,52 @@
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+
 <script>
+// --- Custom Component JS for Multi-Select Dropdowns ---
+function filterDropdown(inputId) {
+    const dropdownMenu = document.getElementById('dd_' + inputId); if(!dropdownMenu) return; 
+    const input = dropdownMenu.querySelector('.dropdown-search-box input');
+    const filter = input.value.toLowerCase();
+    const items = dropdownMenu.querySelectorAll('.dropdown-item-text');
+    items.forEach(item => { const text = item.innerText.toLowerCase(); item.style.display = text.includes(filter) ? "" : "none"; });
+}
+function toggleAll(fieldId) {
+    const container = document.getElementById('dd_' + fieldId); if(!container) return;
+    const selectAllCheckbox = container.querySelector('.select-all');
+    const visibleItems = Array.from(container.querySelectorAll('.dropdown-item-text')).filter(item => item.style.display !== 'none');
+    visibleItems.forEach(item => { item.querySelector('input[type="checkbox"]').checked = selectAllCheckbox.checked; });
+    updateBtn(fieldId);
+}
+function updateBtn(fieldId) {
+    const container = document.getElementById('dd_' + fieldId); if(!container) return;
+    const count = container.querySelectorAll('.item-checkbox:checked').length;
+    const button = container.querySelector('button .btn-label');
+    if(button) button.innerText = count > 0 ? `${count} Selected` : 'Select...';
+}
+
+
 $(document).ready(function() {
     
-    // --- EXCEL FILTER LOGIC ---
+    // --- EXCEL FILTER LOGIC (Kept exactly as you had it) ---
     function enableExcelFilters(table, tableId) {
-        
         table.columns().every(function (colIdx) {
             var column = this;
             var header = $(column.header());
             var title = header.text().trim();
             var titleUpper = title.toUpperCase();
 
-            // 1. FILTERABLE COLUMNS (Identity + People + Dropdowns)
             var isFilterable = (
                 ['SBU', 'PROJECT TYPE', 'STAGE', 'LEAD ID', 'PROJECT CODE', 'PROJECT NAME'].includes(titleUpper) || 
-                titleUpper.includes('HEAD') || 
-                titleUpper.includes('LEAD') || 
-                titleUpper.includes('MANAGER') ||
-                titleUpper.includes('VISUALIZER') ||
-                titleUpper.includes('INTERIOR DESIGNER') ||
-                ['ID', 'DH', 'DM', '3D', 'SS', 'SPM/PM', 'SOM/OM', '','CSC', 'MEP'].includes(titleUpper)
+                titleUpper.includes('HEAD') || titleUpper.includes('LEAD') || titleUpper.includes('MANAGER') ||
+                titleUpper.includes('VISUALIZER') || titleUpper.includes('INTERIOR DESIGNER') ||
+                ['ID', 'DH', 'DM', '3D', 'SS', 'SPM/PM', 'SOM/OM', 'CSC', 'MEP'].includes(titleUpper)
             );
 
             if (!isFilterable) return;
 
-            // 2. RESTRUCTURE HEADER
             header.html(`
                 <div class="header-wrapper">
                     <span>${title}</span>
@@ -338,15 +351,11 @@ $(document).ready(function() {
                 </div>
             `);
 
-            // 3. GENERATE MENU CONTENT
             var uniqueData = column.data().unique().sort().toArray();
             var checkboxHtml = '';
             uniqueData.forEach(function(d) {
                 if(!d) return; 
-                checkboxHtml += `
-                    <label class="checkbox-item">
-                        <input type="checkbox" value="${d}" checked> ${d}
-                    </label>`;
+                checkboxHtml += `<label class="checkbox-item"><input type="checkbox" value="${d}" checked> ${d}</label>`;
             });
 
             var menuId = `menu-${tableId}-${colIdx}`;
@@ -356,45 +365,30 @@ $(document).ready(function() {
                         <button class="sort-btn sort-asc"><i class="fas fa-sort-alpha-down"></i> Sort A to Z</button>
                         <button class="sort-btn sort-desc"><i class="fas fa-sort-alpha-up"></i> Sort Z to A</button>
                     </div>
-                    
                     <input type="text" class="menu-search" placeholder="Search...">
-                    
                     <div class="checkbox-list">
-                        <label class="checkbox-item fw-bold">
-                            <input type="checkbox" class="select-all" checked> (Select All)
-                        </label>
+                        <label class="checkbox-item fw-bold"><input type="checkbox" class="select-all" checked> (Select All)</label>
                         <div class="value-container">${checkboxHtml}</div>
                     </div>
-                    
                     <div class="text-end mt-2 pt-2 border-top">
                         <button class="btn btn-primary btn-sm apply-btn w-100">Apply Filter</button>
                     </div>
                 </div>
             `;
 
-            // 4. TRIGGER CLICK HANDLER
             header.find('.excel-filter-trigger').on('click', function(e) {
                 e.stopPropagation(); 
-                
                 $('.excel-filter-menu').remove();
                 $('#menu-overlay').show();
-
                 $('body').append(menuHtml);
                 var menu = $('#' + menuId);
                 var offset = $(this).offset();
                 
                 var leftPos = offset.left;
-                if(leftPos + 280 > $(window).width()) {
-                    leftPos = offset.left - 240; 
-                }
+                if(leftPos + 280 > $(window).width()) leftPos = offset.left - 240; 
 
-                menu.css({
-                    top: offset.top + 30 + 'px',
-                    left: leftPos + 'px',
-                    display: 'block'
-                });
+                menu.css({ top: offset.top + 30 + 'px', left: leftPos + 'px', display: 'block' });
 
-                // Events
                 menu.find('.sort-asc').click(function() { column.order('asc').draw(); closeMenu(); });
                 menu.find('.sort-desc').click(function() { column.order('desc').draw(); closeMenu(); });
 
@@ -430,46 +424,107 @@ $(document).ready(function() {
         });
     }
 
-    function closeMenu() {
-        $('.excel-filter-menu').remove();
-        $('#menu-overlay').hide();
-    }
+    function closeMenu() { $('.excel-filter-menu').remove(); $('#menu-overlay').hide(); }
     $('#menu-overlay').click(closeMenu);
 
-    // --- INIT TABLES ---
+    // --- INIT TABLES WITH NEW WYSIWYG EXCEL EXPORT ---
     function initTable(tableId) {
         var tableSelector = '#' + tableId;
         if (!$(tableSelector).length) return;
+
+        var exportFileName = tableId === 'preTable' ? 'Pre-Stage_Analysis' : 'Post-Stage_Analysis';
 
         var table = $(tableSelector).DataTable({
             scrollX: true,         
             scrollY: '60vh',       
             scrollCollapse: true,
             paging: false,         
-            info: false,  // REMOVED COUNTER
+            info: false,  
             ordering: true,
             
-            dom: '<"d-flex justify-content-between align-items-center p-3"Bf>t',
+            // This correctly places the Buttons (B) and the default Search (f) at the top
+            dom: '<"d-flex justify-content-between align-items-center p-3 border-bottom bg-light"Bf>t',
             
             buttons: [
                 {
                     extend: 'colvis',
                     text: '<i class="fas fa-columns me-2"></i>Show/Hide Columns',
-                    className: 'btn btn-primary btn-sm' // VISIBILITY FIX
+                    className: 'btn btn-secondary btn-sm'
+                },
+                // NEW: The magic Excel button!
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fas fa-file-excel me-2"></i>Export to Excel',
+                    className: 'btn btn-success btn-sm ms-2',
+                    title: '',
+                    footer: true,
+                    exportOptions: {
+                        columns: ':visible',  // Only export columns the user hasn't hidden
+                        search: 'applied'     // Only export rows that survive the search/filters
+                    }
                 }
             ],
+
+            // 3. THIS CALCULATES THE TOTALS DYNAMICALLY
+            footerCallback: function (row, data, start, end, display) {
+                var api = this.api();
+                
+                // Loop through every visible column
+                api.columns({search: 'applied'}).every(function (colIdx) {
+                    var col = this;
+                    var headerText = $(api.column(colIdx).header()).text().toLowerCase();
+                    var footerCell = $(col.footer());
+                    
+                    // First Column gets the Row Count
+                    if (colIdx === 0) {
+                        footerCell.html('TOTAL: ' + api.rows({search: 'applied'}).count() + ' Projects');
+                        return;
+                    }
+
+                    // Skip text columns (IDs, Names, Regions, Roles)
+                    var skipKeywords = ['id', 'code', 'name', 'sbu', 'stage', 'type', 'head', 'lead', 'manager', 'designer', 'visualizer', 'supervisor', 'exec', 'csc', 'mep'];
+                    var shouldSkip = skipKeywords.some(kw => headerText.includes(kw));
+
+                    if (shouldSkip) {
+                        footerCell.html('-');
+                        return;
+                    }
+
+                    // Sum the numeric columns
+                    var sum = 0;
+                    var hasData = false;
+                    var isNumeric = true;
+
+                    col.data().each(function (val) {
+                        var text = $('<div>' + val + '</div>').text().trim(); // Strip HTML if it's a link
+                        if (text !== "") {
+                            hasData = true;
+                            var num = Number(text);
+                            if (!isNaN(num)) {
+                                sum += num;
+                            } else {
+                                isNumeric = false;
+                            }
+                        }
+                    });
+
+                    // Output the sum to the Footer
+                    if (hasData && isNumeric) {
+                        // Format to 1 decimal place if needed
+                        var finalSum = (sum % 1 !== 0) ? sum.toFixed(1) : sum; 
+                        footerCell.html(finalSum);
+                    } else {
+                        footerCell.html('-');
+                    }
+                });
+            },
+
             initComplete: function() {
                 enableExcelFilters(this.api(), tableId);
                 
-                // --- ALIGNMENT FIX (Bit Shifter) ---
                 var api = this.api();
-                setTimeout(function(){
-                    api.columns.adjust().draw();
-                }, 200);
-
-                $(window).on('resize', function() {
-                    api.columns.adjust();
-                });
+                setTimeout(function(){ api.columns.adjust().draw(); }, 200);
+                $(window).on('resize', function() { api.columns.adjust(); });
             }
         });
     }

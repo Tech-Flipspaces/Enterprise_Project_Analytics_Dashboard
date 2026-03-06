@@ -12,6 +12,8 @@ urlpatterns = [
     path('report/', views.report_view, name='report'),
     path('report-detailed/', views.report_detailed_view, name='report_detailed'),
 
+    path('comparison/', views.comparison_view, name='comparison'),
+
     # --- Excel Exports ---
     path('export/', views.export_view, name='export_data'),
     path('export-detailed/', views.export_detailed_view, name='export_detailed'),

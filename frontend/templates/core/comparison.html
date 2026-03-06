@@ -1,0 +1,359 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Trend Comparison | Analytics{% endblock %}
+{% block page_title %}Trend Comparison{% endblock %}
+{% block page_subtitle %}Compare performance across multiple custom time periods{% endblock %}
+
+{% block content %}
+<form id="comparisonForm" method="GET" action="{% url 'comparison' %}">
+    
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-body p-4 bg-light rounded">
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold text-muted">PERSPECTIVE / DEPT</label>
+                    <select name="view" class="form-select shadow-sm border-0" onchange="this.form.submit()">
+                        {% for dept in all_departments %}
+                            <option value="{{ dept }}" {% if view_mode == dept %}selected{% endif %}>{{ dept }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-bold text-muted">ROLE</label>
+                    <select name="role" class="form-select shadow-sm border-0" onchange="this.form.submit()">
+                        <option value="All Roles">All Roles</option>
+                        {% for dept, roles in grouped_roles.items %}
+                            <optgroup label="{{ dept }}">
+                                {% for r in roles %}
+                                    <option value="{{ r }}" {% if current_role == r %}selected{% endif %}>{{ r }}</option>
+                                {% endfor %}
+                            </optgroup>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label small fw-bold text-muted">REGION / SBU</label>
+                    <div class="dropdown">
+                        <button class="btn btn-white border form-control text-start d-flex justify-content-between align-items-center bg-white shadow-sm" type="button" data-bs-toggle="dropdown">
+                            <span>{{ selected_sbus|length }} Selected</span>
+                            <i class="fas fa-chevron-down text-muted"></i>
+                        </button>
+                        <div class="dropdown-menu p-3 shadow w-100">
+                            {% for sbu in sbus %}
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" name="sbu" value="{{ sbu }}" id="sbu_{{ sbu }}" 
+                                    {% if sbu in selected_sbus %}checked{% endif %}>
+                                <label class="form-check-label" for="sbu_{{ sbu }}">{{ sbu }}</label>
+                            </div>
+                            {% endfor %}
+                            <hr>
+                            <button type="submit" class="btn btn-sm btn-primary w-100">Apply Regions</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                {% if view_mode == 'Sales' %}
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Sales Head</label>
+                        <select name="f_s_head" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.s_head %}<option value="{{ opt }}" {% if opt in selected_filters.s_head %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Sales Lead</label>
+                        <select name="f_s_lead" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.s_lead %}<option value="{{ opt }}" {% if opt in selected_filters.s_lead %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                {% elif view_mode == 'Design' %}
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Design Head - DH</label>
+                        <select name="f_d_dh" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.d_dh %}<option value="{{ opt }}" {% if opt in selected_filters.d_dh %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Design Manager - DM</label>
+                        <select name="f_d_dm" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.d_dm %}<option value="{{ opt }}" {% if opt in selected_filters.d_dm %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Interior Designer - ID</label>
+                        <select name="f_d_id" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.d_id %}<option value="{{ opt }}" {% if opt in selected_filters.d_id %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">3D Visualizer - 3D</label>
+                        <select name="f_d_3d" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.d_3d %}<option value="{{ opt }}" {% if opt in selected_filters.d_3d %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    {% elif view_mode == 'Operations' %}
+                     <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">Cluster / BU Head</label>
+                        <select name="f_o_head" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.o_head %}<option value="{{ opt }}" {% if opt in selected_filters.o_head %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">SPM/PM</label>
+                        <select name="f_o_pm" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.o_pm %}<option value="{{ opt }}" {% if opt in selected_filters.o_pm %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">SOM/OM</label>
+                        <select name="f_o_om" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.o_om %}<option value="{{ opt }}" {% if opt in selected_filters.o_om %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">MEP</label>
+                        <select name="f_o_mep" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.o_mep %}<option value="{{ opt }}" {% if opt in selected_filters.o_mep %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">CSC</label>
+                        <select name="f_o_csc" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.o_csc %}<option value="{{ opt }}" {% if opt in selected_filters.o_csc %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-muted">SS</label>
+                        <select name="f_o_ss" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Select...</option>
+                            {% for opt in people_opts.o_ss %}<option value="{{ opt }}" {% if opt in selected_filters.o_ss %}selected{% endif %}>{{ opt }}</option>{% endfor %}
+                        </select>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm border-0">
+        <div class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+            <h6 class="mb-0 fw-bold"><i class="far fa-calendar-alt text-primary me-2"></i>Comparison Periods</h6>
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="addDatePanel()">
+                <i class="fas fa-plus me-1"></i> Add Panel
+            </button>
+        </div>
+        <div class="card-body">
+            <input type="hidden" name="ranges" id="rangesInput">
+            
+            <div id="datePanelsContainer" class="d-flex flex-wrap gap-3">
+                {% for r in date_ranges %}
+                <div class="date-panel-card p-3 border rounded shadow-sm bg-white position-relative" style="width: 320px;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        {% if forloop.first %}
+                            <span class="badge bg-primary px-2 py-1"><i class="fas fa-star text-warning me-1"></i> Panel 1 (Current)</span>
+                        {% else %}
+                            <span class="badge bg-secondary px-2 py-1">Panel {{ forloop.counter }} (Comparison)</span>
+                            <button type="button" class="btn-close btn-sm" onclick="this.parentElement.parentElement.remove()"></button>
+                        {% endif %}
+                    </div>
+                    <div class="d-flex flex-row align-items-center gap-2">
+                        <input type="date" class="form-control form-control-sm panel-start" value="{{ r.start|date:'Y-m-d' }}" required>
+                        <span class="text-muted small fw-bold">to</span>
+                        <input type="date" class="form-control form-control-sm panel-end" value="{{ r.end|date:'Y-m-d' }}" required>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-4 border-top pt-3 text-end">
+                <button type="submit" class="btn btn-primary px-4" onclick="prepareRanges()">
+                    <i class="fas fa-sync-alt me-2"></i>Update Comparison
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="card mb-4 shadow-sm border-0">
+    <div class="card-body p-4">
+        <h6 class="fw-bold mb-4">Metric Trends</h6>
+        <div style="position: relative; height: 350px; width: 100%;">
+            <canvas id="trendChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0 mb-5">
+    <div class="card-header bg-white border-bottom py-3">
+        <h6 class="mb-0 fw-bold">Detailed Delta Breakdown</h6>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover table-borderless align-middle mb-0">
+            <thead class="table-light border-bottom">
+                <tr>
+                    <th class="ps-4">Metric / KPI</th>
+                    {% for label in range_labels %}
+                        <th class="text-center">{{ label }}</th>
+                    {% endfor %}
+                    {% for label in range_labels|slice:"1:" %}
+                        <th class="text-center bg-light border-start">Trend (vs Panel {{ forloop.counter|add:1 }})</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in post_data %}
+                <tr class="border-bottom">
+                    <td class="ps-4 fw-medium text-dark">{{ item.label }}</td>
+                    
+                    {% for count in item.counts %}
+                        <td class="text-center fs-5">{{ count }}</td>
+                    {% endfor %}
+
+                    {% for d in item.deltas %}
+                        <td class="text-center border-start bg-light bg-opacity-50">
+                            {% if d.up %}
+                                <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">
+                                    <i class="fas fa-arrow-up me-1"></i>{{ d.val }} ({{ d.pct }}%)
+                                </span>
+                            {% elif d.down %}
+                                <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-3 py-2">
+                                    <i class="fas fa-arrow-down me-1"></i>{{ d.val }} ({{ d.pct }}%)
+                                </span>
+                            {% else %}
+                                <span class="text-muted small">-</span>
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="10" class="text-center py-5 text-muted">
+                        <i class="fas fa-folder-open fs-1 mb-3 opacity-50"></i>
+                        <p>No metrics found for this selection.</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+// --- DATE PANEL ENGINE ---
+function addDatePanel() {
+    const container = document.getElementById('datePanelsContainer');
+    const panelCount = container.children.length + 1;
+    
+    // Get the end date of the LAST panel to use as a smart starting point
+    const lastPanel = container.lastElementChild;
+    let smartStart = "";
+    let smartEnd = "";
+    
+    if (lastPanel) {
+        const lastStart = lastPanel.querySelector('.panel-start').value;
+        if (lastStart) {
+            // Shift backwards by 30 days as a default guess for the new panel
+            let d = new Date(lastStart);
+            smartEnd = d.toISOString().split('T')[0]; // End of new panel = Start of last panel
+            d.setDate(d.getDate() - 30);
+            smartStart = d.toISOString().split('T')[0];
+        }
+    }
+
+    const html = `
+        <div class="date-panel-card p-3 border rounded shadow-sm bg-white position-relative" style="width: 320px; animation: fadeUp 0.3s ease-out;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-secondary px-2 py-1">Panel ${panelCount} (Comparison)</span>
+                <button type="button" class="btn-close btn-sm" onclick="this.parentElement.parentElement.remove()"></button>
+            </div>
+            <div class="d-flex flex-row align-items-center gap-2">
+                <input type="date" class="form-control form-control-sm panel-start" value="${smartStart}" required>
+                <span class="text-muted small fw-bold">to</span>
+                <input type="date" class="form-control form-control-sm panel-end" value="${smartEnd}" required>
+            </div>
+        </div>
+    `;
+    container.insertAdjacentHTML('beforeend', html);
+}
+
+function prepareRanges() {
+    const panels = document.querySelectorAll('.date-panel-card');
+    let rangeArray = [];
+    
+    panels.forEach(panel => {
+        const s = panel.querySelector('.panel-start').value;
+        const e = panel.querySelector('.panel-end').value;
+        if (s && e) {
+            rangeArray.push(`${s}|${e}`);
+        }
+    });
+    
+    // Combine into a single string for the URL: "2026-01-01|2026-02-01,2025-12-01|2026-01-01"
+    document.getElementById('rangesInput').value = rangeArray.join(',');
+}
+
+// --- CHART.JS INTEGRATION ---
+document.addEventListener("DOMContentLoaded", function() {
+    // Adapt chart text color for Dark Mode
+    const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+    Chart.defaults.color = isDarkMode ? '#94a3b8' : '#6b7280';
+    Chart.defaults.font.family = "'Inter', sans-serif";
+
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    const chartLabels = JSON.parse('{{ chart_labels_json|escapejs }}');
+    const chartDatasets = JSON.parse('{{ chart_datasets_json|escapejs }}');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: chartLabels,
+            datasets: chartDatasets
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    backgroundColor: isDarkMode ? '#1e293b' : '#ffffff',
+                    titleColor: isDarkMode ? '#f8fafc' : '#1e293b',
+                    bodyColor: isDarkMode ? '#cbd5e1' : '#475569',
+                    borderColor: isDarkMode ? '#334155' : '#e2e8f0',
+                    borderWidth: 1,
+                    padding: 12,
+                    boxPadding: 6
+                }
+            },
+            scales: {
+                x: { 
+                    grid: { display: false, drawBorder: false }
+                },
+                y: { 
+                    beginAtZero: true,
+                    grid: { color: isDarkMode ? '#334155' : '#e2e8f0', drawBorder: false }
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
